@@ -813,4 +813,5 @@
     <string name="about_license_summary">GNU General Public License v3.0</string>
     <string name="about_third_party_licenses">Open source licenses</string>
     <string name="about_third_party_licenses_summary">Launcher3 (AOSP) and other components</string>
+    <string name="weather_update_failed">Weather could not be updated</string>
 </resources>

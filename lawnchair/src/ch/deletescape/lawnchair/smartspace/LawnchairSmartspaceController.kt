@@ -523,7 +523,6 @@ class LawnchairSmartspaceController(val context: Context) {
                 Pair(SmartspaceDataWidget::class.java.name, R.string.google_app),
                 Pair(SmartspacePixelBridge::class.java.name, R.string.smartspace_provider_bridge),
                 Pair(OWMWeatherDataProvider::class.java.name, R.string.weather_provider_owm),
-                Pair(AccuWeatherDataProvider::class.java.name, R.string.weather_provider_accu),
                 Pair(PEWeatherDataProvider::class.java.name, R.string.weather_provider_pe),
                 Pair(OnePlusWeatherDataProvider::class.java.name, R.string.weather_provider_oneplus_weather),
                 Pair(NowPlayingProvider::class.java.name, R.string.event_provider_now_playing),
@@ -534,7 +533,8 @@ class LawnchairSmartspaceController(val context: Context) {
                 Pair(FakeDataProvider::class.java.name, R.string.weather_provider_testing))
 
         fun getDisplayName(providerName: String): Int {
-            return displayNames[providerName] ?: error("No display name for provider $providerName")
+            // Unknown providers (e.g. removed ones from an old backup) are treated as disabled
+            return displayNames[providerName] ?: R.string.weather_provider_disabled
         }
 
         fun getDisplayName(context: Context, providerName: String): String {

@@ -570,4 +570,5 @@
     <string name="about_license_summary">GNU General Public License v3.0</string>
     <string name="about_third_party_licenses">Open-Source-Lizenzen</string>
     <string name="about_third_party_licenses_summary">Launcher3 (AOSP) und weitere Komponenten</string>
+    <string name="weather_update_failed">Das Wetter konnte nicht aktualisiert werden</string>
 </resources>

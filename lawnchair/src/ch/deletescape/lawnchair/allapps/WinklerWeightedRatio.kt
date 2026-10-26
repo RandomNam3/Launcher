@@ -19,20 +19,18 @@
 
 package ch.deletescape.lawnchair.allapps
 
-import me.xdrop.fuzzywuzzy.ToStringFunction
-import me.xdrop.fuzzywuzzy.algorithms.WeightedRatio
 import kotlin.math.roundToInt
 
 /**
  * Weighted ratio with higher scores for strings with common prefix like in the Jaro-Winkler algorithm
  */
-class WinklerWeightedRatio: WeightedRatio() {
+class WinklerWeightedRatio {
 
-    override fun apply(s1: String?, s2: String?, stringProcessor: ToStringFunction<String>): Int {
-        val first = stringProcessor.apply(s1)
-        val second = stringProcessor.apply(s2)
+    fun apply(s1: String, s2: String): Int {
+        val first = FuzzyMatcher.process(s1)
+        val second = FuzzyMatcher.process(s2)
 
-        val ratio = super.apply(s1, s2, stringProcessor) / 100.0
+        val ratio = FuzzyMatcher.weightedRatio(s1, s2) / 100.0
         val cl = commonPrefixLength(first, second)
         return ((ratio + SCALING_FACTOR * cl * (1.0 - ratio)) * 100).roundToInt()
     }
@@ -51,11 +49,11 @@ class WinklerWeightedRatio: WeightedRatio() {
 
         // Determine which string is longer.
         if (first.length > second.length) {
-            longer = first.toLowerCase()
-            shorter = second.toLowerCase()
+            longer = first
+            shorter = second
         } else {
-            longer = second.toLowerCase()
-            shorter = first.toLowerCase()
+            longer = second
+            shorter = first
         }
 
         var result = 0

@@ -166,9 +166,7 @@
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 
 # Platform calls Class.forName on types which do not exist on Android to determine platform.
--dontnote retrofit2.Platform
 # Platform used when running on Java 8 VMs. Will not be used at runtime.
--dontwarn retrofit2.Platform$Java8
 # Retain generic type information for use by reflection by converters and adapters.
 -keepattributes Signature
 # Retain declared checked exceptions for use by a Proxy instance.
@@ -218,7 +216,6 @@
 -dontwarn sun.misc.**
 
 -keep class me.jfenn.** { *; }
--keep @interface com.google.gson.annotations.SerializedName
 -keep class com.kwabenaberko.openweathermaplib.models.** { *; }
 
 -keep class com.hoko.blur.opengl.functor.** { *; }
@@ -232,9 +229,7 @@
   EdgeEffect mEdgeGlowBottom;
 }
 
--keep class ch.deletescape.lawnchair.smartspace.accu.** { *; }
 
--dontwarn androidx.annotation.**
 
 # Members of the hidden framework stub (lawnchair/libs/framework.jar) reference platform
 # internals which are not part of any library jar.
@@ -242,8 +237,6 @@
 -dontwarn libcore.**
 -dontwarn com.android.internal.**
 -dontwarn android.**
-# retrofit's optional Kotlin coroutine support
--dontwarn kotlinx.coroutines.**
 
 # The prebuilt (smali) Pixel launcher code used to be added to the apk after R8 had run, so it
 # was never shrunk. Keep it that way.

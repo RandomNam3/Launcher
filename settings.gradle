@@ -17,3 +17,4 @@
 
 include ':systemui-shared'
 include ':platformcompat'
+include ':third_party:chroma'

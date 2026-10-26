@@ -33,8 +33,6 @@ import com.android.launcher3.allapps.search.AllAppsSearchBarController
 import com.android.launcher3.allapps.search.SearchAlgorithm
 import com.android.launcher3.compat.LauncherAppsCompat
 import com.android.launcher3.compat.UserManagerCompat
-import me.xdrop.fuzzywuzzy.FuzzySearch
-import me.xdrop.fuzzywuzzy.ToStringFunction
 
 class FuzzyAppSearchAlgorithm(private val context: Context, private val apps: List<AppInfo>) :
         SearchAlgorithm {
@@ -90,13 +88,13 @@ class FuzzyAppSearchAlgorithm(private val context: Context, private val apps: Li
         @JvmStatic
         fun query(context: Context, query: String, defaultApps: List<AppInfo>,
                   filter: AppFilter): List<AppInfo> {
-            return FuzzySearch.extractAll(query, getApps(context, defaultApps, filter),
-                                          ToStringFunction<AppInfo> { item ->
-                                              item?.title.toString()
-                                          }, WinklerWeightedRatio(), MIN_SCORE)
-                    .sortedBy { it.referent.title.toString() }
-                    .sortedByDescending { it.score }
-                    .map { it.referent }
+            val scorer = WinklerWeightedRatio()
+            return getApps(context, defaultApps, filter)
+                    .map { it to scorer.apply(query, it.title?.toString() ?: "") }
+                    .filter { it.second >= MIN_SCORE }
+                    .sortedBy { it.first.title.toString() }
+                    .sortedByDescending { it.second }
+                    .map { it.first }
         }
     }
 }

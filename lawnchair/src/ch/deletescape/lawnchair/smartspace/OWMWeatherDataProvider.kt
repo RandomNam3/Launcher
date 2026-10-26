@@ -29,19 +29,16 @@ import ch.deletescape.lawnchair.lawnchairApp
 import ch.deletescape.lawnchair.util.Temperature
 import com.android.launcher3.R
 import com.android.launcher3.Utilities
-import com.kwabenaberko.openweathermaplib.constants.Units
-import com.kwabenaberko.openweathermaplib.implementation.OpenWeatherMapHelper
-import com.kwabenaberko.openweathermaplib.implementation.callbacks.CurrentWeatherCallback
-import com.kwabenaberko.openweathermaplib.models.currentweather.CurrentWeather
+import ch.deletescape.lawnchair.util.net.Http
+import org.json.JSONObject
 import kotlin.math.roundToInt
 
 @Keep
 @Suppress("DEPRECATION")
 class OWMWeatherDataProvider(controller: LawnchairSmartspaceController) :
-        LawnchairSmartspaceController.PeriodicDataProvider(controller), LawnchairPreferences.OnPreferenceChangeListener, CurrentWeatherCallback {
+        LawnchairSmartspaceController.PeriodicDataProvider(controller), LawnchairPreferences.OnPreferenceChangeListener {
 
     private val prefs = Utilities.getLawnchairPrefs(context)
-    private val owm by lazy { OpenWeatherMapHelper(prefs.weatherApiKey) }
     private val iconProvider by lazy { WeatherIconProvider(context) }
 
     private val locationAccess get() = context.checkLocationAccess()
@@ -55,41 +52,54 @@ class OWMWeatherDataProvider(controller: LawnchairSmartspaceController) :
 
     override fun updateData() {
         // TODO: Create a search/dropdown for cities, make Auto the default
-        if (prefs.weatherCity == "##Auto") {
+        val query = if (prefs.weatherCity == "##Auto") {
             if (!locationAccess) {
-                Utilities.requestLocationPermission(context.lawnchairApp.activityHandler.foregroundActivity)
+                context.lawnchairApp.activityHandler.foregroundActivity?.let {
+                    Utilities.requestLocationPermission(it)
+                }
                 return
             }
-            val locationProvider = locationManager?.getBestProvider(Criteria(), true)
-            val location = locationManager?.getLastKnownLocation(locationProvider)
-            if (location != null) {
-                owm.getCurrentWeatherByGeoCoordinates(location.latitude, location.longitude, this)
-            }
+            val location = try {
+                val locationProvider = locationManager?.getBestProvider(Criteria(), true)
+                locationProvider?.let { locationManager?.getLastKnownLocation(it) }
+            } catch (e: SecurityException) {
+                null
+            } catch (e: IllegalArgumentException) {
+                null
+            } ?: return
+            "lat=${location.latitude}&lon=${location.longitude}"
         } else {
-            owm.getCurrentWeatherByCityName(prefs.weatherCity, this)
+            "q=${Http.encode(prefs.weatherCity)}"
+        }
+        val units = if (prefs.weatherUnit == Temperature.Unit.Fahrenheit) "imperial" else "metric"
+        val url = "https://api.openweathermap.org/data/2.5/weather?$query&units=$units" +
+                "&appid=${Http.encode(prefs.weatherApiKey)}"
+        Http.async({ Http.getJsonObject(url) }) { json, error ->
+            if (json != null) onSuccess(json) else onFailure(error)
         }
     }
 
-    override fun onSuccess(currentWeather: CurrentWeather) {
-        val temp = currentWeather.main?.temp ?: return
-        val icon = currentWeather.weather.getOrNull(0)?.icon ?: return
+    private fun onSuccess(json: JSONObject) {
+        val temp = json.optJSONObject("main")?.optDouble("temp", Double.NaN) ?: return
+        if (temp.isNaN()) return
+        val icon = json.optJSONArray("weather")?.optJSONObject(0)?.optString("icon", null) ?: return
         updateData(LawnchairSmartspaceController.WeatherData(
                 iconProvider.getIcon(icon),
                 Temperature(
                         temp.roundToInt(),
                         if (prefs.weatherUnit != Temperature.Unit.Fahrenheit) Temperature.Unit.Celsius else Temperature.Unit.Fahrenheit
                 ),
-                "https://openweathermap.org/city/${currentWeather.id}"
+                "https://openweathermap.org/city/${json.optLong("id")}"
         ), null)
     }
 
-    override fun onFailure(throwable: Throwable?) {
+    private fun onFailure(throwable: Throwable?) {
         Log.w("OWM", "Updating weather data failed", throwable)
         if (prefs.weatherApiKey == context.getString(R.string.default_owm_key)
-                || throwable?.message == apiKeyError) {
+                || (throwable as? Http.HttpException)?.code == 401) {
             Toast.makeText(context, R.string.owm_get_your_own_key, Toast.LENGTH_LONG).show()
         } else if (throwable != null) {
-            Toast.makeText(context, throwable.message, Toast.LENGTH_LONG).show()
+            Toast.makeText(context, R.string.weather_update_failed, Toast.LENGTH_LONG).show()
         }
         updateData(null, null)
     }
@@ -101,22 +111,7 @@ class OWMWeatherDataProvider(controller: LawnchairSmartspaceController) :
 
     override fun onValueChanged(key: String, prefs: LawnchairPreferences, force: Boolean) {
         if (key in arrayOf("pref_weatherApiKey", "pref_weather_city", "pref_weather_units")) {
-            if (key == "pref_weather_units") {
-                owm.setUnits(when (prefs.weatherUnit) {
-                            Temperature.Unit.Celsius -> Units.METRIC
-                            Temperature.Unit.Fahrenheit -> Units.IMPERIAL
-                            else -> Units.METRIC
-                        })
-            } else if (key == "pref_weatherApiKey" && !force) {
-                owm.setApiKey(prefs.weatherApiKey)
-            }
             if (!force) updateNow()
         }
-    }
-
-    companion object {
-
-        private const val apiKeyError = "UnAuthorized. Please set a valid OpenWeatherMap API KEY" +
-                " by using the setApiKey method."
     }
 }

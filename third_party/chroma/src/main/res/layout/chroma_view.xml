@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/color_view_height"
+        tools:background="@android:color/holo_blue_bright">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/white_grey_checkerboard"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/color_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <View
+            android:id="@+id/click_handler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?android:selectableItemBackground" />
+
+        <EditText
+            android:id="@+id/hex_view"
+            android:textAlignment="center"
+            android:layout_width="@dimen/hex_view_width"
+            android:fontFamily="monospace"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:inputType="textNoSuggestions"
+            android:singleLine="true" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/channel_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <include
+        android:id="@+id/button_bar"
+        layout="@layout/button_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"/>
+</LinearLayout>

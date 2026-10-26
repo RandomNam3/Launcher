@@ -17,13 +17,16 @@
 
 package ch.deletescape.lawnchair.root
 
+import ch.deletescape.lawnchair.runOnMainThread
+
+import com.android.launcher3.Utilities
+
 import android.content.Context
 import ch.deletescape.lawnchair.ensureOnMainThread
 import ch.deletescape.lawnchair.lawnchairPrefs
 import ch.deletescape.lawnchair.useApplicationContext
 import ch.deletescape.lawnchair.util.SingletonHolder
 import com.android.launcher3.BuildConfig
-import com.topjohnwu.superuser.Shell
 import eu.chainfire.librootjava.RootIPCReceiver
 import eu.chainfire.librootjava.RootJava
 import java.util.*
@@ -56,14 +59,18 @@ class RootHelperManager(private val context: Context) {
     }
 
     private fun launchRootHelper() {
-        context.lawnchairPrefs.autoLaunchRoot = isAvailable
-        if (!isAvailable) return
         if (rootHelper != null) return
+        // Checking for root blocks (su prompt), never do that on the main thread
+        Utilities.THREAD_POOL_EXECUTOR.execute {
+            val available = isAvailable
+            runOnMainThread { context.lawnchairPrefs.autoLaunchRoot = available }
+            if (!available) return@execute
 
-        RootJava.getLaunchScript(
-                context, RootHelper::class.java,
-                null, null, null, BuildConfig.APPLICATION_ID + ":rootHelper"
-                                ).forEach { Shell.su(it).submit() }
+            RootJava.getLaunchScript(
+                    context, RootHelper::class.java,
+                    null, null, null, BuildConfig.APPLICATION_ID + ":rootHelper"
+                                    ).let { RootShell.launch(it) }
+        }
     }
 
     private fun executeQueuedCommands() {
@@ -76,6 +83,6 @@ class RootHelperManager(private val context: Context) {
             ensureOnMainThread(useApplicationContext(::RootHelperManager))
                                                                   ) {
 
-        val isAvailable by lazy { Shell.rootAccess() }
+        val isAvailable get() = RootShell.isRootAvailable
     }
 }

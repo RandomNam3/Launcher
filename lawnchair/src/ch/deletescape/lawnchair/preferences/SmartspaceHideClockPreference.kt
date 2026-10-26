@@ -27,7 +27,7 @@ import ch.deletescape.lawnchair.ClockVisibilityManager
 import com.android.launcher3.BuildConfig
 import com.android.launcher3.R
 import com.android.launcher3.Utilities
-import com.topjohnwu.superuser.Shell
+import ch.deletescape.lawnchair.root.RootShell
 
 class SmartspaceHideClockPreference(context: Context, attrs: AttributeSet?) :
         StyledSwitchPreferenceCompat(context, attrs) {
@@ -51,7 +51,7 @@ class SmartspaceHideClockPreference(context: Context, attrs: AttributeSet?) :
 
     override fun onClick() {
         if (!Utilities.hasWriteSecureSettingsPermission(context)) {
-            Shell.su("pm grant ${BuildConfig.APPLICATION_ID} ${android.Manifest.permission.WRITE_SECURE_SETTINGS}").submit {
+            RootShell.submit(listOf("pm grant ${BuildConfig.APPLICATION_ID} ${android.Manifest.permission.WRITE_SECURE_SETTINGS}")) {
                 if (Utilities.hasWriteSecureSettingsPermission(context)) {
                     isChecked = true
                 } else {

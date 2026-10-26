@@ -32,7 +32,8 @@ import com.android.launcher3.Utilities
 import com.android.launcher3.compat.LauncherAppsCompat
 import com.android.launcher3.graphics.FixedScaleDrawable
 import com.android.launcher3.shortcuts.ShortcutInfoCompat
-import com.bumptech.glide.Glide
+import android.content.ContentResolver
+import android.net.Uri
 import ninja.sesame.lib.bridge.v1.SesameFrontend
 import ninja.sesame.lib.bridge.v1.SesameShortcut
 import java.lang.Exception
@@ -63,10 +64,30 @@ class SesameShortcutInfo(private val context: Context, private val shortcut: Ses
 
     private val wrapperIcon by lazy { LawnchairIconProvider.getAdaptiveIconDrawableWrapper(context) }
 
+    /**
+     * Loads a drawable from a content:// or android.resource:// uri (replaces Glide).
+     */
+    private fun loadDrawable(uri: Uri): Drawable? {
+        if (uri.scheme == ContentResolver.SCHEME_ANDROID_RESOURCE) {
+            val pkg = uri.authority ?: return null
+            val res = context.packageManager.getResourcesForApplication(pkg)
+            val segments = uri.pathSegments
+            val id = when (segments.size) {
+                1 -> segments[0].toInt()
+                2 -> res.getIdentifier(segments[1], segments[0], pkg)
+                else -> 0
+            }
+            if (id == 0) return null
+            return res.getDrawable(id, null)
+        }
+        return context.contentResolver.openInputStream(uri)?.use { Drawable.createFromStream(it, null) }
+    }
+
     fun getIcon(density: Int): Drawable {
-        if (shortcut.iconUri != null) {
+        val iconUri = shortcut.iconUri
+        if (iconUri != null) {
             try {
-                val icn = Glide.with(context).load(shortcut.iconUri).submit().get().apply {
+                val icn = loadDrawable(iconUri)!!.apply {
                     if (this is VectorDrawable) {
                         setTint(getAccentColor())
                     }

@@ -1,0 +1,32 @@
+// Vendored copy of chroma 1.2.6 (Lawnchair's fork of Priyesh Patel's color picker, Apache 2.0),
+// previously pulled from jitpack.
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    namespace 'me.priyesh.chroma'
+    compileSdk 36
+
+    defaultConfig {
+        minSdk 21
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation "com.android.support:appcompat-v7:28.0.0"
+    implementation "com.android.support:palette-v7:28.0.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}

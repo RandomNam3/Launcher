@@ -24,17 +24,14 @@ import android.content.Intent
 import ch.deletescape.lawnchair.globalsearch.SearchProvider
 import ch.deletescape.lawnchair.toArrayList
 import ch.deletescape.lawnchair.util.extensions.e
-import ch.deletescape.lawnchair.util.okhttp.OkHttpClientBuilder
+import ch.deletescape.lawnchair.util.net.Http
 import com.android.launcher3.LauncherAppState
 import com.android.launcher3.LauncherState
 import com.android.launcher3.Utilities
-import okhttp3.Request
 import org.json.JSONArray
 import java.lang.Exception
 
 abstract class WebSearchProvider(context: Context) : SearchProvider(context) {
-    protected val client = OkHttpClientBuilder().build(context)
-
     override val supportsVoiceSearch = false
     override val supportsAssistant = false
     override val supportsFeed = false
@@ -48,7 +45,7 @@ abstract class WebSearchProvider(context: Context) : SearchProvider(context) {
     protected abstract val suggestionsUrl: String?
 
     override fun startSearch(callback: (intent: Intent) -> Unit){
-        val launcher = LauncherAppState.getInstanceNoCreate().launcher
+        val launcher = LauncherAppState.getInstanceNoCreate()?.launcher ?: return
         launcher.stateManager.goToState(LauncherState.ALL_APPS, true) {
             launcher.appsView.searchUiManager.startSearch()
         }
@@ -57,8 +54,7 @@ abstract class WebSearchProvider(context: Context) : SearchProvider(context) {
     open fun getSuggestions(query: String): List<String> {
         if (suggestionsUrl == null) return emptyList()
         try {
-            val response = client.newCall(Request.Builder().url(suggestionsUrl!!.format(query)).build()).execute()
-            return JSONArray(response.body?.string())
+            return Http.getJsonArray(suggestionsUrl!!.format(Http.encode(query)))
                     .getJSONArray(1)
                     .toArrayList<String>()
                     .take(MAX_SUGGESTIONS)

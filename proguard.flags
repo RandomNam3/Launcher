@@ -235,3 +235,17 @@
 -keep class ch.deletescape.lawnchair.smartspace.accu.** { *; }
 
 -dontwarn androidx.annotation.**
+
+# Members of the hidden framework stub (lawnchair/libs/framework.jar) reference platform
+# internals which are not part of any library jar.
+-dontwarn dalvik.system.**
+-dontwarn libcore.**
+-dontwarn com.android.internal.**
+-dontwarn android.**
+# retrofit's optional Kotlin coroutine support
+-dontwarn kotlinx.coroutines.**
+
+# The prebuilt (smali) Pixel launcher code used to be added to the apk after R8 had run, so it
+# was never shrunk. Keep it that way.
+-keep class com.google.android.apps.nexuslauncher.** { *; }
+-keep class com.google.research.reflection.** { *; }

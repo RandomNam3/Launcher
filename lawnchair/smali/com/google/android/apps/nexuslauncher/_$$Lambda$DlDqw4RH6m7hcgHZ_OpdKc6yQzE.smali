@@ -1,4 +1,4 @@
-.class public final synthetic Lcom/google/android/apps/nexuslauncher/-$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;
+.class public final synthetic Lcom/google/android/apps/nexuslauncher/_$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;
 .super Ljava/lang/Object;
 .source "lambda"
 
@@ -16,7 +16,7 @@
 
     invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
 
-    iput-object p1, p0, Lcom/google/android/apps/nexuslauncher/-$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;->f$0:Lcom/google/android/apps/nexuslauncher/PredictionUiStateManager;
+    iput-object p1, p0, Lcom/google/android/apps/nexuslauncher/_$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;->f$0:Lcom/google/android/apps/nexuslauncher/PredictionUiStateManager;
 
     return-void
 .end method
@@ -26,7 +26,7 @@
 .method public final onUpdateUI()V
     .locals 1
 
-    iget-object v0, p0, Lcom/google/android/apps/nexuslauncher/-$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;->f$0:Lcom/google/android/apps/nexuslauncher/PredictionUiStateManager;
+    iget-object v0, p0, Lcom/google/android/apps/nexuslauncher/_$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;->f$0:Lcom/google/android/apps/nexuslauncher/PredictionUiStateManager;
 
     invoke-virtual {v0}, Lcom/google/android/apps/nexuslauncher/PredictionUiStateManager;->dispatchOnChange()V
 

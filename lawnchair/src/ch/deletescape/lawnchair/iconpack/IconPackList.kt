@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair.iconpack
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat
+
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -200,7 +202,7 @@ class IconPackList(private val context: Context, private val manager: IconPackMa
         override fun register() {
             super.register()
 
-            context.registerReceiver(updateReceiver, ActionIntentFilter.newInstance(packageName,
+            ReceiverCompat.registerNotExported(context, updateReceiver, ActionIntentFilter.newInstance(packageName,
                     Intent.ACTION_PACKAGE_CHANGED,
                     Intent.ACTION_PACKAGE_REPLACED,
                     Intent.ACTION_PACKAGE_FULLY_REMOVED))

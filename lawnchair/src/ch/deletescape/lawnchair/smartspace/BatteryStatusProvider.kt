@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair.smartspace
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat
+
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -47,7 +49,7 @@ class BatteryStatusProvider(controller: LawnchairSmartspaceController) :
     private var level = 100
 
     init {
-        context.registerReceiver(batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        ReceiverCompat.registerNotExported(context, batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     }
 
     private fun getEventCard(): LawnchairSmartspaceController.CardData? {

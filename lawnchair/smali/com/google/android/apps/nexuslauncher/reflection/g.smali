@@ -137,9 +137,9 @@
 
     const-string p2, "OVERVIEW_GEL"
 
-    new-instance p3, Lcom/google/android/apps/nexuslauncher/reflection/-$$Lambda$g$g05WmdZyQsohc3GSlV9BvF6XKw4;
+    new-instance p3, Lcom/google/android/apps/nexuslauncher/reflection/_$$Lambda$g$g05WmdZyQsohc3GSlV9BvF6XKw4;
 
-    invoke-direct {p3, p0}, Lcom/google/android/apps/nexuslauncher/reflection/-$$Lambda$g$g05WmdZyQsohc3GSlV9BvF6XKw4;-><init>(Lcom/google/android/apps/nexuslauncher/reflection/g;)V
+    invoke-direct {p3, p0}, Lcom/google/android/apps/nexuslauncher/reflection/_$$Lambda$g$g05WmdZyQsohc3GSlV9BvF6XKw4;-><init>(Lcom/google/android/apps/nexuslauncher/reflection/g;)V
 
     invoke-interface {p1, p2, p3}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
@@ -148,7 +148,7 @@
 
     const-string p2, "GEL"
 
-    sget-object p3, Lcom/google/android/apps/nexuslauncher/reflection/-$$Lambda$9p4NvobT-pRxN5zQFIT3MtxNYRA;->INSTANCE:Lcom/google/android/apps/nexuslauncher/reflection/-$$Lambda$9p4NvobT-pRxN5zQFIT3MtxNYRA;
+    sget-object p3, Lcom/google/android/apps/nexuslauncher/reflection/_$$Lambda$9p4NvobT_pRxN5zQFIT3MtxNYRA;->INSTANCE:Lcom/google/android/apps/nexuslauncher/reflection/_$$Lambda$9p4NvobT_pRxN5zQFIT3MtxNYRA;
 
     invoke-interface {p1, p2, p3}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 

@@ -16,6 +16,8 @@
 
 package com.android.launcher3.graphics;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import static android.content.Intent.ACTION_SCREEN_OFF;
 import static android.content.Intent.ACTION_USER_PRESENT;
 
@@ -234,7 +236,7 @@ public class WorkspaceAndHotseatScrim implements
         if (mHasSysUiScrim) {
             IntentFilter filter = new IntentFilter(ACTION_SCREEN_OFF);
             filter.addAction(ACTION_USER_PRESENT); // When the device wakes up + keyguard is gone
-            mRoot.getContext().registerReceiver(mReceiver, filter);
+            ReceiverCompat.registerNotExported(mRoot.getContext(), mReceiver, filter);
         }
     }
 

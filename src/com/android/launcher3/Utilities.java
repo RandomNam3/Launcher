@@ -17,6 +17,7 @@
 package com.android.launcher3;
 
 import android.Manifest;
+import ch.deletescape.lawnchair.platform.StorageCompat;
 import android.Manifest.permission;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -728,7 +729,7 @@ public final class Utilities {
 
         // Create a pending intent so the application is restarted after System.exit(0) was called.
         // We use an AlarmManager to call this intent in 100ms
-        PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
 
@@ -833,7 +834,7 @@ public final class Utilities {
     }
 
     public static boolean hasStoragePermission(Context context) {
-        return hasPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE);
+        return StorageCompat.hasStorageAccess(context);
     }
 
     public static boolean hasPermission(Context context, String permission) {
@@ -842,6 +843,10 @@ public final class Utilities {
     }
 
     public static void requestStoragePermission(Activity activity) {
+        if (StorageCompat.usesAllFilesAccess()) {
+            StorageCompat.openAllFilesAccessSettings(activity);
+            return;
+        }
         ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, LawnchairLauncher.REQUEST_PERMISSION_STORAGE_ACCESS);
     }
 

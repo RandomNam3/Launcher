@@ -1,5 +1,7 @@
 package com.google.android.apps.nexuslauncher.graphics;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -74,7 +76,7 @@ public class IcuDateTextView extends DoubleShadowTextView {
         intentFilter.addAction(Intent.ACTION_TIME_TICK);
         intentFilter.addAction(Intent.ACTION_TIME_CHANGED);
         intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        getContext().registerReceiver(mTimeChangeReceiver, intentFilter);
+        ReceiverCompat.registerNotExported(getContext(), mTimeChangeReceiver, intentFilter);
     }
 
     private void unregisterReceiver() {

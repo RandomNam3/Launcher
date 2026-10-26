@@ -129,18 +129,18 @@
     .line 111
     iget-object p1, p0, Lcom/google/android/apps/nexuslauncher/PredictionUiStateManager;->mInstantAppsController:Lcom/google/android/apps/nexuslauncher/b/b;
 
-    new-instance v0, Lcom/google/android/apps/nexuslauncher/-$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;
+    new-instance v0, Lcom/google/android/apps/nexuslauncher/_$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;
 
-    invoke-direct {v0, p0}, Lcom/google/android/apps/nexuslauncher/-$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;-><init>(Lcom/google/android/apps/nexuslauncher/PredictionUiStateManager;)V
+    invoke-direct {v0, p0}, Lcom/google/android/apps/nexuslauncher/_$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;-><init>(Lcom/google/android/apps/nexuslauncher/PredictionUiStateManager;)V
 
     iput-object v0, p1, Lcom/google/android/apps/nexuslauncher/b/b;->K:Lcom/google/android/apps/nexuslauncher/a;
 
     .line 112
     iget-object p1, p0, Lcom/google/android/apps/nexuslauncher/PredictionUiStateManager;->mShortcutPredictionsController:Lcom/google/android/apps/nexuslauncher/a/a;
 
-    new-instance v0, Lcom/google/android/apps/nexuslauncher/-$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;
+    new-instance v0, Lcom/google/android/apps/nexuslauncher/_$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;
 
-    invoke-direct {v0, p0}, Lcom/google/android/apps/nexuslauncher/-$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;-><init>(Lcom/google/android/apps/nexuslauncher/PredictionUiStateManager;)V
+    invoke-direct {v0, p0}, Lcom/google/android/apps/nexuslauncher/_$$Lambda$DlDqw4RH6m7hcgHZ_OpdKc6yQzE;-><init>(Lcom/google/android/apps/nexuslauncher/PredictionUiStateManager;)V
 
     iput-object v0, p1, Lcom/google/android/apps/nexuslauncher/a/a;->e:Lcom/google/android/apps/nexuslauncher/a;
 

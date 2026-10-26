@@ -382,9 +382,9 @@
 
     move-result-object v0
 
-    new-instance v1, Lcom/google/android/apps/nexuslauncher/reflection/sensing/-$$Lambda$NotificationSensor$JV4C1Qy8cFKwxu4HvDhifAUXgn4;
+    new-instance v1, Lcom/google/android/apps/nexuslauncher/reflection/sensing/_$$Lambda$NotificationSensor$JV4C1Qy8cFKwxu4HvDhifAUXgn4;
 
-    invoke-direct {v1, p0, p1}, Lcom/google/android/apps/nexuslauncher/reflection/sensing/-$$Lambda$NotificationSensor$JV4C1Qy8cFKwxu4HvDhifAUXgn4;-><init>(Lcom/google/android/apps/nexuslauncher/reflection/sensing/NotificationSensor;Landroid/service/notification/StatusBarNotification;)V
+    invoke-direct {v1, p0, p1}, Lcom/google/android/apps/nexuslauncher/reflection/sensing/_$$Lambda$NotificationSensor$JV4C1Qy8cFKwxu4HvDhifAUXgn4;-><init>(Lcom/google/android/apps/nexuslauncher/reflection/sensing/NotificationSensor;Landroid/service/notification/StatusBarNotification;)V
 
     .line 65
     invoke-virtual {v0, v1}, Lcom/google/android/apps/nexuslauncher/reflection/ReflectionClient;->postNotificationEvent(Ljava/lang/Runnable;)V
@@ -502,9 +502,9 @@
 
     move-result-object v0
 
-    new-instance v1, Lcom/google/android/apps/nexuslauncher/reflection/sensing/-$$Lambda$NotificationSensor$DJfaQHaP0-43iDKaKbOBJVymlqM;
+    new-instance v1, Lcom/google/android/apps/nexuslauncher/reflection/sensing/_$$Lambda$NotificationSensor$DJfaQHaP0_43iDKaKbOBJVymlqM;
 
-    invoke-direct {v1, p0, p1}, Lcom/google/android/apps/nexuslauncher/reflection/sensing/-$$Lambda$NotificationSensor$DJfaQHaP0-43iDKaKbOBJVymlqM;-><init>(Lcom/google/android/apps/nexuslauncher/reflection/sensing/NotificationSensor;Landroid/service/notification/StatusBarNotification;)V
+    invoke-direct {v1, p0, p1}, Lcom/google/android/apps/nexuslauncher/reflection/sensing/_$$Lambda$NotificationSensor$DJfaQHaP0_43iDKaKbOBJVymlqM;-><init>(Lcom/google/android/apps/nexuslauncher/reflection/sensing/NotificationSensor;Landroid/service/notification/StatusBarNotification;)V
 
     .line 149
     invoke-virtual {v0, v1}, Lcom/google/android/apps/nexuslauncher/reflection/ReflectionClient;->postNotificationEvent(Ljava/lang/Runnable;)V

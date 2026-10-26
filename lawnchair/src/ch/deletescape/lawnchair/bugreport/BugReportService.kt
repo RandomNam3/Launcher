@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair.bugreport
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat
+
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -63,7 +65,7 @@ class BugReportService : Service() {
                 }
             }
         }
-        registerReceiver(receiver, filter, PERMISSION, handler)
+        ReceiverCompat.registerNotExported(this, receiver, filter, PERMISSION, handler)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -119,19 +121,19 @@ class BugReportService : Service() {
         if (report.link != null) {
             val openIntent = Intent(Intent.ACTION_VIEW, Uri.parse(report.link))
             val pendingOpenIntent = PendingIntent.getActivity(
-                    this, notificationId, openIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                    this, notificationId, openIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             builder.setContentIntent(pendingOpenIntent)
         } else if (fileUri != null) {
             val openIntent = Intent(Intent.ACTION_VIEW)
                     .setDataAndType(fileUri, "text/plain")
                     .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             val pendingOpenIntent = PendingIntent.getActivity(
-                    this, notificationId, openIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                    this, notificationId, openIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             builder.setContentIntent(pendingOpenIntent)
         }
 
         val pendingShareIntent = PendingIntent.getActivity(
-                this, notificationId, report.createShareIntent(this), PendingIntent.FLAG_UPDATE_CURRENT)
+                this, notificationId, report.createShareIntent(this), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         val shareActionBuilder = NotificationCompat.Action.Builder(
                 R.drawable.ic_share, getString(R.string.action_share), pendingShareIntent)
         builder.addAction(shareActionBuilder.build())
@@ -141,7 +143,7 @@ class BugReportService : Service() {
                     .setPackage(BuildConfig.APPLICATION_ID)
                     .putExtra("report", report)
             val pendingCopyIntent = PendingIntent.getBroadcast(
-                    this, notificationId, copyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                    this, notificationId, copyIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             val copyText = if (report.link != null) R.string.action_copy_link else R.string.action_copy
             val copyActionBuilder = NotificationCompat.Action.Builder(
                     R.drawable.ic_copy, getString(copyText), pendingCopyIntent)
@@ -156,7 +158,7 @@ class BugReportService : Service() {
                     .setPackage(BuildConfig.APPLICATION_ID)
                     .putExtra("report", report)
             val pendingUploadIntent = PendingIntent.getBroadcast(
-                    this, notificationId, uploadIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                    this, notificationId, uploadIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             val uploadText = if (report.uploadError) R.string.action_dogbin_upload_error else R.string.action_dogbin_upload
             val uploadActionBuilder = NotificationCompat.Action.Builder(
                     R.drawable.ic_upload, getString(uploadText), pendingUploadIntent)

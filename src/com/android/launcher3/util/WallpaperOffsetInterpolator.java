@@ -1,5 +1,7 @@
 package com.android.launcher3.util;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -176,8 +178,8 @@ public class WallpaperOffsetInterpolator extends BroadcastReceiver {
             mWorkspace.getContext().unregisterReceiver(this);
             mRegistered = false;
         } else if (mWindowToken != null && !mRegistered) {
-            mWorkspace.getContext()
-                    .registerReceiver(this, new IntentFilter(Intent.ACTION_WALLPAPER_CHANGED));
+            ReceiverCompat.registerNotExported(mWorkspace.getContext(), this,
+                    new IntentFilter(Intent.ACTION_WALLPAPER_CHANGED));
             onReceive(mWorkspace.getContext(), null);
             mRegistered = true;
         }

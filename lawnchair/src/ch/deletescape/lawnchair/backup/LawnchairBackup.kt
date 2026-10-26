@@ -334,8 +334,14 @@ class LawnchairBackup(val context: Context, val uri: Uri) {
                 out.write(getMeta(name, actualContents).toString().toByteArray())
                 if (contents and INCLUDE_WALLPAPER != 0) {
                     val wallpaperManager = WallpaperManager.getInstance(context)
-                    val wallpaperDrawable = wallpaperManager.drawable
-                    val wallpaperBitmap = Utilities.drawableToBitmap(wallpaperDrawable)
+                    // Reading the wallpaper needs storage access on newer Android versions
+                    val wallpaperDrawable = try {
+                        wallpaperManager.drawable
+                    } catch (e: SecurityException) {
+                        Log.w(TAG, "Unable to read the wallpaper", e)
+                        null
+                    }
+                    val wallpaperBitmap = wallpaperDrawable?.let { Utilities.drawableToBitmap(it) }
                     if (wallpaperBitmap != null) {
                         val wallpaperEntry = ZipEntry(WALLPAPER_FILE_NAME)
                         out.putNextEntry(wallpaperEntry)

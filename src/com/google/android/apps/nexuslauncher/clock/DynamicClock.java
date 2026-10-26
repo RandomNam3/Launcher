@@ -1,5 +1,7 @@
 package com.google.android.apps.nexuslauncher.clock;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import android.content.*;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -40,14 +42,14 @@ public class DynamicClock extends BroadcastReceiver
         mLayers = new ClockLayers();
         mContext = context;
         final Handler handler = new Handler(LauncherModel.getWorkerLooper());
-        mContext.registerReceiver(this,
+        ReceiverCompat.registerNotExported(mContext, this,
                 ActionIntentFilter.newInstance("com.google.android.deskclock",
                     Intent.ACTION_PACKAGE_ADDED,
                     Intent.ACTION_PACKAGE_CHANGED),
                 null, handler);
         handler.post(this::updateMainThread);
 
-        mContext.registerReceiver(new BroadcastReceiver() {
+        ReceiverCompat.registerNotExported(mContext, new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 loadTimeZone(intent.getStringExtra("time-zone"));

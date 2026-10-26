@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair.iconpack
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat
+
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -63,7 +65,7 @@ class IconPackManager(private val context: Context) {
     private val listeners: MutableSet<() -> Unit> = mutableSetOf()
 
     init {
-        context.registerReceiver(object : BroadcastReceiver() {
+        ReceiverCompat.registerNotExported(context, object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent?) {
                 dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
             }

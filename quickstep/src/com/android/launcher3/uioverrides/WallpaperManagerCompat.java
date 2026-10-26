@@ -15,6 +15,8 @@
  */
 package com.android.launcher3.uioverrides;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import static android.app.WallpaperManager.FLAG_SYSTEM;
 
 import static com.android.launcher3.Utilities.getDevicePrefs;
@@ -94,7 +96,7 @@ public class WallpaperManagerCompat {
         if (wallpaperId == -1 || wallpaperId != getWallpaperId(context)) {
             reloadColors();
         }
-        context.registerReceiver(new BroadcastReceiver() {
+        ReceiverCompat.registerNotExported(context, new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 reloadColors();
@@ -116,7 +118,7 @@ public class WallpaperManagerCompat {
             // Something went wrong. ignore
             Log.d(TAG, "Unable to get permission info", e);
         }
-        mContext.registerReceiver(new BroadcastReceiver() {
+        ReceiverCompat.registerNotExported(mContext, new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 handleResult(intent.getStringExtra(KEY_COLORS));

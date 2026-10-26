@@ -15,6 +15,8 @@
  */
 package com.android.quickstep;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import static android.content.Intent.ACTION_PACKAGE_ADDED;
 import static android.content.Intent.ACTION_PACKAGE_CHANGED;
 import static android.content.Intent.ACTION_PACKAGE_REMOVED;
@@ -120,7 +122,7 @@ public class OverviewCommandHelper {
         ResolveInfo info = context.getPackageManager().resolveActivity(myHomeIntent, 0);
         mMyHomeComponent = new ComponentName(context.getPackageName(), info.activityInfo.name);
 
-        mContext.registerReceiver(mUserPreferenceChangeReceiver,
+        ReceiverCompat.registerNotExported(mContext, mUserPreferenceChangeReceiver,
                 new IntentFilter(ACTION_PREFERRED_ACTIVITY_CHANGED));
         initOverviewTargets();
     }
@@ -163,7 +165,7 @@ public class OverviewCommandHelper {
                 updateReceiver.addDataScheme("package");
                 updateReceiver.addDataSchemeSpecificPart(mUpdateRegisteredPackage,
                         PatternMatcher.PATTERN_LITERAL);
-                mContext.registerReceiver(mOtherHomeAppUpdateReceiver, updateReceiver);
+                ReceiverCompat.registerNotExported(mContext, mOtherHomeAppUpdateReceiver, updateReceiver);
             }
         }
 

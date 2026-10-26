@@ -229,6 +229,7 @@ dependencies {
         exclude group: 'com.google.android', module: 'flexbox'
     }
     implementation project(':third_party:flexbox')
+    implementation project(':platformcompat')
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 
     implementation('com.github.topjohnwu.libsu:core:2.5.0') {

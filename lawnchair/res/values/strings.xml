@@ -801,4 +801,9 @@
     <string name="out_of_space">No more room on the Desktop.</string>
     <string name="hotseat_out_of_space">No more room in the Dock.</string>
 
+
+    <!-- Lawnchair Legacy -->
+    <string name="action_grant_access">Grant access</string>
+    <string name="all_files_access_required_blur">Android only shares the wallpaper with apps that have \"All files access\". Grant it to Lawnchair to use the blur effect.</string>
+    <string name="all_files_access_required_backup">Backups in the Documents folder need \"All files access\". You can still restore a backup file through the file picker.</string>
 </resources>

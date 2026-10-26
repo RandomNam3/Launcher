@@ -1,5 +1,7 @@
 package com.android.launcher3.util;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 /**
  * Copyright (C) 2015 The Android Open Source Project
  *
@@ -77,7 +79,7 @@ public class ConfigMonitor extends BroadcastReceiver implements DisplayListener 
     }
 
     public void register() {
-        mContext.registerReceiver(this, new IntentFilter(Intent.ACTION_CONFIGURATION_CHANGED));
+        ReceiverCompat.registerNotExported(mContext, this, new IntentFilter(Intent.ACTION_CONFIGURATION_CHANGED));
         ContextCompat.getSystemService(mContext, DisplayManager.class)
                 .registerDisplayListener(this, new Handler(UiThreadHelper.getBackgroundLooper()));
     }

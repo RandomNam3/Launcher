@@ -245,7 +245,9 @@ public abstract class RootIPCReceiver<T> {
                 if (((ContextWrapper)context).getBaseContext() == null) return;
             }
             this.context = new WeakReference<Context>(context);
-            context.registerReceiver(receiver, filter, null, handler);
+            // Lawnchair: the broadcast is sent by the root process, i.e. another uid
+            ch.deletescape.lawnchair.platform.ReceiverCompat.registerExported(
+                    context, receiver, filter, null, handler);
         }
     }
 

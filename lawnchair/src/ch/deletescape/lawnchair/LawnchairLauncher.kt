@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair
 
+import ch.deletescape.lawnchair.platform.StorageCompat
+
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -82,7 +84,8 @@ open class LawnchairLauncher : NexusLauncherActivity(),
     private val colorsToWatch = arrayOf(ColorEngine.Resolvers.WORKSPACE_ICON_LABEL)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 && !Utilities.hasStoragePermission(this)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 && !Utilities.hasStoragePermission(this)
+                && !StorageCompat.usesAllFilesAccess()) {
             Utilities.requestStoragePermission(this)
         }
 
@@ -223,7 +226,36 @@ open class LawnchairLauncher : NexusLauncherActivity(),
         BrightnessManager.getInstance(this).startListening()
         BugReportClient.getInstance(this).rebindIfNeeded()
 
+        checkStorageAccess()
+
         paused = false
+    }
+
+    private fun checkStorageAccess() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) return
+        val hasAccess = Utilities.hasStoragePermission(this)
+        if (hasAccess != lastStorageAccess) {
+            // Permission changed while we were in the background (e.g. granted in the
+            // system settings), reload the blurred wallpaper.
+            if (lastStorageAccess != null) BlurWallpaperProvider.getInstance(this).updateAsync()
+            lastStorageAccess = hasAccess
+        }
+        if (hasAccess || !StorageCompat.usesAllFilesAccess() || !lawnchairPrefs.enableBlur
+                || storageAccessPromptShown) {
+            return
+        }
+        storageAccessPromptShown = true
+        AlertDialog.Builder(this)
+                .setTitle(R.string.title_storage_permission_required)
+                .setMessage(R.string.all_files_access_required_blur)
+                .setPositiveButton(R.string.action_grant_access) { _, _ ->
+                    StorageCompat.openAllFilesAccessSettings(this)
+                }
+                .setNegativeButton(android.R.string.cancel, null)
+                .create().apply {
+                    show()
+                    applyAccent()
+                }
     }
 
     override fun onPause() {
@@ -396,6 +428,9 @@ open class LawnchairLauncher : NexusLauncherActivity(),
     companion object {
 
         const val REQUEST_PERMISSION_STORAGE_ACCESS = 666
+
+        private var storageAccessPromptShown = false
+        private var lastStorageAccess: Boolean? = null
         const val REQUEST_PERMISSION_LOCATION_ACCESS = 667
         const val REQUEST_PERMISSION_MODIFY_NAVBAR = 668
         const val CODE_EDIT_ICON = 100

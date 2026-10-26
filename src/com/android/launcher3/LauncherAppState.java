@@ -16,6 +16,8 @@
 
 package com.android.launcher3;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import android.content.ComponentName;
 import android.content.ContentProviderClient;
 import android.content.Context;
@@ -113,7 +115,7 @@ public class LauncherAppState {
             filter.addAction(ACTION_FORCE_ROLOAD);
         }
 
-        mContext.registerReceiver(mModel, filter);
+        ReceiverCompat.registerNotExported(mContext, mModel, filter);
         UserManagerCompat.getInstance(mContext).enableAndResetCache();
         new ConfigMonitor(mContext).register();
 

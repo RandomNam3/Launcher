@@ -19,6 +19,8 @@
 
 package ch.deletescape.lawnchair.smartspace
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat
+
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -63,7 +65,7 @@ class PersonalityProvider(controller: LawnchairSmartspaceController) :
 
     override fun startListening() {
         super.startListening()
-        context.registerReceiver(
+        ReceiverCompat.registerNotExported(context, 
                 timeReceiver,
                 IntentFilter().apply {
                     addAction(Intent.ACTION_DATE_CHANGED)

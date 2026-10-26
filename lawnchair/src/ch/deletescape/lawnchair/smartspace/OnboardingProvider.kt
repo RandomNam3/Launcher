@@ -76,7 +76,7 @@ class OnboardingProvider(controller: LawnchairSmartspaceController) :
                             context,
                             0,
                             Intent(context, SettingsActivity::class.java),
-                            0))
+                            PendingIntent.FLAG_IMMUTABLE))
             else -> null
         }
         updateData(null, card)

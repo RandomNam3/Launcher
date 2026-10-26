@@ -231,7 +231,7 @@
     iput-object v0, p0, Lcom/google/android/apps/nexuslauncher/allapps/ActionsController;->s:Landroid/database/ContentObserver;
 
     .line 141
-    sget-object v0, Lcom/google/android/apps/nexuslauncher/allapps/-$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO-IgfkLKcU;->INSTANCE:Lcom/google/android/apps/nexuslauncher/allapps/-$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO-IgfkLKcU;
+    sget-object v0, Lcom/google/android/apps/nexuslauncher/allapps/_$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO_IgfkLKcU;->INSTANCE:Lcom/google/android/apps/nexuslauncher/allapps/_$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO_IgfkLKcU;
 
     iput-object v0, p0, Lcom/google/android/apps/nexuslauncher/allapps/ActionsController;->t:Ljava/util/Comparator;
 

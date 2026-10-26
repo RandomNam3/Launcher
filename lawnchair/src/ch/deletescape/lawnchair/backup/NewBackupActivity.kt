@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair.backup
 
+import ch.deletescape.lawnchair.platform.StorageCompat
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -92,14 +94,26 @@ class NewBackupActivity : SettingsBaseActivity(), ColorEngine.OnColorChangeListe
             onStartBackup()
         }
 
-        if (ContextCompat.getSystemService(this, WallpaperManager::class.java)?.wallpaperInfo != null) {
+        if (ContextCompat.getSystemService(this, WallpaperManager::class.java)?.wallpaperInfo != null
+                || !StorageCompat.hasStorageAccess(this)) {
             backupWallpaper.isChecked = false
             backupWallpaper.isEnabled = false
         }
     }
 
     private fun onStartBackup() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (StorageCompat.usesAllFilesAccess() && backupLocationDevice.isChecked
+                && !StorageCompat.hasStorageAccess(this)) {
+            // Saving to the Documents folder needs "All files access", saving through the
+            // file picker ("other location") works without any permission.
+            Snackbar.make(findViewById(R.id.content), R.string.all_files_access_required_backup,
+                    Snackbar.LENGTH_LONG)
+                    .setAction(R.string.action_grant_access) {
+                        StorageCompat.openAllFilesAccessSettings(this)
+                    }
+                    .show()
+        } else if (!StorageCompat.usesAllFilesAccess()
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE)) {

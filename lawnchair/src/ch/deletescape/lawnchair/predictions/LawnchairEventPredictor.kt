@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair.predictions
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat
+
 import android.bluetooth.BluetoothHeadset
 import android.bluetooth.BluetoothProfile
 import android.content.*
@@ -135,7 +137,7 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
     }
 
     private fun setupBroadcastReceiver() {
-        context.registerReceiver( phonesStateChangeReceiver,
+        ReceiverCompat.registerNotExported(context, phonesStateChangeReceiver,
                 IntentFilter(Intent.ACTION_HEADSET_PLUG).apply {
                     addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED)
                 }, null, handler)

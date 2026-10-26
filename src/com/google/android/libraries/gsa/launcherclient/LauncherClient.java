@@ -1,5 +1,7 @@
 package com.google.android.libraries.gsa.launcherclient;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -129,7 +131,7 @@ public class LauncherClient {
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addDataScheme("package");
         intentFilter.addDataSchemeSpecificPart("com.google.android.googlequicksearchbox", 0);
-        mActivity.registerReceiver(googleInstallListener, intentFilter);
+        ReceiverCompat.registerNotExported(mActivity, googleInstallListener, intentFilter);
 
         if (apiVersion <= 0) {
             loadApiVersion(activity);

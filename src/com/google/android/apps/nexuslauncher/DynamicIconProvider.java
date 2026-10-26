@@ -1,5 +1,7 @@
 package com.google.android.apps.nexuslauncher;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -64,7 +66,7 @@ public class DynamicIconProvider extends IconProvider {
         if (!Utilities.ATLEAST_NOUGAT) {
             intentFilter.addAction(Intent.ACTION_TIME_TICK);
         }
-        mContext.registerReceiver(mDateChangeReceiver, intentFilter, null, new Handler(LauncherModel.getWorkerLooper()));
+        ReceiverCompat.registerNotExported(mContext, mDateChangeReceiver, intentFilter, null, new Handler(LauncherModel.getWorkerLooper()));
         mPackageManager = mContext.getPackageManager();
     }
 

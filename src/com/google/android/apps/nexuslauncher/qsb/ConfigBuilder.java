@@ -344,7 +344,7 @@ public class ConfigBuilder {
         mNano.ep = "icon_view_template";
         mBundle.putParcelable(mNano.ep, searchIconTemplate());
         mNano.er = "icon_long_click";
-        mBundle.putParcelable(mNano.er, PendingIntent.getBroadcast(mActivity, 2055, new Intent().setComponent(new ComponentName(mActivity, LongClickReceiver.class)), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT));
+        mBundle.putParcelable(mNano.er, PendingIntent.getBroadcast(mActivity, 2055, new Intent().setComponent(new ComponentName(mActivity, LongClickReceiver.class)), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE));
         LongClickReceiver.bq(mActivity);
         mNano.ev = getViewBounds(mQsbLayout);
         mNano.eA = mIsAllApps;

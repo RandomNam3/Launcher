@@ -85,14 +85,11 @@ class BlurWallpaperProvider(val context: Context) {
     }
 
     private fun getEnabledStatus() = mWallpaperManager.wallpaperInfo == null && prefs.enableBlur
+            && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1 || context.hasStoragePermission)
 
     private fun updateWallpaper() {
         if (applyTask != null) {
             updatePending = true
-            return
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 && !context.hasStoragePermission){
-            prefs.enableBlur = false
             return
         }
         val enabled = getEnabledStatus()

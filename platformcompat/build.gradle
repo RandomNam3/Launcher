@@ -1,0 +1,19 @@
+// Thin wrappers around platform APIs newer than Android 9. The main app module compiles
+// against a stub of the Android 9 framework (lawnchair/libs/framework.jar, needed for hidden
+// APIs), which hides everything that was added later. This module is compiled against the
+// regular SDK only.
+apply plugin: 'com.android.library'
+
+android {
+    namespace 'ch.deletescape.lawnchair.platform'
+    compileSdk 35
+
+    defaultConfig {
+        minSdk 21
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}

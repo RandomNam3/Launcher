@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair.backup
 
+import ch.deletescape.lawnchair.platform.StorageCompat
+
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
@@ -63,8 +65,31 @@ class BackupListActivity : SettingsBaseActivity(), BackupListAdapter.Callbacks {
         Utilities.checkRestoreSuccess(this)
     }
 
+    private var allFilesAccessRequested = false
+
+    override fun onResume() {
+        super.onResume()
+        if (allFilesAccessRequested && StorageCompat.hasStorageAccess(this)) {
+            allFilesAccessRequested = false
+            adapter.setData(LawnchairBackup.listLocalBackups(this))
+        }
+    }
+
     private fun loadLocalBackups() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        if (StorageCompat.usesAllFilesAccess()) {
+            if (StorageCompat.hasStorageAccess(this)) {
+                adapter.setData(LawnchairBackup.listLocalBackups(this))
+            } else {
+                // Backups can still be restored through the file picker without any permission
+                Snackbar.make(findViewById(android.R.id.content), R.string.all_files_access_required_backup,
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.action_grant_access) {
+                            allFilesAccessRequested = true
+                            StorageCompat.openAllFilesAccessSettings(this)
+                        }
+                        .show()
+            }
+        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                             Manifest.permission.READ_EXTERNAL_STORAGE)) {

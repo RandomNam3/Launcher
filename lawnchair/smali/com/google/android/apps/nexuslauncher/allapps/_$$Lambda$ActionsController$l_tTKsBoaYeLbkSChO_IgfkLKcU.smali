@@ -1,4 +1,4 @@
-.class public final synthetic Lcom/google/android/apps/nexuslauncher/allapps/-$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO-IgfkLKcU;
+.class public final synthetic Lcom/google/android/apps/nexuslauncher/allapps/_$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO_IgfkLKcU;
 .super Ljava/lang/Object;
 .source "lambda"
 
@@ -7,18 +7,18 @@
 
 
 # static fields
-.field public static final synthetic INSTANCE:Lcom/google/android/apps/nexuslauncher/allapps/-$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO-IgfkLKcU;
+.field public static final synthetic INSTANCE:Lcom/google/android/apps/nexuslauncher/allapps/_$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO_IgfkLKcU;
 
 
 # direct methods
 .method static synthetic constructor <clinit>()V
     .locals 1
 
-    new-instance v0, Lcom/google/android/apps/nexuslauncher/allapps/-$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO-IgfkLKcU;
+    new-instance v0, Lcom/google/android/apps/nexuslauncher/allapps/_$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO_IgfkLKcU;
 
-    invoke-direct {v0}, Lcom/google/android/apps/nexuslauncher/allapps/-$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO-IgfkLKcU;-><init>()V
+    invoke-direct {v0}, Lcom/google/android/apps/nexuslauncher/allapps/_$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO_IgfkLKcU;-><init>()V
 
-    sput-object v0, Lcom/google/android/apps/nexuslauncher/allapps/-$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO-IgfkLKcU;->INSTANCE:Lcom/google/android/apps/nexuslauncher/allapps/-$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO-IgfkLKcU;
+    sput-object v0, Lcom/google/android/apps/nexuslauncher/allapps/_$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO_IgfkLKcU;->INSTANCE:Lcom/google/android/apps/nexuslauncher/allapps/_$$Lambda$ActionsController$l_tTKsBoaYeLbkSChO_IgfkLKcU;
 
     return-void
 .end method

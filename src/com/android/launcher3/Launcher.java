@@ -16,6 +16,8 @@
 
 package com.android.launcher3;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import static android.content.pm.ActivityInfo.CONFIG_ORIENTATION;
 import static android.content.pm.ActivityInfo.CONFIG_SCREEN_SIZE;
 import static com.android.launcher3.AbstractFloatingView.TYPE_SNACKBAR;
@@ -360,7 +362,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         getRootView().dispatchInsets();
 
         // Listen for broadcasts
-        registerReceiver(mScreenOffReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
+        ReceiverCompat.registerNotExported(this, mScreenOffReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
 
         getSystemUiController().updateUiState(SystemUiController.UI_STATE_BASE_WINDOW,
                 Themes.getAttrBoolean(this, R.attr.isWorkspaceDarkText));

@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair.twilight
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat
+
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -79,7 +81,7 @@ class TwilightManager(private val context: Context) : Handler.Callback, Location
             .setPackage(BuildConfig.APPLICATION_ID)
 
     init {
-        context.registerReceiver(object : BroadcastReceiver() {
+        ReceiverCompat.registerNotExported(context, object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 d("onAlarm")
                 updateTwilightState()
@@ -153,7 +155,7 @@ class TwilightManager(private val context: Context) : Handler.Callback, Location
 
             val intentFilter = IntentFilter(Intent.ACTION_TIME_CHANGED)
             intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
-            context.registerReceiver(timeChangedReceiver, intentFilter)
+            ReceiverCompat.registerNotExported(context, timeChangedReceiver, intentFilter)
         }
 
         // Force an update now that we have listeners registered.
@@ -169,7 +171,7 @@ class TwilightManager(private val context: Context) : Handler.Callback, Location
         }
 
         if (lastTwilightState != null) {
-            alarmManager.cancel(PendingIntent.getBroadcast(context, 0, updateIntent, 0))
+            alarmManager.cancel(PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_IMMUTABLE))
         }
 
         locationManager.removeUpdates(this)
@@ -189,8 +191,14 @@ class TwilightManager(private val context: Context) : Handler.Callback, Location
         // Schedule an alarm to update the state at the next sunrise or sunset.
         if (state != null) {
             val triggerAtMillis = if (state.isNight) state.sunriseTimeMillis else state.sunsetTimeMillis
-            alarmManager.setExact(AlarmManager.RTC, triggerAtMillis,
-                    PendingIntent.getBroadcast(context, 0, updateIntent, 0))
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_IMMUTABLE)
+            try {
+                alarmManager.setExact(AlarmManager.RTC, triggerAtMillis, pendingIntent)
+            } catch (e: SecurityException) {
+                // Exact alarms need a special permission since Android 12, a few minutes
+                // delay don't matter for switching the theme.
+                alarmManager.set(AlarmManager.RTC, triggerAtMillis, pendingIntent)
+            }
         }
     }
 

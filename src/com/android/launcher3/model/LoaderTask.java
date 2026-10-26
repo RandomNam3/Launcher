@@ -16,6 +16,8 @@
 
 package com.android.launcher3.model;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import static com.android.launcher3.ItemInfoWithIcon.FLAG_DISABLED_LOCKED_USER;
 import static com.android.launcher3.ItemInfoWithIcon.FLAG_DISABLED_SAFEMODE;
 import static com.android.launcher3.ItemInfoWithIcon.FLAG_DISABLED_SUSPENDED;
@@ -791,7 +793,7 @@ public class LoaderTask implements Runnable {
 
             c.commitRestoredItems();
             if (!isSdCardReady && !pendingPackages.isEmpty()) {
-                context.registerReceiver(
+                ReceiverCompat.registerNotExported(context, 
                         new SdCardAvailableReceiver(mApp, pendingPackages),
                         new IntentFilter(Intent.ACTION_BOOT_COMPLETED),
                         null,

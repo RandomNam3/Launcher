@@ -106,8 +106,7 @@ val Context.launcherAppState get() = LauncherAppState.getInstance(this)
 val Context.lawnchairPrefs get() = Utilities.getLawnchairPrefs(this)
 
 val Context.hasStoragePermission
-    get() = PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(
-            this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+    get() = ch.deletescape.lawnchair.platform.StorageCompat.hasStorageAccess(this)
 
 @ColorInt
 fun Context.getColorEngineAccent(): Int {

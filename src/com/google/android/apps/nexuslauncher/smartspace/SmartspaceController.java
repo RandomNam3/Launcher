@@ -1,5 +1,7 @@
 package com.google.android.apps.nexuslauncher.smartspace;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -46,7 +48,7 @@ public class SmartspaceController implements Handler.Callback {
         this.dT = new ProtoStore(mAppContext);
         (this.dR = new Alarm()).setOnAlarmListener(alarm -> dc());
         this.dd();
-        mAppContext.registerReceiver(new BroadcastReceiver() {
+        ReceiverCompat.registerNotExported(mAppContext, new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 dd();

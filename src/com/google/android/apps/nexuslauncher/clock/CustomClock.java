@@ -1,5 +1,7 @@
 package com.google.android.apps.nexuslauncher.clock;
 
+import ch.deletescape.lawnchair.platform.ReceiverCompat;
+
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -27,7 +29,7 @@ public class CustomClock {
     public CustomClock(Context context) {
         mContext = context;
 
-        mContext.registerReceiver(new BroadcastReceiver() {
+        ReceiverCompat.registerNotExported(mContext, new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 loadTimeZone(intent.getStringExtra("time-zone"));

@@ -25,7 +25,13 @@ public class SmartspaceBroadcastReceiver extends BroadcastReceiver {
     }
 
     public void onReceive(Context context, Intent intent) {
-        byte[] byteArrayExtra = intent.getByteArrayExtra("com.google.android.apps.nexuslauncher.extra.SMARTSPACE_CARD");
+        byte[] byteArrayExtra;
+        try {
+            byteArrayExtra = intent.getByteArrayExtra("com.google.android.apps.nexuslauncher.extra.SMARTSPACE_CARD");
+        } catch (RuntimeException ex) {
+            Log.e("SmartspaceReceiver", "invalid extras", ex);
+            return;
+        }
         if (byteArrayExtra != null) {
             com.google.android.apps.nexuslauncher.smartspace.nano.SmartspaceProto.a a = new com.google.android.apps.nexuslauncher.smartspace.nano.SmartspaceProto.a();
             try {
@@ -45,6 +51,9 @@ public class SmartspaceBroadcastReceiver extends BroadcastReceiver {
                 }
             } catch (InvalidProtocolBufferNanoException | PackageManager.NameNotFoundException ex) {
                 Log.e("SmartspaceReceiver", "proto", ex);
+            } catch (RuntimeException ex) {
+                // Exported receiver, the data comes from another app
+                Log.e("SmartspaceReceiver", "invalid smartspace update", ex);
             }
         } else {
             Log.e("SmartspaceReceiver", "receiving update with no proto: " + intent.getExtras());

@@ -117,7 +117,14 @@ class GestureController(val launcher: LawnchairLauncher) : TouchController {
                 val configValue = if (config?.has("config") == true) config.getJSONObject("config") else null
                 // Log.d(TAG, "creating handler $className with config ${configValue?.toString(2)}")
                 try {
-                    val handler =  Class.forName(className).getConstructor(Context::class.java, JSONObject::class.java)
+                    // The class name comes from preferences/backups/shortcut intents, don't
+                    // instantiate anything that is not a gesture handler.
+                    val handlerClass = Class.forName(className, false, GestureHandler::class.java.classLoader)
+                    if (!GestureHandler::class.java.isAssignableFrom(handlerClass)) {
+                        Log.w(TAG, "not a gesture handler: $className")
+                        return fallback
+                    }
+                    val handler = handlerClass.getConstructor(Context::class.java, JSONObject::class.java)
                             .newInstance(context, configValue) as GestureHandler
                     if(handler.isAvailable) return handler
                 } catch (t: Throwable) {

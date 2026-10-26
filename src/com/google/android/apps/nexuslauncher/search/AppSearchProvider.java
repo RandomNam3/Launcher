@@ -94,7 +94,23 @@ public class AppSearchProvider extends ContentProvider
         return matrixCursor;
     }
 
+    private static final String GOOGLE_APP_PACKAGE = "com.google.android.googlequicksearchbox";
+
+    /**
+     * The provider is exported for the Google app's launcher integration. Other apps must not be
+     * able to list the installed apps through it (package visibility, private space).
+     */
+    private boolean isAllowedCaller() {
+        String caller = getCallingPackage();
+        Context context = getContext();
+        return caller != null && context != null
+                && (caller.equals(context.getPackageName()) || caller.equals(GOOGLE_APP_PACKAGE));
+    }
+
     public Bundle call(final String s, final String s2, final Bundle bundle) {
+        if (!isAllowedCaller()) {
+            return null;
+        }
         if (Looper.myLooper() == Looper.getMainLooper()) {
             Log.d("AppSearchProvider", "Content provider accessed on main thread");
             return null;
@@ -138,6 +154,9 @@ public class AppSearchProvider extends ContentProvider
     }
 
     public ParcelFileDescriptor openFile(final Uri uri, final String s) throws FileNotFoundException {
+        if (!isAllowedCaller()) {
+            throw new FileNotFoundException("Not allowed");
+        }
         if (Looper.myLooper() == Looper.getMainLooper()) {
             Log.e("AppSearchProvider", "Content provider accessed on main thread");
             return null;
@@ -160,7 +179,7 @@ public class AppSearchProvider extends ContentProvider
     }
 
     public Cursor query(@NonNull Uri uri, final String[] array, final String s, final String[] array2, final String s2) {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
+        if (!isAllowedCaller() || Looper.myLooper() == Looper.getMainLooper()) {
             Log.e("AppSearchProvider", "Content provider accessed on main thread");
             return new MatrixCursor(AppSearchProvider.eK, 0);
         }

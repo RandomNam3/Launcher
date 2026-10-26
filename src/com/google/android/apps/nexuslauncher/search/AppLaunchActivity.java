@@ -23,11 +23,10 @@ public class AppLaunchActivity extends BaseActivity {
             ComponentKey dl = AppSearchProvider.uriToComponent(uri, this);
             ItemInfo dVar = new AppItemInfoWithIcon(dl);
             if (!getPackageManager().isSafeMode() || Utilities.isSystemApp(this, dVar.getIntent())) {
-                if (dl.user.equals(android.os.Process.myUserHandle())) {
-                    startActivity(dVar.getIntent());
-                } else {
-                    LauncherAppsCompat.getInstance(this).startActivityForProfile(dl.componentName, dl.user, getIntent().getSourceBounds(), null);
-                }
+                // This activity is exported, never start arbitrary components (e.g. our own
+                // non-exported activities) for other apps. LauncherApps only starts exported
+                // launcher activities.
+                LauncherAppsCompat.getInstance(this).startActivityForProfile(dl.componentName, dl.user, getIntent().getSourceBounds(), null);
                 View view = new View(this);
                 view.setTag(dVar);
                 String predictionRank = uri.getQueryParameter("predictionRank");

@@ -31,7 +31,17 @@ class ApplyIconPackActivity : Activity() {
         super.onCreate(savedInstanceState)
         ThemeOverride(themeSet, this).applyTheme(this)
 
-        val packageName = intent.getStringExtra("packageName")
+        val packageName = try {
+            intent.getStringExtra("packageName")
+        } catch (e: RuntimeException) {
+            null // malformed extras
+        }
+        // Exported for icon packs, only accept installed icon packs
+        if (packageName.isNullOrEmpty()
+                || !IconPackManager.isPackProvider(this, packageName)) {
+            finish()
+            return
+        }
         prefs.iconPacks.remove(packageName)
         prefs.iconPacks.add(0, packageName)
         val packName = IconPackManager.getInstance(this).packList.currentPack().displayName

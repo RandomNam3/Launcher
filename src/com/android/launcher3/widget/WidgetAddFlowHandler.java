@@ -15,6 +15,8 @@
  */
 package com.android.launcher3.widget;
 
+import ch.deletescape.lawnchair.platform.WidgetCompat;
+
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
 import android.os.Parcel;
@@ -82,6 +84,11 @@ public class WidgetAddFlowHandler implements Parcelable {
 
     public boolean needsConfigure() {
         if (mProviderInfo instanceof CustomAppWidgetProviderInfo) {
+            return false;
+        }
+        // Widgets can declare the configuration as optional, it is then available through
+        // "Reconfigure" later
+        if (WidgetCompat.isConfigurationOptional(mProviderInfo)) {
             return false;
         }
         return mProviderInfo.configure != null;

@@ -1,5 +1,7 @@
 package com.android.launcher3;
 
+import ch.deletescape.lawnchair.platform.WidgetCompat;
+
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -307,6 +309,10 @@ public class AppWidgetResizeFrame extends AbstractFloatingView implements View.O
         getWidgetSizeRanges(launcher, spanX, spanY, sTmpRect);
         widgetView.updateAppWidgetSize(null, sTmpRect.left, sTmpRect.top,
                 sTmpRect.right, sTmpRect.bottom);
+        // Exact sizes for widgets with responsive layouts (Android 12+). getWidgetSizeRanges
+        // returns (portrait width, landscape height, landscape width, portrait height).
+        WidgetCompat.updateAppWidgetSize(widgetView, sTmpRect.left, sTmpRect.bottom,
+                sTmpRect.right, sTmpRect.top);
     }
 
     public static Rect getWidgetSizeRanges(Context context, int spanX, int spanY, Rect rect) {

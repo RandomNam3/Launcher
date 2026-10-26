@@ -1,5 +1,7 @@
 package com.android.launcher3;
 
+import ch.deletescape.lawnchair.platform.WidgetCompat;
+
 import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
@@ -80,6 +82,14 @@ public class LauncherAppWidgetProviderInfo extends AppWidgetProviderInfo {
                 (minResizeWidth + widgetPadding.left + widgetPadding.right) / smallestCellWidth));
         minSpanY = Math.max(1, (int) Math.ceil(
                 (minResizeHeight + widgetPadding.top + widgetPadding.bottom) / smallestCellHeight));
+
+        // Android 12+ widgets can request their default size in cells directly
+        int targetX = WidgetCompat.getTargetCellWidth(this);
+        int targetY = WidgetCompat.getTargetCellHeight(this);
+        if (targetX > 0 && targetY > 0 && targetX <= idp.numColumns && targetY <= idp.numRows) {
+            spanX = targetX;
+            spanY = targetY;
+        }
     }
 
     public String getLabel(PackageManager packageManager) {
@@ -89,6 +99,13 @@ public class LauncherAppWidgetProviderInfo extends AppWidgetProviderInfo {
     public Point getMinSpans() {
         return new Point((resizeMode & RESIZE_HORIZONTAL) != 0 ? minSpanX : -1,
                 (resizeMode & RESIZE_VERTICAL) != 0 ? minSpanY : -1);
+    }
+
+    /**
+     * Whether adding the widget may skip its configuration activity (Android 12+).
+     */
+    public boolean isConfigurationOptional() {
+        return WidgetCompat.isConfigurationOptional(this);
     }
 
     public boolean isCustomWidget() {

@@ -16,6 +16,8 @@
 
 package com.android.launcher3.widget;
 
+import ch.deletescape.lawnchair.platform.WidgetCompat;
+
 import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
@@ -391,6 +393,8 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView
         }
 
         mIsScrollable = checkScrollableRecursively(this);
+        // Android 12+ widgets get the system's rounded corners
+        WidgetCompat.enforceRoundedCorners(this);
     }
 
     @Override

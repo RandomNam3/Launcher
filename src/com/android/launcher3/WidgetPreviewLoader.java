@@ -1,5 +1,7 @@
 package com.android.launcher3;
 
+import ch.deletescape.lawnchair.platform.WidgetCompat;
+
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,6 +22,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.CancellationSignal;
@@ -314,7 +317,14 @@ public class WidgetPreviewLoader {
         if (maxPreviewWidth < 0) maxPreviewWidth = Integer.MAX_VALUE;
 
         Drawable drawable = null;
-        if (info.previewImage != 0) {
+        // Android 12+ widgets: generated previews / preview layouts look best and are preferred
+        if (Utilities.ATLEAST_S) {
+            Bitmap rendered = renderPreviewOnMainThread(launcher, info);
+            if (rendered != null) {
+                drawable = new BitmapDrawable(mContext.getResources(), rendered);
+            }
+        }
+        if (drawable == null && info.previewImage != 0) {
             try {
                 drawable = info.loadPreviewImage(mContext, 0);
             } catch (OutOfMemoryError e) {
@@ -490,6 +500,27 @@ public class WidgetPreviewLoader {
         }
         c.setBitmap(null);
         return preview;
+    }
+
+    private Bitmap renderPreviewOnMainThread(final BaseActivity launcher,
+            final LauncherAppWidgetProviderInfo info) {
+        DeviceProfile dp = launcher.getDeviceProfile();
+        final int width = dp.cellWidthPx * info.spanX;
+        final int height = dp.cellHeightPx * info.spanY;
+        try {
+            return mMainThreadExecutor.submit(new Callable<Bitmap>() {
+                @Override
+                public Bitmap call() {
+                    return WidgetCompat.renderPreview(launcher, info, width, height);
+                }
+            }).get();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return null;
+        } catch (ExecutionException e) {
+            Log.w(TAG, "Unable to render preview for " + info.provider, e);
+            return null;
+        }
     }
 
     private Drawable mutateOnMainThread(final Drawable drawable) {

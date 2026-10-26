@@ -191,6 +191,13 @@ public class HotseatQsbWidget extends AbstractQsbLayout implements o,
     }
 
     private void doOnClick() {
+        // The search bar on the home screen opens the default browser, the one in the app
+        // drawer searches the apps.
+        Intent browser = Utilities.getDefaultBrowserIntent(mActivity);
+        if (browser != null) {
+            mActivity.startActivitySafely(this, browser, null);
+            return;
+        }
         SearchProviderController controller = SearchProviderController.Companion
                 .getInstance(mActivity);
         if (controller.isGoogle()) {

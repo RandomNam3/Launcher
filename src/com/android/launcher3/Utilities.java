@@ -127,8 +127,10 @@ public final class Utilities {
     private static final Matrix sMatrix = new Matrix();
     private static final Matrix sInverseMatrix = new Matrix();
 
-    public static final boolean ATLEAST_Q = Build.VERSION.CODENAME.length() == 1 &&
-            Build.VERSION.CODENAME.charAt(0) >= 'Q' && Build.VERSION.CODENAME.charAt(0) <= 'Z';
+    // Used to check the codename of preview builds only, which is "REL" on release builds
+    public static final boolean ATLEAST_Q = Build.VERSION.SDK_INT >= 29;
+
+    public static final boolean ATLEAST_S = Build.VERSION.SDK_INT >= 31;
 
     public static final boolean ATLEAST_P =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
@@ -885,6 +887,32 @@ public final class Utilities {
 
     public static Boolean hasKnoxSecureFolder(Context context) {
         return PackageManagerHelper.isAppInstalled(context.getPackageManager(), "com.samsung.knox.securefolder", 0);
+    }
+
+    /**
+     * Returns an intent that opens the default browser (its start page), or null if there is
+     * no browser.
+     */
+    public static Intent getDefaultBrowserIntent(Context context) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            ResolveInfo info = pm.resolveActivity(
+                    new Intent(Intent.ACTION_VIEW, Uri.parse("https://")),
+                    PackageManager.MATCH_DEFAULT_ONLY);
+            // Without a default browser this resolves to the system chooser ("android")
+            if (info != null && info.activityInfo != null
+                    && !"android".equals(info.activityInfo.packageName)) {
+                Intent launch = pm.getLaunchIntentForPackage(info.activityInfo.packageName);
+                if (launch != null) {
+                    return launch;
+                }
+            }
+        } catch (RuntimeException e) {
+            Log.w(TAG, "Unable to resolve the default browser", e);
+        }
+        Intent selector = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN,
+                Intent.CATEGORY_APP_BROWSER);
+        return selector.resolveActivity(pm) != null ? selector : null;
     }
 
     public static void openURLinBrowser(Context context, String url) {

@@ -20,9 +20,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.android.launcher3" >
+    >
 
-    <uses-sdk android:targetSdkVersion="28" android:minSdkVersion="28"/>
     <uses-permission android:name="android.permission.CONTROL_REMOTE_APP_TRANSITION_ANIMATIONS" />
     <application
         android:backupAgent="com.android.launcher3.LauncherBackupAgent"
@@ -37,6 +36,7 @@
         android:supportsRtl="true" >
 
         <service
+            android:exported="true"
             android:name="com.android.quickstep.TouchInteractionService"
             android:permission="android.permission.STATUS_BAR_SERVICE" >
             <intent-filter>

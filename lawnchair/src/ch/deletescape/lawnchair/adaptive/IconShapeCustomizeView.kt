@@ -23,7 +23,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.android.launcher3.R
-import kotlinx.android.synthetic.lawnchair.icon_shape_customize_view.view.*
 
 class IconShapeCustomizeView(context: Context, attrs: AttributeSet?) :
         LinearLayout(context, attrs) {
@@ -81,3 +80,10 @@ class IconShapeCustomizeView(context: Context, attrs: AttributeSet?) :
         currentShape = IconShape(topLeft, topRight, bottomLeft, bottomRight)
     }
 }
+
+// Replacements for the removed kotlin-android-extensions synthetic view properties
+private val android.view.View.bottomLeftRow: android.view.View get() = findViewById(com.android.launcher3.R.id.bottomLeftRow)
+private val android.view.View.bottomRightRow: android.view.View get() = findViewById(com.android.launcher3.R.id.bottomRightRow)
+private val android.view.View.shapePreview: android.widget.ImageView get() = findViewById(com.android.launcher3.R.id.shapePreview)
+private val android.view.View.topLeftRow: android.view.View get() = findViewById(com.android.launcher3.R.id.topLeftRow)
+private val android.view.View.topRightRow: android.view.View get() = findViewById(com.android.launcher3.R.id.topRightRow)

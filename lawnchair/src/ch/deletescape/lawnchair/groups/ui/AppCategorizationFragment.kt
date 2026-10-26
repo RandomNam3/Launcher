@@ -36,7 +36,6 @@ import ch.deletescape.lawnchair.groups.DrawerFoldersAdapter
 import ch.deletescape.lawnchair.groups.DrawerTabsAdapter
 import ch.deletescape.lawnchair.groups.FlowerpotTabsAdapter
 import com.android.launcher3.R
-import kotlinx.android.synthetic.lawnchair.fragment_app_categorization.*
 
 @Keep
 class AppCategorizationFragment : Fragment(), LawnchairPreferences.OnPreferenceChangeListener {
@@ -138,3 +137,9 @@ class AppCategorizationFragment : Fragment(), LawnchairPreferences.OnPreferenceC
                         R.string.pref_appcategorization_tabs_summary)
     }
 }
+
+// Replacements for the removed kotlin-android-extensions synthetic view properties
+private val android.support.v4.app.Fragment.enableToggle: android.view.View get() = view!!.findViewById(com.android.launcher3.R.id.enableToggle)
+private val android.support.v4.app.Fragment.folderTypeItem: android.view.View get() = view!!.findViewById(com.android.launcher3.R.id.folderTypeItem)
+private val android.support.v4.app.Fragment.styleHeader: android.view.View get() = view!!.findViewById(com.android.launcher3.R.id.styleHeader)
+private val android.support.v4.app.Fragment.tabTypeItem: android.view.View get() = view!!.findViewById(com.android.launcher3.R.id.tabTypeItem)

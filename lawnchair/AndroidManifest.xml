@@ -104,6 +104,7 @@
             android:theme="@style/ScreenshotTheme"/>
 
         <activity
+            android:exported="true"
             android:autoRemoveFromRecents="true"
             android:label="@string/derived_app_name"
             android:name="ch.deletescape.lawnchair.settings.ui.SettingsActivity"
@@ -119,6 +120,7 @@
 
         <!-- TODO: Display only inside Lawnchair -->
         <activity-alias
+            android:exported="true"
             android:name="ch.deletescape.lawnchair.settings.ui.SettingsLauncherActivity"
             android:targetActivity="ch.deletescape.lawnchair.settings.ui.SettingsActivity"
             android:label="@string/lawnchair_settings"
@@ -173,6 +175,7 @@
 
         <!-- Pixel -->
         <activity
+            android:exported="true"
             android:name="com.google.android.apps.nexuslauncher.search.AppLaunchActivity"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter android:priority="1">
@@ -187,13 +190,14 @@
         </activity>
 
         <receiver
+            android:exported="true"
             android:name="com.google.android.apps.nexuslauncher.qsb.OPAStatusReceiver"
             android:permission="android.permission.CAPTURE_AUDIO_HOTWORD">
             <intent-filter>
                 <action android:name="com.google.android.systemui.OPA_ENABLED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name="com.google.android.apps.nexuslauncher.smartspace.SmartspaceBroadcastReceiver">
+        <receiver android:exported="true" android:name="com.google.android.apps.nexuslauncher.smartspace.SmartspaceBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.google.android.apps.nexuslauncher.UPDATE_SMARTSPACE"/>
             </intent-filter>
@@ -224,6 +228,7 @@
             android:parentActivityName="ch.deletescape.lawnchair.backup.BackupListActivity"
             android:theme="@style/SettingsTheme.V2"/>
         <activity
+            android:exported="true"
             android:label="@string/restore_backup"
             android:name="ch.deletescape.lawnchair.backup.RestoreBackupActivity"
             android:parentActivityName="ch.deletescape.lawnchair.backup.BackupListActivity"
@@ -261,6 +266,7 @@
         </activity>
 
         <activity
+            android:exported="true"
             android:label="@string/pref_integrations"
             android:name="ch.deletescape.lawnchair.settings.ui.SettingsIntegrationActivity"
             android:parentActivityName="ch.deletescape.lawnchair.settings.ui.SettingsActivity"
@@ -291,6 +297,7 @@
 
         <!-- Apply directly from iconpack -->
         <activity
+            android:exported="true"
             android:name="ch.deletescape.lawnchair.iconpack.ApplyIconPackActivity"
             android:theme="@style/SettingsTheme.V2.Transparent">
             <intent-filter>
@@ -311,6 +318,7 @@
 
         <!-- Actions -->
         <activity
+            android:exported="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/lawnchair_actions"
             android:name="ch.deletescape.lawnchair.gestures.LawnchairShortcutActivity"
@@ -322,6 +330,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:exported="true"
             android:name="ch.deletescape.lawnchair.gestures.ui.RunHandlerActivity"
             android:theme="@style/SettingsTheme.V2.Transparent"
             android:taskAffinity="${applicationId}.tasks.RUN_HANDLER">
@@ -342,6 +351,7 @@
             android:theme="@style/Theme.Transparent"/>
 
         <activity
+            android:exported="true"
             android:name="ch.deletescape.lawnchair.FakeLauncher"
             android:enabled="false">
 
@@ -361,6 +371,7 @@
 
         <!-- DT2S using device admin -->
         <receiver
+            android:exported="true"
             android:description="@string/dt2s_admin_hint"
             android:name="ch.deletescape.lawnchair.gestures.handlers.SleepMethodDeviceAdmin$SleepDeviceAdmin"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
@@ -374,6 +385,7 @@
         </receiver>
 
         <service
+            android:exported="true"
             android:name="ch.deletescape.lawnchair.LawnchairAccessibilityService"
             android:label="@string/derived_app_name"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">

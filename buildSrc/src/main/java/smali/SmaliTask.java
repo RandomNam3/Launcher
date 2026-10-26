@@ -12,6 +12,7 @@ import org.gradle.api.DefaultTask;
 import org.gradle.api.UncheckedIOException;
 import org.gradle.api.file.FileTree;
 import org.gradle.api.tasks.InputFiles;
+import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 import org.jf.smali.Smali;
@@ -43,6 +44,7 @@ public class SmaliTask extends DefaultTask {
         getOutputs().file(destination);
     }
 
+    @Internal
     public File getSmaliScript() {
         return mSmaliScript;
     }

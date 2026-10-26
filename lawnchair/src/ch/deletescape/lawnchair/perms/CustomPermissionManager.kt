@@ -72,7 +72,7 @@ class CustomPermissionManager private constructor(private val context: Context) 
          */
         const val PERMISSION_IPLOCATE = "PERMISSION_IPLOCATE"
 
-        private val MAP = mapOf<String, Pair<@StringRes Int, @DrawableRes Int>>(
+        private val MAP = mapOf<String, Pair<Int, Int>>(
                 PERMISSION_IPLOCATE to Pair(R.string.permission_iplocate, R.drawable.ic_location)
         )
 

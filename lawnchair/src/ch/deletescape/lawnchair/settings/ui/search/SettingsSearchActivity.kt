@@ -27,7 +27,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import com.android.launcher3.R
-import kotlinx.android.synthetic.main.activity_settings_search.*
 import android.support.v7.util.DiffUtil
 import android.text.TextUtils
 import android.view.MenuItem
@@ -254,3 +253,9 @@ class SettingsSearchActivity : SettingsBaseActivity(), SearchView.OnQueryTextLis
         }
     }
 }
+
+// Replacements for the removed kotlin-android-extensions synthetic view properties
+private val android.app.Activity.list_results: ch.deletescape.lawnchair.views.PreferenceRecyclerView get() = findViewById(com.android.launcher3.R.id.list_results)
+private val android.app.Activity.no_results_layout: android.widget.LinearLayout get() = findViewById(com.android.launcher3.R.id.no_results_layout)
+private val android.app.Activity.search_toolbar: android.support.v7.widget.Toolbar get() = findViewById(com.android.launcher3.R.id.search_toolbar)
+private val android.app.Activity.search_view: ch.deletescape.lawnchair.settings.ui.search.SettingsSearchView get() = findViewById(com.android.launcher3.R.id.search_view)

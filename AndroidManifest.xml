@@ -20,7 +20,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.android.launcher3">
+    >
     <!--
     Manifest entries specific to Launcher3. This is merged with AndroidManifest-common.xml.
     Refer comments around specific entries on how to extend individual components.
@@ -67,6 +67,7 @@
         attributes and intent filters the same
         -->
         <activity
+            android:exported="true"
             android:name="ch.deletescape.lawnchair.LawnchairLauncher"
             android:launchMode="singleTask"
             android:clearTaskOnLaunch="true"
@@ -92,6 +93,7 @@
         The settings activity. When extending keep the intent filter present
         -->
         <activity
+            android:exported="true"
             android:name="com.android.launcher3.SettingsActivity"
             android:label="@string/settings_button_text"
             android:theme="@android:style/Theme.DeviceDefault.Settings"

@@ -467,7 +467,7 @@
     <string name="allow">Luba</string>
     <string name="deny">Keela</string>
     <string name="sesame_enable_integration_title">Andmete jagamine</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Kas lubada kasutusandmete jagamine Sesame'ga? Saate seda hiljem muuta.]]></string>
+    <string name="sesame_enable_integration_description"><![CDATA[Kas lubada kasutusandmete jagamine Sesame\'ga? Saate seda hiljem muuta.]]></string>
     <string name="sesame_shortcut_disabled">Sesame on keelatud.</string>
     <string name="font_variant_italic">Kaldkiri</string>
     <string name="font_weight_thin">Õhuline</string>

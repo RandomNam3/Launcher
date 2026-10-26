@@ -20,7 +20,6 @@ package ch.deletescape.lawnchair.views
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import kotlinx.android.synthetic.main.backup_item.view.*
 
 class ScreenshotPreview(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
@@ -33,3 +32,7 @@ class ScreenshotPreview(context: Context, attrs: AttributeSet?) : FrameLayout(co
         setMeasuredDimension(measuredWidth, measuredHeight)
     }
 }
+
+// Replacements for the removed kotlin-android-extensions synthetic view properties
+private val android.view.View.preview: android.widget.ImageView get() = findViewById(com.android.launcher3.R.id.preview)
+private val android.view.View.wallpaper: android.widget.ImageView get() = findViewById(com.android.launcher3.R.id.wallpaper)

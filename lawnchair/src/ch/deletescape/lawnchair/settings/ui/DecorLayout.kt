@@ -134,7 +134,7 @@ class DecorLayout(context: Context, private val window: Window) : InsettableFram
             background = BlurWallpaperProvider.getInstance(context).createDrawable().apply {
                 startListening()
             }
-        }
+        } else Unit
     }
 
     override fun draw(canvas: Canvas) {

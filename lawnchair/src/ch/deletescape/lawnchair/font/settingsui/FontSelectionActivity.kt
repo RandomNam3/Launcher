@@ -35,7 +35,6 @@ import ch.deletescape.lawnchair.font.FontCache
 import ch.deletescape.lawnchair.font.googlefonts.GoogleFontsListing
 import ch.deletescape.lawnchair.settings.ui.SettingsBaseActivity
 import com.android.launcher3.R
-import kotlinx.android.synthetic.main.activity_settings_search.*
 import java.io.File
 
 class FontSelectionActivity : SettingsBaseActivity(), SearchView.OnQueryTextListener {
@@ -493,3 +492,8 @@ class FontSelectionActivity : SettingsBaseActivity(), SearchView.OnQueryTextList
 
     private class AddFontException(message: String? = null) : RuntimeException(message)
 }
+
+// Replacements for the removed kotlin-android-extensions synthetic view properties
+private val android.app.Activity.list_results: ch.deletescape.lawnchair.views.PreferenceRecyclerView get() = findViewById(com.android.launcher3.R.id.list_results)
+private val android.app.Activity.search_toolbar: android.support.v7.widget.Toolbar get() = findViewById(com.android.launcher3.R.id.search_toolbar)
+private val android.app.Activity.search_view: ch.deletescape.lawnchair.settings.ui.search.SettingsSearchView get() = findViewById(com.android.launcher3.R.id.search_view)

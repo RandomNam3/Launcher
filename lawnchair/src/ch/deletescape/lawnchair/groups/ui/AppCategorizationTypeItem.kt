@@ -26,7 +26,6 @@ import android.view.View
 import android.widget.LinearLayout
 import ch.deletescape.lawnchair.*
 import ch.deletescape.lawnchair.groups.AppGroupsManager
-import kotlinx.android.synthetic.lawnchair.app_categorization_type_item.view.*
 
 class AppCategorizationTypeItem(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs),
         View.OnClickListener, LawnchairPreferences.OnPreferenceChangeListener {
@@ -94,3 +93,8 @@ class AppCategorizationTypeItem(context: Context, attrs: AttributeSet?) : Linear
         isSelected = type == manager.categorizationType
     }
 }
+
+// Replacements for the removed kotlin-android-extensions synthetic view properties
+private val android.view.View.checkMark: android.widget.ImageView get() = findViewById(com.android.launcher3.R.id.checkMark)
+private val android.view.View.title: android.widget.TextView get() = findViewById(android.R.id.title)
+private val android.view.View.summary: android.widget.TextView get() = findViewById(android.R.id.summary)

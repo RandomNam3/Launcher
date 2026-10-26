@@ -31,7 +31,6 @@ import ch.deletescape.lawnchair.font.CustomFontManager
 import ch.deletescape.lawnchair.getTabRipple
 import ch.deletescape.lawnchair.setCustomFont
 import com.android.launcher3.R
-import kotlinx.android.synthetic.main.tabbed_color_picker.view.*
 import me.priyesh.chroma.*
 
 @SuppressLint("ViewConstructor")
@@ -133,3 +132,7 @@ class TabbedPickerView(context: Context, val key: String, initialColor: Int,
         }
     }
 }
+
+// Replacements for the removed kotlin-android-extensions synthetic view properties
+private val android.view.View.tabLayout: android.support.design.widget.TabLayout get() = findViewById(com.android.launcher3.R.id.tabLayout)
+private val android.view.View.viewPager: ch.deletescape.lawnchair.views.WrapContentHeightViewPager get() = findViewById(com.android.launcher3.R.id.viewPager)

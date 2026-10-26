@@ -41,7 +41,6 @@ import ch.deletescape.lawnchair.views.FadingImageView
 import com.android.launcher3.LauncherModel
 import com.android.launcher3.R
 import com.android.launcher3.compat.LauncherAppsCompat
-import kotlinx.android.synthetic.main.activity_settings_search.*
 import java.text.Collator
 import java.util.*
 import java.util.concurrent.Semaphore
@@ -381,3 +380,7 @@ class IconPickerActivity : SettingsBaseActivity(), View.OnLayoutChangeListener, 
         }
     }
 }
+
+// Replacements for the removed kotlin-android-extensions synthetic view properties
+private val android.app.Activity.search_toolbar: android.support.v7.widget.Toolbar get() = findViewById(com.android.launcher3.R.id.search_toolbar)
+private val android.app.Activity.search_view: ch.deletescape.lawnchair.settings.ui.search.SettingsSearchView get() = findViewById(com.android.launcher3.R.id.search_view)

@@ -233,3 +233,5 @@
 }
 
 -keep class ch.deletescape.lawnchair.smartspace.accu.** { *; }
+
+-dontwarn androidx.annotation.**

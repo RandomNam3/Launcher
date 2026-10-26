@@ -28,7 +28,6 @@ import ch.deletescape.lawnchair.*
 import ch.deletescape.lawnchair.theme.ThemeOverride
 import ch.deletescape.lawnchair.util.ThemedContextProvider
 import com.android.launcher3.R
-import kotlinx.android.synthetic.lawnchair.perm_request_dialog.view.*
 
 class CustomPermissionRequestDialog private constructor(private val context: Context, private val string: Int, private val icon: Int, private val explanation: Int?) {
     private val key = Pair(string, icon)
@@ -90,3 +89,9 @@ class CustomPermissionRequestDialog private constructor(private val context: Con
         }
     }
 }
+
+// Replacements for the removed kotlin-android-extensions synthetic view properties
+private val android.view.View.icon_info: android.widget.ImageView get() = findViewById(com.android.launcher3.R.id.icon_info)
+private val android.view.View.message: android.widget.TextView get() = findViewById(com.android.launcher3.R.id.message)
+private val android.view.View.text_explanation: android.widget.TextView get() = findViewById(com.android.launcher3.R.id.text_explanation)
+private val android.view.View.icon: android.widget.ImageView get() = findViewById(com.android.launcher3.R.id.icon)

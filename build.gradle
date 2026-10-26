@@ -1,24 +1,16 @@
 import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
 
 buildscript {
-    ext.kotlin_version = '1.3.11'
+    ext.kotlin_version = '2.0.21'
     repositories {
         google()
-        jcenter()
-        maven { url = "https://storage.googleapis.com/r8-releases/raw" }
+        mavenCentral()
+        gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
-        classpath 'com.android.tools:r8:1.5.62'
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+        classpath 'com.android.tools.build:gradle:8.7.3'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
-tasks {
-    wrapper {
-        gradleVersion = "5.5.1"
-        distributionType = DistributionType.ALL
     }
 }
 
@@ -30,51 +22,47 @@ if (localPropsFile.exists()) {
     localProps.load(localPropsFile.newDataInputStream())
 }
 
-def publicBranches = ["alpha", "beta", "stable"]
-def ciBuild = localProps.getProperty("ciBuild") == "true" || System.getenv("CI_BUILD") == "true"
-def isPublicBuild = localProps.getProperty("public") == "true" || (ciBuild && publicBranches.contains(System.getenv("DRONE_BRANCH")))
+// Version of the legacy fork. The version code continues above the last upstream
+// Lawnchair 2 build (2589) so that it is always recognised as an update.
+def legacyVersionCode = 3000
+def legacyVersionName = "2.0-legacy-1"
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.google.protobuf'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    namespace 'com.android.launcher3'
+    compileSdk 35
 
     signingConfigs {
-        ci {
-            storeFile file("debug.jks")
-            storePassword localProps.getProperty("storePass") ?: System.getenv("STORE_PASSWORD")
-            keyAlias "Lawnchair"
-            keyPassword localProps.getProperty("keyPass") ?:System.getenv("KEY_PASSWORD")
+        legacy {
+            def keystore = localProps.getProperty("storeFile") ?: System.getenv("LEGACY_STORE_FILE")
+            if (keystore != null) {
+                storeFile file(keystore)
+                storePassword localProps.getProperty("storePass") ?: System.getenv("LEGACY_STORE_PASSWORD")
+                keyAlias localProps.getProperty("keyAlias") ?: System.getenv("LEGACY_KEY_ALIAS") ?: "lawnchair-legacy"
+                keyPassword localProps.getProperty("keyPass") ?: System.getenv("LEGACY_KEY_PASSWORD")
+            }
         }
     }
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdk 21
+        targetSdk 35
 
-        if (ciBuild) {
-            def ciBuildNumber = localProps.getProperty("buildNumber") ?: System.getenv("CI_BUILD_NUMBER")
-            versionCode = Integer.valueOf(ciBuildNumber)
-            def majorMinor = localProps.getProperty("majorMinor") ?: System.getenv("MAJOR_MINOR")
-            def drone = localProps.getProperty("public") == "true" || System.getenv("DRONE")
-            versionName = majorMinor + (drone ? "-" : ".") + ciBuildNumber
-        } else {
-            versionCode 1
-            versionName "2.0"
-        }
+        versionCode legacyVersionCode
+        versionName legacyVersionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
         buildConfigField "boolean", "FEATURE_QUINOA", "true"
         buildConfigField "boolean", "FEATURE_SETTINGS_SEARCH", "true"
-        buildConfigField "boolean", "DEBUG_STRICT_MODE", isPublicBuild ? "false" : "true"
+        buildConfigField "boolean", "DEBUG_STRICT_MODE", "false"
         buildConfigField "boolean", "HAS_LEAKCANARY", "false"
-        buildConfigField "boolean", "FEATURE_BUG_REPORTER", "true"
+        buildConfigField "boolean", "FEATURE_BUG_REPORTER", "false"
 
-        def githubToken = localProps.getProperty('githubToken') ?: '"' + System.getenv("GITHUB_TOKEN") + '"'
+        def githubToken = localProps.getProperty('githubToken') ?: '"' + (System.getenv("GITHUB_TOKEN") ?: "") + '"'
         buildConfigField "String", "GITHUB_TOKEN", githubToken
 
         buildConfigField "boolean", "SIGNATURE_VERIFICATION", "false"
@@ -82,7 +70,7 @@ android {
         def debugMenuCode = System.getenv("DEBUG_MENU_CODE") ?: "veryperu"
         buildConfigField "String", "DEBUG_MENU_CODE_HASH", '"' + debugMenuCode.digest('SHA-1') + '"'
 
-        def accuWeatherKey = localProps.getProperty('accu_key') ?: '"' + System.getenv("ACCU_KEY") + '"'
+        def accuWeatherKey = localProps.getProperty('accu_key') ?: '"' + (System.getenv("ACCU_KEY") ?: "") + '"'
         buildConfigField "String", "ACCUWEATHER_KEY", accuWeatherKey
 
         buildConfigField "String", "BRIDGE_DOWNLOAD_URL", "\"https://lawnchair.app/lawnfeed/?ref=lawnchair\""
@@ -94,49 +82,28 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            if (ciBuild) {
-                if (System.getenv("CI_EVENT_TYPE") != "pull_request") {
-                    signingConfig signingConfigs.ci
-                }
-            }
-
-            dexOptions {
-                matchingFallbacks = ['debug']
-            }
-
-            buildConfigField "boolean", "HAS_LEAKCANARY", isPublicBuild ? "false" : "true"
-        }
-
-        optimized {
-            initWith debug
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
-                    'proguard.flags'
-            if (ciBuild) {
-                if (System.getenv("CI_EVENT_TYPE") != "pull_request") {
-                    signingConfig signingConfigs.ci
-                }
-            }
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
         }
 
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard.flags'
-            if (ciBuild) {
-                if (System.getenv("CI_EVENT_TYPE") != "pull_request") {
-                    signingConfig signingConfigs.ci
-                }
-            }
-
-            dexOptions {
-                matchingFallbacks = ['release']
+            if (signingConfigs.legacy.storeFile != null) {
+                signingConfig signingConfigs.legacy
             }
         }
     }
 
-    lintOptions {
+    buildFeatures {
+        buildConfig true
+        aidl true
+    }
+
+    lint {
         checkReleaseBuilds false
+        abortOnError false
     }
 
     kotlinOptions {
@@ -148,21 +115,15 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    flavorDimensions "default", "custom", "build"
+    packaging {
+        resources {
+            excludes += ['META-INF/*.kotlin_module', 'META-INF/DEPENDENCIES', 'META-INF/LICENSE*', 'META-INF/NOTICE*']
+        }
+    }
+
+    flavorDimensions = ["default", "custom", "build"]
 
     productFlavors {
-        aosp {
-            dimension "default"
-            applicationId 'ch.deletescape.lawnchair'
-            testApplicationId 'com.android.launcher3.tests'
-        }
-
-        l3go {
-            dimension "default"
-            applicationId 'com.android.launcher3'
-            testApplicationId 'com.android.launcher3.tests'
-        }
-
         quickstep {
             dimension "default"
             applicationId 'ch.deletescape.lawnchair'
@@ -173,39 +134,20 @@ android {
             dimension "custom"
         }
 
-        dev {
+        legacy {
             dimension "build"
-            // Use v1 dev package name for compatibility testing
-            if (localProps.getProperty("v1compat") != "true") {
-                applicationIdSuffix ".dev"
-            }
-            versionNameSuffix "-dev"
-        }
-
-        ci {
-            dimension "build"
-            applicationIdSuffix ".ci"
-            versionNameSuffix "-ci-" + (localProps.getProperty("branch") ?: System.getenv("DRONE_BRANCH"))
-
-            buildConfigField "boolean", "SIGNATURE_VERIFICATION", "true"
-        }
-
-        plah {
-            dimension "build"
-            applicationIdSuffix ".plah"
-
-            buildConfigField "boolean", "SIGNATURE_VERIFICATION", "true"
-            buildConfigField "boolean", "FEATURE_BUG_REPORTER", "false"
-            buildConfigField "boolean", "HAS_LEAKCANARY", "false"
-            buildConfigField "boolean", "DEBUG_STRICT_MODE", "false"
+            // Own package name so that it can be installed next to the original
+            // Lawnchair 2 build (ch.deletescape.lawnchair.plah) and settings can be
+            // migrated with the built-in backup function.
+            applicationIdSuffix ".legacy"
         }
     }
 
     sourceSets {
         main {
             res.srcDirs = ['res']
-            java.srcDirs = ['src']
-            aidl.srcDirs = ['src']
+            java.srcDirs = ['src', 'third_party/librootjava/java', 'third_party/recyclerviewmergeadapter/java']
+            aidl.srcDirs = ['src', 'third_party/librootjava/aidl']
             assets.srcDirs = ['assets']
             manifest.srcFile 'AndroidManifest-common.xml'
             proto {
@@ -219,32 +161,8 @@ android {
             manifest.srcFile "AndroidManifest.xml"
         }
 
-        optimized {
-            manifest.srcFile "AndroidManifest.xml"
-        }
-
         release {
             manifest.srcFile "AndroidManifest.xml"
-        }
-
-        androidTest {
-            res.srcDirs = ['tests/res']
-            java.srcDirs = ['tests/src']
-            manifest.srcFile "tests/AndroidManifest-common.xml"
-        }
-
-        androidTestDebug {
-            manifest.srcFile "tests/AndroidManifest.xml"
-        }
-
-        aosp {
-            java.srcDirs = ['src_flags', "src_ui_overrides"]
-        }
-
-        l3go {
-            res.srcDirs = ['go/res']
-            java.srcDirs = ['go/src_flags', "src_ui_overrides"]
-            manifest.srcFile "go/AndroidManifest.xml"
         }
 
         quickstep {
@@ -259,18 +177,20 @@ android {
             manifest.srcFile "lawnchair/AndroidManifest.xml"
         }
     }
-
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs.add('-Xbootclasspath/p:lawnchair/libs/framework.jar')
-        }
-    }
 }
 
-afterEvaluate {
-    android.applicationVariants.all { variant ->
-        variant.resValue 'string', 'application_id', variant.applicationId
+// Hidden framework APIs (compiled against a stub of the Android 9 framework). The jar is put
+// in front of android.jar so that javac resolves the hidden members.
+def frameworkJar = file('lawnchair/libs/framework.jar')
+tasks.withType(JavaCompile).configureEach {
+    doFirst {
+        options.bootstrapClasspath = files(frameworkJar) + (options.bootstrapClasspath ?: files())
     }
+    options.compilerArgs += ['-Xlint:-deprecation', '-Xlint:-unchecked', '-Xmaxerrs', '10000']
+}
+
+android.applicationVariants.configureEach { variant ->
+    variant.resValue 'string', 'application_id', variant.applicationId
 }
 
 apply from: 'lawnchair/smali.gradle'
@@ -279,12 +199,13 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
         maven { url 'https://jitpack.io' }
     }
 }
 
 dependencies {
+    compileOnly files(frameworkJar)
+
     implementation "com.android.support:appcompat-v7:${SUPPORT_LIBS_VERSION}"
     implementation "com.android.support:cardview-v7:${SUPPORT_LIBS_VERSION}"
     implementation "com.android.support:design:${SUPPORT_LIBS_VERSION}"
@@ -294,24 +215,27 @@ dependencies {
     implementation "com.android.support:palette-v7:${SUPPORT_LIBS_VERSION}"
     implementation "com.android.support:preference-v7:${SUPPORT_LIBS_VERSION}"
     implementation "com.android.support:preference-v14:${SUPPORT_LIBS_VERSION}"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
-    implementation 'com.github.florent37:fiftyshadesof:1.0.0'
     implementation 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.github.KwabenBerko:OpenWeatherMap-Android-Library:2.0.1'
     implementation 'com.github.LawnchairLauncher:chroma:1.2.6'
     implementation 'com.github.LawnchairLauncher:hoko-lite:4e0d797'
     implementation('com.github.LawnchairLauncher:attribouter-y:0.1.6') {
         // The "MaterialButton" styleable defines an attr named iconSize which breaks compatibility with our source base
         exclude group: 'com.android.support', module: 'design'
+        // Only available on JCenter, vendored in third_party/flexbox
+        exclude group: 'com.google.android', module: 'flexbox'
     }
+    implementation project(':third_party:flexbox')
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 
-    implementation 'com.github.topjohnwu.libsu:core:2.5.0'
-    implementation 'eu.chainfire:librootjava:1.3.0'
+    implementation('com.github.topjohnwu.libsu:core:2.5.0') {
+        // Only annotations, not needed at runtime and would pull in AndroidX
+        exclude group: 'androidx.annotation'
+    }
     implementation 'com.luckycatlabs:SunriseSunsetCalculator:1.2'
-    implementation 'me.mvdw.recyclerviewmergeadapter:recyclerviewmergeadapter:2.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.okhttp3:okhttp:4.0.0-RC1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0-RC1'
@@ -319,48 +243,30 @@ dependencies {
 
     implementation 'me.xdrop:fuzzywuzzy:1.2.0'
 
+    // Lifts the non-SDK interface restrictions that apply to apps targeting API > 28.
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
+
     quickstepImplementation project(':systemui-shared')
     lawnchairImplementation files('lawnchair/libs/sesame-lib.aar')
-
-    if (!isPublicBuild) {
-        // TODO: update to 2.x when we're on AndroidX
-        implementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
-        implementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
-    } else {
-        implementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
-    }
-
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation "org.mockito:mockito-core:1.9.5"
-    androidTestImplementation 'com.google.dexmaker:dexmaker:1.2'
-    androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.2'
-    androidTestImplementation 'com.android.support.test:runner:1.0.0'
-    androidTestImplementation 'com.android.support.test:rules:1.0.0'
-    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
-    androidTestImplementation "com.android.support:support-annotations:${SUPPORT_LIBS_VERSION}"
 }
 
 protobuf {
-    // Configure the protoc executable
     protoc {
         artifact = 'com.google.protobuf:protoc:3.0.0-alpha-3'
-
-        generateProtoTasks {
-            all().each { task ->
-                task.builtins {
-                    remove java
-                    javanano {
-                        option "java_package=launcher_log_extension.proto|com.android.launcher3.userevent.nano"
-                        option "java_package=launcher_log.proto|com.android.launcher3.userevent.nano"
-                        option "java_package=launcher_dump.proto|com.android.launcher3.model.nano"
-                        option "java_package=search.proto|com.google.android.apps.nexuslauncher.search.nano"
-                        option "java_package=smartspace.proto|com.google.android.apps.nexuslauncher.smartspace.nano"
-                        option "enum_style=java"
-                    }
+    }
+    generateProtoTasks {
+        all().configureEach { task ->
+            task.builtins {
+                remove java
+                javanano {
+                    option "java_package=launcher_log_extension.proto|com.android.launcher3.userevent.nano"
+                    option "java_package=launcher_log.proto|com.android.launcher3.userevent.nano"
+                    option "java_package=launcher_dump.proto|com.android.launcher3.model.nano"
+                    option "java_package=search.proto|com.google.android.apps.nexuslauncher.search.nano"
+                    option "java_package=smartspace.proto|com.google.android.apps.nexuslauncher.smartspace.nano"
+                    option "enum_style=java"
                 }
             }
         }
     }
 }
-
-apply plugin: 'kotlin-android-extensions'

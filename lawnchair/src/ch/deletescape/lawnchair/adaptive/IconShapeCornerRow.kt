@@ -28,7 +28,6 @@ import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.SimpleAdapter
 import com.android.launcher3.R
-import kotlinx.android.synthetic.lawnchair.icon_shape_corner_row.view.*
 
 class IconShapeCornerRow(context: Context, attrs: AttributeSet?) :
         LinearLayout(context, attrs), SeekBar.OnSeekBarChangeListener,
@@ -136,3 +135,9 @@ class IconShapeCornerRow(context: Context, attrs: AttributeSet?) :
         }
     }
 }
+
+// Replacements for the removed kotlin-android-extensions synthetic view properties
+private val android.view.View.seekbar: android.widget.SeekBar get() = findViewById(com.android.launcher3.R.id.seekbar)
+private val android.view.View.spinner: android.widget.Spinner get() = findViewById(com.android.launcher3.R.id.spinner)
+private val android.view.View.txtValue: android.widget.TextView get() = findViewById(com.android.launcher3.R.id.txtValue)
+private val android.view.View.title: android.widget.TextView get() = findViewById(android.R.id.title)

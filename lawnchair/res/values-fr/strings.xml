@@ -473,7 +473,7 @@ corriges des bugs pendant son temps libre. Également connu précédemment sous 
     <string name="allow">Autoriser</string>
     <string name="deny">Annuler</string>
     <string name="sesame_enable_integration_title">Partage des données</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Activer le partage de données d'utilisation avec Sesame ? Vous pourrez changer cela plus tard.]]></string>
+    <string name="sesame_enable_integration_description"><![CDATA[Activer le partage de données d\'utilisation avec Sesame ? Vous pourrez changer cela plus tard.]]></string>
     <string name="sesame_shortcut_disabled">Sesame est désactivé.</string>
     <string name="font_variant_italic">Italique</string>
     <string name="font_weight_thin">Fin</string>

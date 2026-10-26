@@ -18,7 +18,7 @@
 */
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.launcher3">
+    >
 
     <!--
     The manifest defines the common entries that should be present in any derivative of Launcher3.
@@ -56,6 +56,7 @@
 
         <!-- Intent received used to install shortcuts from other applications -->
         <receiver
+            android:exported="true"
             android:name="com.android.launcher3.InstallShortcutReceiver"
             android:permission="com.android.launcher.permission.INSTALL_SHORTCUT"
             android:enabled="@bool/enable_install_shortcut_api" >
@@ -66,6 +67,7 @@
 
         <!-- Intent received when a session is committed -->
         <receiver
+            android:exported="true"
             android:name="com.android.launcher3.SessionCommitReceiver" >
             <intent-filter>
                 <action android:name="android.content.pm.action.SESSION_COMMITTED" />
@@ -73,7 +75,7 @@
         </receiver>
 
         <!-- Intent received used to initialize a restored widget -->
-        <receiver android:name="com.android.launcher3.AppWidgetsRestoredReceiver" >
+        <receiver android:exported="true" android:name="com.android.launcher3.AppWidgetsRestoredReceiver" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_HOST_RESTORED"/>
             </intent-filter>
@@ -86,6 +88,7 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <service
+            android:exported="true"
             android:name="com.android.launcher3.notification.NotificationListener"
             android:label="@string/icon_badging_service_title"
             android:enabled="@bool/notification_badging_enabled"
@@ -98,7 +101,7 @@
         <meta-data android:name="android.nfc.disable_beam_default"
             android:value="true" />
 
-        <activity android:name="com.android.launcher3.dragndrop.AddItemActivity"
+        <activity android:exported="true" android:name="com.android.launcher3.dragndrop.AddItemActivity"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog.Alert"
             android:excludeFromRecents="true"
             android:autoRemoveFromRecents="true"

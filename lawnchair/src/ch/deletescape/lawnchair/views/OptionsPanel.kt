@@ -31,7 +31,6 @@ import ch.deletescape.lawnchair.lawnchairPrefs
 import com.android.launcher3.Launcher
 import com.android.launcher3.R
 import com.android.launcher3.views.OptionsPopupView
-import kotlinx.android.synthetic.main.options_view.view.*
 
 class OptionsPanel(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs),
         Insettable, View.OnClickListener, LawnchairPreferences.OnPreferenceChangeListener {
@@ -76,3 +75,6 @@ class OptionsPanel(context: Context, attrs: AttributeSet) : LinearLayout(context
         }
     }
 }
+
+// Replacements for the removed kotlin-android-extensions synthetic view properties
+private val android.view.View.widget_button: ch.deletescape.lawnchair.views.OptionsTextView get() = findViewById(com.android.launcher3.R.id.widget_button)

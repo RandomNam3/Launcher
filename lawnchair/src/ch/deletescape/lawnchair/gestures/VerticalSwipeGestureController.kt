@@ -153,7 +153,7 @@ class VerticalSwipeGestureController(private val launcher: Launcher) : TouchCont
                 } else if (gesture.customDockSwipeUp) {
                     state = GestureState.Triggered
                     gesture.onDockSwipeUp()
-                }
+                } else Unit
             }
         }
         return true

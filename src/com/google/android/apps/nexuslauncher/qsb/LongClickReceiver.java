@@ -23,6 +23,15 @@ public class LongClickReceiver extends BroadcastReceiver {
     }
 
     public void onReceive(final Context context, final Intent intent) {
+        // Receivers get data from other apps (or the system), never crash because of it
+        try {
+            handleReceive(context, intent);
+        } catch (RuntimeException e) {
+            android.util.Log.e("LongClickReceiver", "Unable to handle " + intent, e);
+        }
+    }
+
+    private void handleReceive(final Context context, final Intent intent) {
         final NexusLauncherActivity launcher = LongClickReceiver.bR.get();
         if (launcher != null) {
             final ComponentKey dl = AppSearchProvider.uriToComponent(intent.getData(), context);

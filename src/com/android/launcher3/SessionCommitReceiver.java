@@ -60,6 +60,15 @@ public class SessionCommitReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        // Receivers get data from other apps (or the system), never crash because of it
+        try {
+            handleReceive(context, intent);
+        } catch (RuntimeException e) {
+            android.util.Log.e("SessionCommitReceiver", "Unable to handle " + intent, e);
+        }
+    }
+
+    private void handleReceive(Context context, Intent intent) {
         if (!isEnabled(context) || !Utilities.ATLEAST_OREO) {
             // User has decided to not add icons on homescreen.
             return;

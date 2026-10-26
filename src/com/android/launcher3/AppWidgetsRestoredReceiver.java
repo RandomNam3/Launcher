@@ -24,6 +24,15 @@ public class AppWidgetsRestoredReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
+        // Receivers get data from other apps (or the system), never crash because of it
+        try {
+            handleReceive(context, intent);
+        } catch (RuntimeException e) {
+            android.util.Log.e("AppWidgetsRestoredReceiver", "Unable to handle " + intent, e);
+        }
+    }
+
+    private void handleReceive(final Context context, Intent intent) {
         if (AppWidgetManager.ACTION_APPWIDGET_HOST_RESTORED.equals(intent.getAction())) {
             int hostId = intent.getIntExtra(AppWidgetManager.EXTRA_HOST_ID, 0);
             Log.d(TAG, "Widget ID map received for host:" + hostId);

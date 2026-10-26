@@ -194,6 +194,15 @@ public class InstallShortcutReceiver extends BroadcastReceiver {
     }
 
     public void onReceive(Context context, Intent data) {
+        // Receivers get data from other apps (or the system), never crash because of it
+        try {
+            handleReceive(context, data);
+        } catch (RuntimeException e) {
+            android.util.Log.e("InstallShortcutReceiver", "Unable to handle " + data, e);
+        }
+    }
+
+    private void handleReceive(Context context, Intent data) {
         if (!ACTION_INSTALL_SHORTCUT.equals(data.getAction())) {
             return;
         }

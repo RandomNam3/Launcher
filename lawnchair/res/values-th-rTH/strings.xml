@@ -265,7 +265,7 @@
     <string name="action_none">ไม่ต้องทำอะไร</string>
     <string name="action_sleep">ปิดหน้าจอ</string>
     <string name="action_sleep_timeout">ปิดหน้าจอด้วยการกำหนดเวลาหน้าจอ</string>
-    <string name="action_open_settings">เปิดการตั้งค่า Lawnchair</string>
+    <string name="action_open_settings">เปิดการตั้งค่า Launcher</string>
     <string name="action_open_notifications">เปิดแผงการแจ้งเตือน</string>
     <string name="action_overlay">เปิดฟีด Google</string>
     <string name="action_despacito">เล่น “YouTube Rewind 2018”</string>
@@ -284,7 +284,7 @@
     <string name="backup_wallpaper">ภาพพื้นหลัง</string>
     <string name="name">ชื่อ</string>
     <string name="backup_location">ตำแหน่ง</string>
-    <string name="backup_location_device_storage">โฟลเดอร์ “Lawnchair”</string>
+    <string name="backup_location_device_storage">โฟลเดอร์ “Launcher”</string>
     <string name="custom">กำหนดเอง</string>
     <!-- Section 11 -->
     <string name="about">เกี่ยวกับ</string>
@@ -322,7 +322,7 @@
     <string name="dismiss_drop_target_label">"ไม่แสดง"</string>
     <string name="suggested_action_content_description">“%1$s” เปิดใน “%2$s”</string>
     <string name="smartspace_setup_text">แตะเพื่อตั้งค่า</string>
-    <string name="lawnchair_settings">การตั้งค่า Lawnchair</string>
+    <string name="lawnchair_settings">การตั้งค่า Launcher</string>
     <string name="label_voice_search">ค้นหาด้วยเสียง</string>
     <string name="icon_pack">ชุดไอคอน</string>
     <string name="home_widget">ข้อมูลโดยย่อ</string>
@@ -351,7 +351,7 @@
     <string name="backup_restarting">กำลังเริ่มใหม่...</string>
     <string name="restore_success">กู้คืนข้อมูลแล้ว</string>
     <string name="failed">มีบางอย่างผิดพลาด</string>
-    <string name="backup_share_text">การสำรองข้อมูล Lawnchair</string>
+    <string name="backup_share_text">การสำรองข้อมูล Launcher</string>
     <string name="developer_options_enabled">เปิดใช้งานตัวเลือกนักพัฒนาแล้ว</string>
     <string name="restart_lawnchair_pref_summary">นำการตั้งค่าไปใช้อีกครั้ง</string>
     <string name="show_debug_info_pref_title">แสดงชื่อคอมโพเนนต์</string>
@@ -503,7 +503,7 @@
     <string name="import_icon">นำเข้าไอคอน</string>
     <string name="import_as_adaptive">นำเข้าไอคอนแบบปรับอัตโนมัติ</string>
     <string name="about_app_description">แอปหน้าจอหลักที่ปรับแต่งได้สำหรับ Android</string>
-    <string name="lawnchair_bug_report">แจ้งข้อผิดพลาด Lawnchair</string>
+    <string name="lawnchair_bug_report">แจ้งข้อผิดพลาด Launcher</string>
     <string name="action_dogbin_upload">อัปโหลดไปยัง Dogbin</string>
     <string name="action_dogbin_copy_link">คัดลอกลิงก์</string>
     <string name="action_copy">คัดลอก</string>

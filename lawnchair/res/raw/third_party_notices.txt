@@ -1,0 +1,14 @@
+Launcher is free software, licensed under the GNU General Public License v3.0.
+
+It is based on Lawnchair 2 (https://github.com/LawnchairLauncher/lawnchair), Copyright the Lawnchair team, GPL-3.0.
+
+Lawnchair 2 is based on Launcher3 from the Android Open Source Project, Copyright The Android Open Source Project, Apache License 2.0.
+
+Further components:
+- Android Support Library, Copyright The Android Open Source Project, Apache License 2.0
+- Protocol Buffers Nano, Copyright Google Inc., BSD 3-Clause License
+- AndroidHiddenApiBypass, Copyright LSPosed, Apache License 2.0
+- librootjava, Copyright Jorrit "Chainfire" Jongma, Apache License 2.0
+- RecyclerViewMergeAdapter, Copyright Martijn van der Woude, Apache License 2.0
+- libsu, Copyright John Wu, Apache License 2.0
+- Sesame launcher integration library, Copyright Steel Toe Software

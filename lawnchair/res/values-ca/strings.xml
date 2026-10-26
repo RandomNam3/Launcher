@@ -242,7 +242,7 @@
     <string name="gesture_dock_swipe_up">Llisca amunt des de l\'acoblador</string>
     <string name="action_none">No facis res</string>
     <string name="action_sleep">Repòs</string>
-    <string name="action_open_settings">Obre la configuració del Lawnchair</string>
+    <string name="action_open_settings">Obre la configuració del Launcher</string>
     <string name="action_open_notifications">Obre el panell de notificacions</string>
     <string name="action_overlay">Obre el mur del Google</string>
     <string name="action_despacito">Reprodueix el YouTube Rewind 2018 (distorsionat)</string>
@@ -259,7 +259,7 @@
     <string name="backup_wallpaper">Fons de pantalla</string>
     <string name="name">Nom</string>
     <string name="backup_location">Ubicació</string>
-    <string name="backup_location_device_storage">Carpeta «Lawnchair»</string>
+    <string name="backup_location_device_storage">Carpeta «Launcher»</string>
     <string name="custom">Personalitzat</string>
     <!-- Section 11 -->
     <string name="about">Quant a</string>
@@ -296,7 +296,7 @@
     <string name="dismiss_drop_target_label">"No ho mostris"</string>
     <string name="suggested_action_content_description">«%1$s» s\'obre a «%2$s».</string>
     <string name="smartspace_setup_text">Toqueu per configurar</string>
-    <string name="lawnchair_settings">Configuració del Lawnchair</string>
+    <string name="lawnchair_settings">Configuració del Launcher</string>
     <string name="label_voice_search">Cerca per veu</string>
     <string name="icon_pack">Paquet d\'icones</string>
     <string name="home_widget">D\'una ullada</string>
@@ -325,7 +325,7 @@
     <string name="backup_restarting">S\'està reiniciant...</string>
     <string name="restore_success">S\'ha restaurat la còpia.</string>
     <string name="failed">Quelcom ha anat malament.</string>
-    <string name="backup_share_text">Còpia de seguretat del Lawnchair</string>
+    <string name="backup_share_text">Còpia de seguretat del Launcher</string>
     <string name="developer_options_enabled">Opcions del desenvolupador activades.</string>
     <string name="show_debug_info_pref_title">Mostra els noms dels components</string>
     <string name="debug_component_name">Nom del component</string>
@@ -473,7 +473,7 @@
     <string name="import_icon">Importa una icona</string>
     <string name="import_as_adaptive">Importa una icona adaptativa</string>
     <string name="about_app_description">Un llançador d\'aplicacions personalitzable per a Android.</string>
-    <string name="lawnchair_bug_report">Informe d\'errors del Lawnchair</string>
+    <string name="lawnchair_bug_report">Informe d\'errors del Launcher</string>
     <string name="action_dogbin_upload">Penja al Dogbin</string>
     <string name="action_dogbin_copy_link">Copia l\'enllaç</string>
     <string name="action_copy">Copia</string>

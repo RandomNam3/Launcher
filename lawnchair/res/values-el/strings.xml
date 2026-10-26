@@ -184,7 +184,7 @@
     <string name="gesture_double_tap">Διπλό Πάτημα</string>
     <string name="action_none">Καμία Ενέργεια</string>
     <string name="action_sleep">Αναστολή</string>
-    <string name="action_open_settings">Άνοιγμα Ρυθμίσεων Lawnchair</string>
+    <string name="action_open_settings">Άνοιγμα Ρυθμίσεων Launcher</string>
     <string name="action_overlay">Άνοιγμα Google Feed</string>
     <string name="action_open_app">Άνοιγμα εφαρμογής</string>
     <!-- Section 10 -->
@@ -197,7 +197,7 @@
     <string name="backup_wallpaper">Ταπετσαρία</string>
     <string name="name">Όνομα</string>
     <string name="backup_location">Τοποθεσία</string>
-    <string name="backup_location_device_storage">Φάκελος \"Lawnchair\"</string>
+    <string name="backup_location_device_storage">Φάκελος \"Launcher\"</string>
     <string name="custom">Προσαρμοσμένο</string>
     <!-- Section 11 -->
     <string name="about">Σχετικά</string>
@@ -226,12 +226,12 @@
     </plurals>
     <string name="advanced_settings">Περισσότερες ρυθμίσεις</string>
     <string name="action_edit">Επεξεργασία</string>
-    <string name="lawnchair_settings">Ρυθμίσεις Lawnchair</string>
+    <string name="lawnchair_settings">Ρυθμίσεις Launcher</string>
     <string name="icon_pack">Πακέτο εικονιδίων</string>
     <string name="home_widget">Με μια ματιά</string>
     <string name="about_app_version">Έκδοση</string>
     <string name="app_name_pixel_launcher">Εκκινητής Pixel</string>
-    <string name="app_name_lawnchair">Lawnchair</string>
+    <string name="app_name_lawnchair">Launcher</string>
     <string name="pixel_style_pref_title">Google Pixel</string>
     <string name="label_turn_off_suggestions">Απενεργοποίηση</string>
     <string name="about_summary_title">Σύνοψη</string>
@@ -249,7 +249,7 @@
     <string name="backup_restarting">Γίνεται επανεκκίνηση...</string>
     <string name="restore_success">Το αντίγραφο ασφαλείας ανακτήθηκε.</string>
     <string name="failed">Κάτι πήγε στραβά.</string>
-    <string name="backup_share_text">Αντίγραφο ασφαλείας Lawnchair</string>
+    <string name="backup_share_text">Αντίγραφο ασφαλείας Launcher</string>
     <string name="smartspace_hours_mins">%1$s %2$s</string>
     <string name="dock_style_p">Android Pie</string>
     <string name="dock_style_n">Android Nougat</string>

@@ -266,7 +266,7 @@
     <string name="action_none">Hiçbir Şey Yapma</string>
     <string name="action_sleep">Uyku</string>
     <string name="action_sleep_timeout">Ekran Zaman Aşımını Kullanarak Uyku</string>
-    <string name="action_open_settings">Lawnchair Ayarlarını Aç</string>
+    <string name="action_open_settings">Launcher Ayarlarını Aç</string>
     <string name="action_open_notifications">Bildirim Panelini Aç</string>
     <string name="action_overlay">Google Haber Akışını Aç</string>
     <string name="action_despacito">\"YouTube Rewind 2018\"oynat (Bozuk)</string>
@@ -285,7 +285,7 @@
     <string name="backup_wallpaper">Duvar kağıdı</string>
     <string name="name">Ad</string>
     <string name="backup_location">Konum</string>
-    <string name="backup_location_device_storage">\"Lawnchair\" Klasörü</string>
+    <string name="backup_location_device_storage">\"Launcher\" Klasörü</string>
     <string name="custom">Özel</string>
     <!-- Section 11 -->
     <string name="about">Hakkında</string>
@@ -324,7 +324,7 @@
     <string name="dismiss_drop_target_label">"Gösterme"</string>
     <string name="suggested_action_content_description">“%1$s” opens in “%2$s”.</string>
     <string name="smartspace_setup_text">Ayarlamak için Dokunun</string>
-    <string name="lawnchair_settings">Lawnchair Ayarları</string>
+    <string name="lawnchair_settings">Launcher Ayarları</string>
     <string name="label_voice_search">Sesli Arama</string>
     <string name="icon_pack">Simge Paketi</string>
     <string name="home_widget">Bir bakışta</string>
@@ -332,7 +332,7 @@
     <string name="app_name_pixel_launcher">Pixel Başlatıcı</string>
     <string name="title_disable_suggestions_prompt">Uygulama Önerilerini Devre Dışı Bırak</string>
     <string name="msg_disable_suggestions_prompt">"Kullanım verileri silinecek."</string>
-    <string name="app_name_lawnchair">Lawnchair</string>
+    <string name="app_name_lawnchair">Launcher</string>
     <string name="pixel_style_pref_title">Google Pixel</string>
     <string name="label_turn_off_suggestions">Devre dışı bırak</string>
     <string name="about_summary_title">Özet</string>
@@ -355,7 +355,7 @@
     <string name="backup_restarting">Yeniden başlatılıyor...</string>
     <string name="restore_success">Yedekleme geri yüklendi.</string>
     <string name="failed">Bir şeyler yanlış gitti.</string>
-    <string name="backup_share_text">Lawnchair Yedekleme</string>
+    <string name="backup_share_text">Launcher Yedekleme</string>
     <string name="developer_options_enabled">Geliştirici Seçenekleri etkin.</string>
     <string name="restart_lawnchair_pref_summary">Ayarları tekrar uygulayın.</string>
     <string name="show_debug_info_pref_title">Bileşen Adlarını Göster</string>
@@ -507,7 +507,7 @@
     <string name="import_icon">Simge Aktar</string>
     <string name="import_as_adaptive">Uyarlanabilir Simge Aktar</string>
     <string name="about_app_description">Android için özelleştirilebilir bir ana ekran uygulaması.</string>
-    <string name="lawnchair_bug_report">Lawnchair Hata Raporu</string>
+    <string name="lawnchair_bug_report">Launcher Hata Raporu</string>
     <string name="action_dogbin_upload">Dogbin\'e Yükle</string>
     <string name="action_dogbin_copy_link">Bağlantı Kopyala</string>
     <string name="action_copy">Kopyala</string>

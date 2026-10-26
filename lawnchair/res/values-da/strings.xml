@@ -266,7 +266,7 @@
     <string name="action_none">Gør intet</string>
     <string name="action_sleep">Sove</string>
     <string name="action_sleep_timeout">Sov vha. skærmtimeout</string>
-    <string name="action_open_settings">Åbn Lawnchair-indstillinger</string>
+    <string name="action_open_settings">Åbn Launcher-indstillinger</string>
     <string name="action_open_notifications">Åbn Notifikationspanel</string>
     <string name="action_overlay">Åbn Google Feed</string>
     <string name="action_despacito">Afspil \"YouTube Rewind 2018\" (forvrænget)</string>
@@ -285,7 +285,7 @@
     <string name="backup_wallpaper">Tapet</string>
     <string name="name">Navn</string>
     <string name="backup_location">Placering</string>
-    <string name="backup_location_device_storage">“Lawnchair”-mappe</string>
+    <string name="backup_location_device_storage">“Launcher”-mappe</string>
     <string name="custom">Tilpasset</string>
     <!-- Section 11 -->
     <string name="about">Om</string>
@@ -324,7 +324,7 @@
     <string name="dismiss_drop_target_label">"Vis ikke"</string>
     <string name="suggested_action_content_description">“%1$s” åbnes i “%2$s”.</string>
     <string name="smartspace_setup_text">Tryk for at opsætte</string>
-    <string name="lawnchair_settings">Lawnchair-indstillinger</string>
+    <string name="lawnchair_settings">Launcher-indstillinger</string>
     <string name="label_voice_search">Talesøgning</string>
     <string name="icon_pack">Ikonpakke</string>
     <string name="home_widget">I ét blik</string>
@@ -353,7 +353,7 @@
     <string name="backup_restarting">Genstarter...</string>
     <string name="restore_success">Sikkerhedskopi gendannet.</string>
     <string name="failed">Noget gik galt.</string>
-    <string name="backup_share_text">Lawnchair-sikkerhedskopi</string>
+    <string name="backup_share_text">Launcher-sikkerhedskopi</string>
     <string name="developer_options_enabled">Udviklerindstillinger aktiveret.</string>
     <string name="restart_lawnchair_pref_summary">Effektuér indstillinger igen.</string>
     <string name="show_debug_info_pref_title">Vis komponentnavne</string>
@@ -504,7 +504,7 @@
     <string name="import_icon">Importér ikon</string>
     <string name="import_as_adaptive">Importér Adaptivt ikon</string>
     <string name="about_app_description">En tilpasbar Startskærms-app til Android.</string>
-    <string name="lawnchair_bug_report">Lawnchair-fejlrapport</string>
+    <string name="lawnchair_bug_report">Launcher-fejlrapport</string>
     <string name="action_dogbin_upload">Upload til Dogbin</string>
     <string name="action_dogbin_copy_link">Kopiér link</string>
     <string name="action_copy">Kopiér</string>

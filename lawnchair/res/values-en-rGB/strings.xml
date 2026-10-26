@@ -261,7 +261,7 @@
     <string name="action_none">Do Nothing</string>
     <string name="action_sleep">Sleep</string>
     <string name="action_sleep_timeout">Sleep Using Screen Timeout</string>
-    <string name="action_open_settings">Open Lawnchair Settings</string>
+    <string name="action_open_settings">Open Launcher Settings</string>
     <string name="action_open_notifications">Open Notification Panel</string>
     <string name="action_overlay">Open Google Feed</string>
     <string name="action_despacito">Play ‘YouTube Rewind 2018’ (Distorted)</string>
@@ -280,7 +280,7 @@
     <string name="backup_wallpaper">Wallpaper</string>
     <string name="name">Name</string>
     <string name="backup_location">Location</string>
-    <string name="backup_location_device_storage">‘Lawnchair’ Folder</string>
+    <string name="backup_location_device_storage">‘Launcher’ Folder</string>
     <string name="custom">Custom</string>
     <!-- Section 11 -->
     <string name="about">About</string>
@@ -319,7 +319,7 @@
     <string name="dismiss_drop_target_label">"Don’t Show"</string>
     <string name="suggested_action_content_description">‘%1$s’ opens in ‘%2$s’.</string>
     <string name="smartspace_setup_text">Tap to Set Up</string>
-    <string name="lawnchair_settings">Lawnchair Settings</string>
+    <string name="lawnchair_settings">Launcher Settings</string>
     <string name="label_voice_search">Voice Search</string>
     <string name="icon_pack">Icon Pack</string>
     <string name="home_widget">At a Glance</string>
@@ -348,7 +348,7 @@
     <string name="backup_restarting">Restarting...</string>
     <string name="restore_success">Backup restored.</string>
     <string name="failed">Something went wrong.</string>
-    <string name="backup_share_text">Lawnchair Backup</string>
+    <string name="backup_share_text">Launcher Backup</string>
     <string name="developer_options_enabled">Developer Options enabled.</string>
     <string name="restart_lawnchair_pref_summary">Reapply settings.</string>
     <string name="show_debug_info_pref_title">Show Component Names</string>
@@ -497,7 +497,7 @@
     <string name="import_icon">Import Icon</string>
     <string name="import_as_adaptive">Import Adaptive Icon</string>
     <string name="about_app_description">A customizable home app for Android.</string>
-    <string name="lawnchair_bug_report">Lawnchair Bug Report</string>
+    <string name="lawnchair_bug_report">Launcher Bug Report</string>
     <string name="action_dogbin_upload">Upload to Dogbin</string>
     <string name="action_dogbin_copy_link">Copy Link</string>
     <string name="action_copy">Copy</string>

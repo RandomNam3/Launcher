@@ -282,7 +282,7 @@
     <string name="backup_wallpaper">רקע</string>
     <string name="name">שֵׁם</string>
     <string name="backup_location">מיקום</string>
-    <string name="backup_location_device_storage">תיקיית “Lawnchair”</string>
+    <string name="backup_location_device_storage">תיקיית “Launcher”</string>
     <string name="custom">מותאם אישית</string>
     <!-- Section 11 -->
     <string name="about">אודות</string>
@@ -323,7 +323,7 @@
     <string name="dismiss_drop_target_label">"אל תציג"</string>
     <string name="suggested_action_content_description">\"%1$s\" נפתח ב\"%2$s\".</string>
     <string name="smartspace_setup_text">הקש כדי להגדיר</string>
-    <string name="lawnchair_settings">הגדרות Lawnchair</string>
+    <string name="lawnchair_settings">הגדרות Launcher</string>
     <string name="label_voice_search">חיפוש קולי</string>
     <string name="icon_pack">ערכת סמלים</string>
     <string name="home_widget">בקצרה</string>
@@ -352,7 +352,7 @@
     <string name="backup_restarting">איתחול...</string>
     <string name="restore_success">גיבוי שוחזר.</string>
     <string name="failed">משהו השתבש.</string>
-    <string name="backup_share_text">גיבוי של Lawnchair</string>
+    <string name="backup_share_text">גיבוי של Launcher</string>
     <string name="developer_options_enabled">אפשרויות מפתח מופעלות.</string>
     <string name="restart_lawnchair_pref_summary">החל מחדש הגדרות.</string>
     <string name="show_debug_info_pref_title">הראה את שמות המרכיבים</string>
@@ -500,7 +500,7 @@
     <string name="import_icon">ייבא סמל</string>
     <string name="import_as_adaptive">ייבא סמל מותאם</string>
     <string name="about_app_description">יישום מסך בית ל-Android הניתן להתאמה אישית.</string>
-    <string name="lawnchair_bug_report">דיווח על באג ב-Lawnchair</string>
+    <string name="lawnchair_bug_report">דיווח על באג ב-Launcher</string>
     <string name="action_dogbin_upload">העלה ל-Dogbin</string>
     <string name="action_dogbin_copy_link">העתק קישור</string>
     <string name="action_copy">העתק</string>

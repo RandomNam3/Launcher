@@ -268,7 +268,7 @@
     <string name="action_none">Nedělat nic</string>
     <string name="action_sleep">Uspat</string>
     <string name="action_sleep_timeout">Uspat pomocí časového limitu obrazovky</string>
-    <string name="action_open_settings">Otevřít Nastavení Lawnchair</string>
+    <string name="action_open_settings">Otevřít Nastavení Launcher</string>
     <string name="action_open_notifications">Otevřít panel oznámení</string>
     <string name="action_overlay">Otevřít Google Feed</string>
     <string name="action_despacito">Přehrát „YouTube Rewind 2018“ (zkreslený)</string>
@@ -287,7 +287,7 @@
     <string name="backup_wallpaper">Tapeta</string>
     <string name="name">Název</string>
     <string name="backup_location">Umístění</string>
-    <string name="backup_location_device_storage">Složka „Lawnchair“</string>
+    <string name="backup_location_device_storage">Složka „Launcher“</string>
     <string name="custom">Vlastní</string>
     <!-- Section 11 -->
     <string name="about">O aplikaci</string>
@@ -328,7 +328,7 @@
     <string name="dismiss_drop_target_label">"Nezobrazovat"</string>
     <string name="suggested_action_content_description">„%1$s“ se otevírá v\u00a0„%2$s“.</string>
     <string name="smartspace_setup_text">Klepnutím nastavíte</string>
-    <string name="lawnchair_settings">Nastavení Lawnchair</string>
+    <string name="lawnchair_settings">Nastavení Launcher</string>
     <string name="label_voice_search">Hlasové vyhledávání</string>
     <string name="icon_pack">Balíček ikon</string>
     <string name="home_widget">Přehled událostí</string>
@@ -357,7 +357,7 @@
     <string name="backup_restarting">Restartování...</string>
     <string name="restore_success">Záloha byla obnovena.</string>
     <string name="failed">Něco se pokazilo.</string>
-    <string name="backup_share_text">Záloha Lawnchair</string>
+    <string name="backup_share_text">Záloha Launcher</string>
     <string name="developer_options_enabled">Možnosti pro vývojáře jsou povoleny.</string>
     <string name="restart_lawnchair_pref_summary">Znovu použít nastavení.</string>
     <string name="show_debug_info_pref_title">Zobrazit názvy komponent</string>
@@ -507,7 +507,7 @@
     <string name="import_icon">Importovat ikonu</string>
     <string name="import_as_adaptive">Importovat adaptivní ikonu</string>
     <string name="about_app_description">Přizpůsobitelný spouštěč pro Android.</string>
-    <string name="lawnchair_bug_report">Hlášení o\u00a0chybách Lawnchair</string>
+    <string name="lawnchair_bug_report">Hlášení o\u00a0chybách Launcher</string>
     <string name="action_dogbin_upload">Nahrát na dogbin</string>
     <string name="action_dogbin_copy_link">Zkopírovat odkaz</string>
     <string name="action_copy">Kopírovat</string>

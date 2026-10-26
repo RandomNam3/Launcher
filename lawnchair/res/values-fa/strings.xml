@@ -262,7 +262,7 @@
     <string name="action_none">کاری انجام نشود</string>
     <string name="action_sleep">حالت خواب</string>
     <string name="action_sleep_timeout">با اتمام زمان کار صفحه به حالت خواب برود</string>
-    <string name="action_open_settings">تنظیمات Lawnchair را باز کنید</string>
+    <string name="action_open_settings">تنظیمات Launcher را باز کنید</string>
     <string name="action_open_notifications">باز کردن پنل اعلان ها</string>
     <string name="action_overlay">بازکردن تغذیه گوگل</string>
     <string name="action_despacito">پخش \"YouTube Rewind 2018\" (دارای اشکال)</string>
@@ -281,7 +281,7 @@
     <string name="backup_wallpaper">تصویر ضمینه</string>
     <string name="name">نام</string>
     <string name="backup_location">موقعیت جغرافیایی</string>
-    <string name="backup_location_device_storage">پوشه «Lawnchair»</string>
+    <string name="backup_location_device_storage">پوشه «Launcher»</string>
     <string name="custom">سفارشی</string>
     <!-- Section 11 -->
     <string name="about">درباره</string>
@@ -320,7 +320,7 @@
     <string name="dismiss_drop_target_label">"عدم نمایش"</string>
     <string name="suggested_action_content_description">%1$s در %2$s باز میشود.</string>
     <string name="smartspace_setup_text">برای انجام تنظیمات ضربه بزنید</string>
-    <string name="lawnchair_settings">تنظیمات Lawnchair</string>
+    <string name="lawnchair_settings">تنظیمات Launcher</string>
     <string name="label_voice_search">جستجوی صوتی</string>
     <string name="icon_pack">آیکون پک</string>
     <string name="home_widget">در یک نگاه</string>
@@ -349,7 +349,7 @@
     <string name="backup_restarting">راه اندازی مجدد...</string>
     <string name="restore_success">بازیابی انجام شد.</string>
     <string name="failed">مشکلی به وجود آمد.</string>
-    <string name="backup_share_text">فایل پشتیبان Lawnchair</string>
+    <string name="backup_share_text">فایل پشتیبان Launcher</string>
     <string name="developer_options_enabled">گزینه‌های توسعه‌دهنده فعال شد.</string>
     <string name="restart_lawnchair_pref_summary">تنظیمات مجدد.</string>
     <string name="show_debug_info_pref_title">نمایش نام اجزا</string>

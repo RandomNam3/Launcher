@@ -268,7 +268,7 @@
     <string name="action_none">Нічого не робити</string>
     <string name="action_sleep">Сон</string>
     <string name="action_sleep_timeout">Приспати, використовуючи таймаут екрану</string>
-    <string name="action_open_settings">Відкрити налаштування Lawnchair</string>
+    <string name="action_open_settings">Відкрити налаштування Launcher</string>
     <string name="action_open_notifications">Відкрити панель сповіщень</string>
     <string name="action_overlay">Відкрити стрічку Google</string>
     <string name="action_despacito">Відтворити YouTube Rewind 2018 (distorted)</string>
@@ -287,7 +287,7 @@
     <string name="backup_wallpaper">Фоновий малюнок</string>
     <string name="name">Назва</string>
     <string name="backup_location">Місцезнаходження</string>
-    <string name="backup_location_device_storage">Тека “Lawnchair”</string>
+    <string name="backup_location_device_storage">Тека “Launcher”</string>
     <string name="custom">Користувальницькі</string>
     <!-- Section 11 -->
     <string name="about">Про додаток</string>
@@ -328,7 +328,7 @@
     <string name="dismiss_drop_target_label">"Не показувати"</string>
     <string name="suggested_action_content_description">“%1$s” відкриється у “%2$s”.</string>
     <string name="smartspace_setup_text">Тицніть щоб налаштувати</string>
-    <string name="lawnchair_settings">Налаштування Lawnchair</string>
+    <string name="lawnchair_settings">Налаштування Launcher</string>
     <string name="label_voice_search">Голосовий пошук</string>
     <string name="icon_pack">Набір значків</string>
     <string name="home_widget">Віджет At a Glance</string>
@@ -357,7 +357,7 @@
     <string name="backup_restarting">Перезавантаження...</string>
     <string name="restore_success">Резервну копію відновлено.</string>
     <string name="failed">Щось пішло не так.</string>
-    <string name="backup_share_text">Резервна копія Lawnchair</string>
+    <string name="backup_share_text">Резервна копія Launcher</string>
     <string name="developer_options_enabled">Параметри розробника ввімкнено.</string>
     <string name="restart_lawnchair_pref_summary">Повторно застосувати налаштування.</string>
     <string name="show_debug_info_pref_title">Показувати назви компонентів</string>
@@ -507,7 +507,7 @@
     <string name="import_icon">Імпортувати іконку</string>
     <string name="import_as_adaptive">Імпортувати адаптивну іконку</string>
     <string name="about_app_description">Настоюваний додаток домашнього екрану для Android.</string>
-    <string name="lawnchair_bug_report">Звіт про помилку Lawnchair</string>
+    <string name="lawnchair_bug_report">Звіт про помилку Launcher</string>
     <string name="action_dogbin_upload">Завантажити в Dogbin</string>
     <string name="action_dogbin_copy_link">Скопіювати посилання</string>
     <string name="action_copy">Копіювати</string>

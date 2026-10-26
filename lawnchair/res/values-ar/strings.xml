@@ -270,7 +270,7 @@
     <string name="action_none">لا تفعل شيئاً</string>
     <string name="action_sleep">السكون</string>
     <string name="action_sleep_timeout">السكون باستخدام مهله الشاشة</string>
-    <string name="action_open_settings">فتح إعدادات Lawnchair</string>
+    <string name="action_open_settings">فتح إعدادات Launcher</string>
     <string name="action_open_notifications">فتح لوحة الإشعارات</string>
     <string name="action_overlay">فتح أخبار Google</string>
     <string name="action_despacito">تشغيل (YouTube Rewind 2018 (distorted</string>
@@ -289,7 +289,7 @@
     <string name="backup_wallpaper">الخلفية</string>
     <string name="name">الإسم</string>
     <string name="backup_location">الموقع</string>
-    <string name="backup_location_device_storage">مجلد \"Lawnchair\"</string>
+    <string name="backup_location_device_storage">مجلد \"Launcher\"</string>
     <string name="custom">مُخصّص</string>
     <!-- Section 11 -->
     <string name="about">حول</string>
@@ -332,7 +332,7 @@
     <string name="dismiss_drop_target_label">"لا تظهر"</string>
     <string name="suggested_action_content_description">يفتح في</string>
     <string name="smartspace_setup_text">أنقر للإعداد</string>
-    <string name="lawnchair_settings">إعدادات Lawnchair</string>
+    <string name="lawnchair_settings">إعدادات Launcher</string>
     <string name="label_voice_search">البحث الصوتي</string>
     <string name="icon_pack">حزم الإيقونات</string>
     <string name="home_widget">النظرة السريعة</string>
@@ -362,7 +362,7 @@
     <string name="backup_restarting">جاري إعادة التشغيل...</string>
     <string name="restore_success">تمت استعادة النسخ الاحتياطي.</string>
     <string name="failed">لقد حدث خطاء ما.</string>
-    <string name="backup_share_text">النسخ الاحتياطي Lawnchair</string>
+    <string name="backup_share_text">النسخ الاحتياطي Launcher</string>
     <string name="developer_options_enabled">تم تمكين خيارات المطور.</string>
     <string name="restart_lawnchair_pref_summary">إعادة تطبيق الإعدادات.</string>
     <string name="show_debug_info_pref_title">إظهار أسماء المكونات</string>
@@ -512,7 +512,7 @@
     <string name="import_icon">استيراد أيقونة</string>
     <string name="import_as_adaptive">إستيراد أيقونة متكيفة</string>
     <string name="about_app_description">واجهة رئيسية قابلة للتخصيص لنظام أندرويد.</string>
-    <string name="lawnchair_bug_report">تقرير خطأ Lawnchair</string>
+    <string name="lawnchair_bug_report">تقرير خطأ Launcher</string>
     <string name="action_dogbin_upload">تحميل إلى Dogbin</string>
     <string name="action_dogbin_copy_link">نسخ الرابط</string>
     <string name="action_copy">نسخ</string>

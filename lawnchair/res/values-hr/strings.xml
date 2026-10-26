@@ -262,7 +262,7 @@
     <string name="action_none">Ne čini ništa</string>
     <string name="action_sleep">Spavaj</string>
     <string name="action_sleep_timeout">Spavaj koristeći vrijeme neaktivnosti</string>
-    <string name="action_open_settings">Otvori Lawnchair postavke</string>
+    <string name="action_open_settings">Otvori Launcher postavke</string>
     <string name="action_open_notifications">Prikaži ploču obavijesti</string>
     <string name="action_overlay">Otvori Google Feed</string>
     <string name="action_despacito">Pokreni YouTube Rewind 2018 (deformirano)</string>
@@ -281,7 +281,7 @@
     <string name="backup_wallpaper">Pozadina</string>
     <string name="name">Naziv</string>
     <string name="backup_location">Lokacija</string>
-    <string name="backup_location_device_storage">Mapa \"Lawnchair\"</string>
+    <string name="backup_location_device_storage">Mapa \"Launcher\"</string>
     <string name="custom">Prilagođeno</string>
     <!-- Section 11 -->
     <string name="about">O aplikaciji</string>
@@ -321,7 +321,7 @@
     <string name="dismiss_drop_target_label">"Nemoj prikazivati"</string>
     <string name="suggested_action_content_description">“%1$s” se otvara u “%2$s”.</string>
     <string name="smartspace_setup_text">Dodirnite za postavljanje</string>
-    <string name="lawnchair_settings">Postavke Lawnchaira</string>
+    <string name="lawnchair_settings">Postavke Launchera</string>
     <string name="label_voice_search">Glasovno pretraživanje</string>
     <string name="icon_pack">Paket ikona</string>
     <string name="home_widget">At a Glance</string>
@@ -350,7 +350,7 @@
     <string name="backup_restarting">Ponovno pokretanje...</string>
     <string name="restore_success">Pričuvna kopija vraćena.</string>
     <string name="failed">Nešto je pošlo po zlu.</string>
-    <string name="backup_share_text">Lawnchair pričuvna kopija</string>
+    <string name="backup_share_text">Launcher pričuvna kopija</string>
     <string name="developer_options_enabled">Razvojne opcije su omogućene.</string>
     <string name="restart_lawnchair_pref_summary">Ponovno primjeni postavke.</string>
     <string name="show_debug_info_pref_title">Prikaži nazive komponenti</string>
@@ -500,7 +500,7 @@
     <string name="import_icon">Uvezi ikonu</string>
     <string name="import_as_adaptive">Uvezi prilagodljivu ikonu</string>
     <string name="about_app_description">Prilagodljivi početni zaslon za Android.</string>
-    <string name="lawnchair_bug_report">Lawnchair-ov izvještaj o greški</string>
+    <string name="lawnchair_bug_report">Launcher-ov izvještaj o greški</string>
     <string name="action_dogbin_upload">Učitaj na dogbin</string>
     <string name="action_dogbin_copy_link">Kopiraj poveznicu</string>
     <string name="action_copy">Kopiraj</string>

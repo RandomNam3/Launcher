@@ -1,26 +1,68 @@
-<img src="icon.png" alt="Icon" width="148px"/>
+# Launcher
 
-# Lawnchair — ![1.52M Downloads](https://img.shields.io/badge/downloads-1.52M-brightgreen) ![Rating: 4.4/5](https://img.shields.io/badge/rating-4.4%2F5-brightgreen) [![93% Localised](https://d322cqt584bo4o.cloudfront.net/lawnchairandroid/localized.svg)](https://translate.lawnchair.app) 
+Ein Android-Launcher, der Aussehen und Funktionsumfang von **Lawnchair 2** bewahrt und für aktuelle
+Android-Versionen (bis Android 16) weiterentwickelt wird.
 
-Lawnchair is a customisable home app for Android. Taking AOSP’s *Launcher3* as a starting point, it introduces rich personalisation settings while maintaining high standards in performance and accessibility.
+> **Herkunft:** Launcher basiert auf [Lawnchair 2](https://github.com/LawnchairLauncher/lawnchair),
+> Version 2.0 Build 2589 (Commit `0b71dc40b2`, Branch `9-stable`), entwickelt vom Lawnchair-Team
+> (Till Kottmann, Patryk Michalik, David Sn und viele weitere). Lawnchair wiederum basiert auf
+> Launcher3 aus dem Android Open Source Project.
+> Dieses Projekt steht in keiner Verbindung zum Lawnchair-Projekt und wird von diesem nicht unterstützt.
 
-## Contributing to Lawnchair
-The `/lawnchair` subdirectory houses custom classes and resources.
+## Was ist anders als bei Lawnchair 2?
 
-### Adding Search Providers
-The `ch.deletescape.lawnchair.globalsearch.provider` package lists search providers included in Lawnchair. To add a new provider, register the relevant Intent in `ch.deletescape.lawnchair.globalsearch.SearchProviderController`.
+- Aktuelles Build-System (Gradle 8, Android Gradle Plugin 8, Kotlin 2), neue Target-SDK
+- **Privater Bereich** (Android 15+): eigener Tab „Privat“ in der App-Übersicht mit Sperr-Schalter.
+  Gesperrt sind die Apps ausgeblendet, sie erscheinen nicht in anderen Tabs, Vorschlägen,
+  der Suche für andere Apps und werden nicht automatisch zum Startbildschirm hinzugefügt.
+- **Fehlerbehebungen**
+  - Absturz beim Öffnen einer App, die gerade aktualisiert wird
+  - Absturz beim schnellen Wechseln zwischen Launcher und anderen Apps (Blur-Bitmaps wurden
+    in einem Hintergrund-Thread freigegeben, während sie noch gezeichnet wurden)
+  - Verschwindende App-Verknüpfungen: Icons von Apps, die beim Laden des Startbildschirms
+    kurzzeitig nicht verfügbar waren (z. B. während eines Updates), wurden dauerhaft gelöscht
+- Anpassungen an neue Android-Regeln (Broadcast-Receiver, PendingIntents, Paketsichtbarkeit,
+  Zugriff auf Hintergrundbild und Speicher, Hidden-API-Beschränkungen, Edge-to-Edge)
+- Eingebauter Fehlerbericht: Abstürze erscheinen als Benachrichtigung mit „Teilen“-Knopf
 
-### Building the App
-In your IDE’s *Build Variants* panel, pick any variant whose name starts with `quickstepLawnchairDev`. When redistributing Lawnchair, please refrain from using the `ch.deletescape.lawnchair.plah` and `ch.deletescape.lawnchair.ci` package names.
+## Installation & Umzug von Lawnchair 2
 
-### Localising Copy
-Visit our [*Crowdin* page](https://translate.lawnchair.app) to help translate Lawnchair.
+Launcher hat eine eigene Paket-ID (`io.github.randomnam3.launcher`) und kann daher **neben**
+Lawnchair 2 installiert werden.
 
-## License
-Lawnchair is distributed under the [*GPLv3* license](https://www.gnu.org/licenses/gpl-3.0.en.html). Consequently, you’re required to credit us in derivative products.
+1. In Lawnchair 2: *Einstellungen → Backups → Neues Backup* (Startbildschirm + Einstellungen).
+2. Launcher installieren und als Standard-Startbildschirm festlegen.
+3. In Launcher: *Einstellungen → Backups → Wiederherstellen* und die `.shed`-Datei auswählen.
 
-## Links
-[![Join r/lawnchairlauncher](https://img.shields.io/reddit/subreddit-subscribers/lawnchairlauncher?label=Join%20r%2Flawnchairlauncher&style=social)](https://www.reddit.com/r/lawnchairlauncher)
+Für den Unschärfe-Effekt (Blur) und Backups im Ordner `Documents` benötigt Android ab Version 11
+die Berechtigung „Zugriff auf alle Dateien“, die App fragt bei Bedarf danach.
 
+## Bauen
 
-[![Follow @lawnchairapp on Twitter](https://img.shields.io/twitter/follow/lawnchairapp?style=social)](https://twitter.com/intent/follow?screen_name=lawnchairapp)
+Voraussetzungen: JDK 17 oder neuer, Android SDK (Plattform 35/36).
+
+```sh
+./gradlew assembleQuickstepLawnchairDebug     # Debug-Build
+./gradlew assembleQuickstepLawnchairRelease   # Release-Build
+```
+
+Für signierte Release-Builds in `local.properties` (wird nicht eingecheckt) eintragen:
+
+```properties
+storeFile=/pfad/zum/keystore.jks
+storePass=...
+keyAlias=launcher
+keyPass=...
+```
+
+oder die Umgebungsvariablen `LAUNCHER_STORE_FILE`, `LAUNCHER_STORE_PASSWORD`,
+`LAUNCHER_KEY_ALIAS` und `LAUNCHER_KEY_PASSWORD` setzen.
+
+Der Java/Kotlin-Code liegt weiterhin in den ursprünglichen Paketen (`ch.deletescape.lawnchair`,
+`com.android.launcher3`), um Änderungen gegenüber dem Original nachvollziehbar zu halten.
+
+## Lizenz
+
+Launcher ist freie Software unter der [GNU General Public License v3.0](LICENSE), wie Lawnchair.
+Teile aus Launcher3 (AOSP) stehen unter der Apache License 2.0. Die Lizenzen der übrigen
+Komponenten sind in der App unter *Einstellungen → Über → Open-Source-Lizenzen* aufgeführt.

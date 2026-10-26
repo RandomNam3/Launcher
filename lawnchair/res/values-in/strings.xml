@@ -265,7 +265,7 @@
     <string name="action_none">Tidak Ada</string>
     <string name="action_sleep">Tidur</string>
     <string name="action_sleep_timeout">Tidur Menggunakan Waktu Habis Layar</string>
-    <string name="action_open_settings">Buka Pengaturan Lawnchair</string>
+    <string name="action_open_settings">Buka Pengaturan Launcher</string>
     <string name="action_open_notifications">Buka Panel Pemberitahuan</string>
     <string name="action_overlay">Buka Umpan Google</string>
     <string name="action_despacito">Maikan \"Youtube Rewind 2018\" (Distorsi)</string>
@@ -284,7 +284,7 @@
     <string name="backup_wallpaper">Wallpaper</string>
     <string name="name">Nama</string>
     <string name="backup_location">Lokasi</string>
-    <string name="backup_location_device_storage">Folder \"Lawnchair\"</string>
+    <string name="backup_location_device_storage">Folder \"Launcher\"</string>
     <string name="custom">Kustom</string>
     <!-- Section 11 -->
     <string name="about">Tentang</string>
@@ -322,7 +322,7 @@
     <string name="dismiss_drop_target_label">"Jangan Tampilkan"</string>
     <string name="suggested_action_content_description">\"%1$s\" terbuka di \"%2$s\".</string>
     <string name="smartspace_setup_text">Ketuk untuk Mengatur</string>
-    <string name="lawnchair_settings">Pengaturan Lawnchair</string>
+    <string name="lawnchair_settings">Pengaturan Launcher</string>
     <string name="label_voice_search">Pencarian Suara</string>
     <string name="icon_pack">Paket Ikon</string>
     <string name="home_widget">Sekilas</string>
@@ -352,7 +352,7 @@
     <string name="backup_restarting">Memulai Ulang...</string>
     <string name="restore_success">Cadangan Dipulihkan.</string>
     <string name="failed">Terjadi kesalahan.</string>
-    <string name="backup_share_text">Cadangan Lawnchair</string>
+    <string name="backup_share_text">Cadangan Launcher</string>
     <string name="developer_options_enabled">Opsi Pengembang diaktifkan.</string>
     <string name="restart_lawnchair_pref_summary">Terapkan ulang pengaturan.</string>
     <string name="show_debug_info_pref_title">Tampilkan Nama Komponen</string>
@@ -502,7 +502,7 @@
     <string name="import_icon">Impor Ikon</string>
     <string name="import_as_adaptive">Impor Ikon Adaptif</string>
     <string name="about_app_description">Sebuah aplikasi beranda untuk Android yang dapat dikustomisasi.</string>
-    <string name="lawnchair_bug_report">Laporan Bug Lawnchair</string>
+    <string name="lawnchair_bug_report">Laporan Bug Launcher</string>
     <string name="action_dogbin_upload">Unggah ke Dogbin</string>
     <string name="action_dogbin_copy_link">Salin Tautan</string>
     <string name="action_copy">Salin</string>

@@ -266,7 +266,7 @@
     <string name="action_none">Ne Rien Faire</string>
     <string name="action_sleep">Veille</string>
     <string name="action_sleep_timeout">Mise en veille Suivant le délai d\'Attente de l\'Écran</string>
-    <string name="action_open_settings">Ouvrir les Réglages de Lawnchair</string>
+    <string name="action_open_settings">Ouvrir les Réglages de Launcher</string>
     <string name="action_open_notifications">Ouvrir le Panneau de Notifications</string>
     <string name="action_overlay">Ouvrir Google Feed</string>
     <string name="action_despacito">Lire \"YouTube Rewind 2018\" (Déformé)</string>
@@ -285,7 +285,7 @@
     <string name="backup_wallpaper">Fond d\'écran</string>
     <string name="name">Nom</string>
     <string name="backup_location">Localisation</string>
-    <string name="backup_location_device_storage">Dossier \"Lawnchair\"</string>
+    <string name="backup_location_device_storage">Dossier \"Launcher\"</string>
     <string name="custom">Personnalisé</string>
     <!-- Section 11 -->
     <string name="about">À propos</string>
@@ -324,7 +324,7 @@
     <string name="dismiss_drop_target_label">"Ne pas afficher"</string>
     <string name="suggested_action_content_description">\"%1$s\" ouvre dans \"%2$s\".</string>
     <string name="smartspace_setup_text">Appuyer pour configurer</string>
-    <string name="lawnchair_settings">Paramètres Lawnchair</string>
+    <string name="lawnchair_settings">Paramètres Launcher</string>
     <string name="label_voice_search">Recherche vocale</string>
     <string name="icon_pack">Pack d\'icônes</string>
     <string name="home_widget">En bref</string>
@@ -354,7 +354,7 @@
     <string name="backup_restarting">Redémarrage...</string>
     <string name="restore_success">Sauvegarde restaurée.</string>
     <string name="failed">Une erreur est survenue.</string>
-    <string name="backup_share_text">Sauvegarde Lawnchair</string>
+    <string name="backup_share_text">Sauvegarde Launcher</string>
     <string name="developer_options_enabled">Options de développeur activées.</string>
     <string name="restart_lawnchair_pref_summary">Réappliquer les paramètres.</string>
     <string name="show_debug_info_pref_title">Afficher le Nom des Composants</string>
@@ -507,7 +507,7 @@ corriges des bugs pendant son temps libre. Également connu précédemment sous 
     <string name="import_icon">Importer l\'icône</string>
     <string name="import_as_adaptive">Importer l\'icône adaptative</string>
     <string name="about_app_description">Une application d\'accueil personnalisable pour Android.</string>
-    <string name="lawnchair_bug_report">Rapport de Bugs de Lawnchair</string>
+    <string name="lawnchair_bug_report">Rapport de Bugs de Launcher</string>
     <string name="action_dogbin_upload">Charger sur Dogbin</string>
     <string name="action_dogbin_copy_link">Copier lien</string>
     <string name="action_copy">Copier</string>

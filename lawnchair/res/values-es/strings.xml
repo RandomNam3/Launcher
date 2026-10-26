@@ -266,7 +266,7 @@
     <string name="action_none">No hacer nada</string>
     <string name="action_sleep">Apagar la pantalla</string>
     <string name="action_sleep_timeout">Apagar pantalla usando tiempo de pantalla</string>
-    <string name="action_open_settings">Abrir Config. de Lawnchair</string>
+    <string name="action_open_settings">Abrir Config. de Launcher</string>
     <string name="action_open_notifications">Abrir panel de notificaciones</string>
     <string name="action_overlay">Abrir feed de Google</string>
     <string name="action_despacito">Reproducir \"YouTube Rewind 2018\" (Distorsionado)</string>
@@ -285,7 +285,7 @@
     <string name="backup_wallpaper">Fondo de Pantalla</string>
     <string name="name">Nombre</string>
     <string name="backup_location">Ubicación</string>
-    <string name="backup_location_device_storage">Carpeta \"Lawnchair\"</string>
+    <string name="backup_location_device_storage">Carpeta \"Launcher\"</string>
     <string name="custom">Personalizado</string>
     <!-- Section 11 -->
     <string name="about">Acerca de</string>
@@ -324,7 +324,7 @@
     <string name="dismiss_drop_target_label">"No mostrar"</string>
     <string name="suggested_action_content_description">“%1$s” se abre en “%2$s”.</string>
     <string name="smartspace_setup_text">Toca para configurar</string>
-    <string name="lawnchair_settings">Configuración de Lawnchair</string>
+    <string name="lawnchair_settings">Configuración de Launcher</string>
     <string name="label_voice_search">Búsqueda por voz</string>
     <string name="icon_pack">Pack de Iconos</string>
     <string name="home_widget">De un vistazo</string>
@@ -354,7 +354,7 @@
     <string name="backup_restarting">Reiniciando...</string>
     <string name="restore_success">Copia de seguridad restaurada.</string>
     <string name="failed">Algo salió mal.</string>
-    <string name="backup_share_text">Copia de seguridad de Lawnchair</string>
+    <string name="backup_share_text">Copia de seguridad de Launcher</string>
     <string name="developer_options_enabled">Opciones de desarrollador habilitadas.</string>
     <string name="restart_lawnchair_pref_summary">Volver a aplicar ajustes.</string>
     <string name="show_debug_info_pref_title">Mostrar nombres de los componentes</string>
@@ -507,7 +507,7 @@ Fundador de los proyectos Lawnchair y dogbin.</string>
     <string name="import_icon">Importar icono</string>
     <string name="import_as_adaptive">Importar icono adaptivo</string>
     <string name="about_app_description">Una pagina de inicio personalizable para Android.</string>
-    <string name="lawnchair_bug_report">Reporte de error de Lawnchair</string>
+    <string name="lawnchair_bug_report">Reporte de error de Launcher</string>
     <string name="action_dogbin_upload">Subir a Dogbin</string>
     <string name="action_dogbin_copy_link">Copiar enlace</string>
     <string name="action_copy">Copiar</string>

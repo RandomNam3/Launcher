@@ -264,7 +264,7 @@
     <string name="gesture_dock_swipe_up">Deslize desde a doca</string>
     <string name="action_none">Nada fazer</string>
     <string name="action_sleep">Suspender</string>
-    <string name="action_open_settings">Abrir definições Lawnchair</string>
+    <string name="action_open_settings">Abrir definições Launcher</string>
     <string name="action_open_notifications">Abrir painel de notificações</string>
     <string name="action_overlay">Abrir Google Feed</string>
     <string name="action_despacito">Reproduzir \"YouTube Rewind 2018\" (distorted)</string>
@@ -283,7 +283,7 @@
     <string name="backup_wallpaper">Papel de parede</string>
     <string name="name">Nome</string>
     <string name="backup_location">Localização</string>
-    <string name="backup_location_device_storage">Pasta \"Lawnchair\"</string>
+    <string name="backup_location_device_storage">Pasta \"Launcher\"</string>
     <string name="custom">Personalizado</string>
     <!-- Section 11 -->
     <string name="about">Sobre</string>
@@ -322,7 +322,7 @@
     <string name="dismiss_drop_target_label">"Não mostrar"</string>
     <string name="suggested_action_content_description">“%1$s” abre em “%2$s”.</string>
     <string name="smartspace_setup_text">Toque para configurar</string>
-    <string name="lawnchair_settings">Lawnchair - Definições</string>
+    <string name="lawnchair_settings">Launcher - Definições</string>
     <string name="label_voice_search">Pesquisa por voz</string>
     <string name="icon_pack">Pacote de ícones</string>
     <string name="home_widget">At a Glance</string>
@@ -352,7 +352,7 @@
     <string name="backup_restarting">A reiniciar...</string>
     <string name="restore_success">Backup restaurado.</string>
     <string name="failed">Algo correu mal.</string>
-    <string name="backup_share_text">Backup do Lawnchair</string>
+    <string name="backup_share_text">Backup do Launcher</string>
     <string name="developer_options_enabled">Opções do programador ativadas.</string>
     <string name="restart_lawnchair_pref_summary">Reaplicar definições.</string>
     <string name="show_debug_info_pref_title">Mostrar nome do componente</string>
@@ -502,7 +502,7 @@
     <string name="import_icon">Importar ícone</string>
     <string name="import_as_adaptive">Importar ícones adaptativos</string>
     <string name="about_app_description">Uma aplicação personalizada para o seu Android.</string>
-    <string name="lawnchair_bug_report">Lawnchair - Relatório de erros</string>
+    <string name="lawnchair_bug_report">Launcher - Relatório de erros</string>
     <string name="action_dogbin_upload">Enviar para Dogbin</string>
     <string name="action_dogbin_copy_link">Copiar ligação</string>
     <string name="action_copy">Copiar</string>

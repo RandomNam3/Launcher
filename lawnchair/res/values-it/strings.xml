@@ -266,7 +266,7 @@
     <string name="action_none">Non fare niente</string>
     <string name="action_sleep">Sospensione</string>
     <string name="action_sleep_timeout">Spegni lo schermo utilizzando il Timeout Schermo</string>
-    <string name="action_open_settings">Apri le impostazioni di Lawnchair</string>
+    <string name="action_open_settings">Apri le impostazioni di Launcher</string>
     <string name="action_open_notifications">Apri il pannello delle notifiche</string>
     <string name="action_overlay">Apri il feed di Google</string>
     <string name="action_despacito">Riproduci \"YouTube Rewind 2018\" (Distorto)</string>
@@ -285,7 +285,7 @@
     <string name="backup_wallpaper">Sfondo</string>
     <string name="name">Nome</string>
     <string name="backup_location">Posizione</string>
-    <string name="backup_location_device_storage">Cartella “Lawnchair”</string>
+    <string name="backup_location_device_storage">Cartella “Launcher”</string>
     <string name="custom">Personalizzato</string>
     <!-- Section 11 -->
     <string name="about">Informazioni</string>
@@ -324,7 +324,7 @@
     <string name="dismiss_drop_target_label">"Non mostrare"</string>
     <string name="suggested_action_content_description">\"%1$s\" si apre in \"%2$s\".</string>
     <string name="smartspace_setup_text">Tocca per configurare</string>
-    <string name="lawnchair_settings">Impostazioni di Lawnchair</string>
+    <string name="lawnchair_settings">Impostazioni di Launcher</string>
     <string name="label_voice_search">Ricerca vocale</string>
     <string name="icon_pack">Pacchetto icone</string>
     <string name="home_widget">A colpo d\'occhio</string>
@@ -354,7 +354,7 @@
     <string name="backup_restarting">Riavvio in corso...</string>
     <string name="restore_success">Backup ripristinato.</string>
     <string name="failed">Qualcosa è andato storto.</string>
-    <string name="backup_share_text">Backup di Lawnchair</string>
+    <string name="backup_share_text">Backup di Launcher</string>
     <string name="developer_options_enabled">Opzioni sviluppatore attivate.</string>
     <string name="restart_lawnchair_pref_summary">Riapplica impostazioni.</string>
     <string name="show_debug_info_pref_title">Mostra nomi dei componenti</string>
@@ -506,7 +506,7 @@
     <string name="import_icon">Importa Icona</string>
     <string name="import_as_adaptive">Importa icona adattiva</string>
     <string name="about_app_description">Una schermata home personalizzabile per Android.</string>
-    <string name="lawnchair_bug_report">Segnalazione bug di Lawnchair</string>
+    <string name="lawnchair_bug_report">Segnalazione bug di Launcher</string>
     <string name="action_dogbin_upload">Carica su Dogbin</string>
     <string name="action_dogbin_copy_link">Copia link</string>
     <string name="action_copy">Copia</string>

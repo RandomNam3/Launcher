@@ -265,7 +265,7 @@
     <string name="action_none">什麼都不做</string>
     <string name="action_sleep">關閉螢幕</string>
     <string name="action_sleep_timeout">根據系統設定關閉螢幕</string>
-    <string name="action_open_settings">Lawnchair 設定</string>
+    <string name="action_open_settings">Launcher 設定</string>
     <string name="action_open_notifications">打開通知面板</string>
     <string name="action_overlay">顯示 Google 即時資訊</string>
     <string name="action_despacito">播放 YouTube Rewind 2018（爆音版）</string>
@@ -284,7 +284,7 @@
     <string name="backup_wallpaper">桌布</string>
     <string name="name">名稱</string>
     <string name="backup_location">位置</string>
-    <string name="backup_location_device_storage">「Lawnchair」資料夾</string>
+    <string name="backup_location_device_storage">「Launcher」資料夾</string>
     <string name="custom">自訂</string>
     <!-- Section 11 -->
     <string name="about">關於</string>
@@ -322,7 +322,7 @@
     <string name="dismiss_drop_target_label">"「不要顯示」"</string>
     <string name="suggested_action_content_description">「%1$s」 在 「%2$s」 中開啟</string>
     <string name="smartspace_setup_text">輕觸即可進行設定</string>
-    <string name="lawnchair_settings">Lawnchair 設定</string>
+    <string name="lawnchair_settings">Launcher 設定</string>
     <string name="label_voice_search">語音搜尋</string>
     <string name="icon_pack">圖示包</string>
     <string name="home_widget">快速查看</string>
@@ -352,7 +352,7 @@
     <string name="backup_restarting">正在重新啟動...</string>
     <string name="restore_success">備份已還原</string>
     <string name="failed">出了點問題</string>
-    <string name="backup_share_text">Lawnchair 備份</string>
+    <string name="backup_share_text">Launcher 備份</string>
     <string name="developer_options_enabled">已啟用開發人員選項</string>
     <string name="restart_lawnchair_pref_summary">重新套用設定</string>
     <string name="show_debug_info_pref_title">顯示組件名稱</string>
@@ -504,7 +504,7 @@
     <string name="import_icon">匯入圖示</string>
     <string name="import_as_adaptive">匯入自動調整圖示</string>
     <string name="about_app_description">一個擁有自訂性的主畫面應用程式</string>
-    <string name="lawnchair_bug_report">Lawnchair 問題回報</string>
+    <string name="lawnchair_bug_report">Launcher 問題回報</string>
     <string name="action_dogbin_upload">上傳至 Dogbin</string>
     <string name="action_dogbin_copy_link">複製連結</string>
     <string name="action_copy">複製</string>

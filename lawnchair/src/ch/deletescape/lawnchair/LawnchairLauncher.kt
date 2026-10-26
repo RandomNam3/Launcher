@@ -143,7 +143,7 @@ open class LawnchairLauncher : NexusLauncherActivity(),
 
     private fun performSignatureVerification() {
         if (!verifySignature()) {
-            val message = "The \"${BuildConfig.FLAVOR_build}\" build flavor is reserved for " +
+            val message = "This build flavor is reserved for " +
                     "official Lawnchair distributions only. Please do not use it.\n" +
                     "\n" +
                     "If you're a ROM developer and including Lawnchair in your ROM, please use " +

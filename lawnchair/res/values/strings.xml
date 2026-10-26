@@ -376,7 +376,7 @@
     <string name="action_none">Do Nothing</string>
     <string name="action_sleep">Sleep</string>
     <string name="action_sleep_timeout">Sleep Using Screen Timeout</string>
-    <string name="action_open_settings">Open Lawnchair Settings</string>
+    <string name="action_open_settings">Open Launcher Settings</string>
     <string name="action_open_notifications">Open Notification Panel</string>
     <string name="action_overlay">Open Google Feed</string>
     <string name="action_despacito">Play “YouTube Rewind 2018” (Distorted)</string>
@@ -403,7 +403,7 @@
     <string name="name">Name</string>
 
     <string name="backup_location">Location</string>
-    <string name="backup_location_device_storage">“Lawnchair” Folder</string>
+    <string name="backup_location_device_storage">“Launcher” Folder</string>
     <string name="custom">Custom</string>
 
     <!-- Section 11 -->
@@ -462,7 +462,7 @@
     <string name="suggested_action_content_description">“%1$s” opens in “%2$s”.</string>
 
     <string name="smartspace_setup_text">Tap to Set Up</string>
-    <string name="lawnchair_settings">Lawnchair Settings</string>
+    <string name="lawnchair_settings">Launcher Settings</string>
 
     <string name="label_voice_search">Voice Search</string>
     <string name="icon_pack">Icon Pack</string>
@@ -473,7 +473,7 @@
     <string name="title_disable_suggestions_prompt">Disable App Suggestions</string>
     <string name="msg_disable_suggestions_prompt">"Usage data will be deleted."</string>
 
-    <string name="app_name_lawnchair">Lawnchair</string>
+    <string name="app_name_lawnchair">Launcher</string>
     <string name="pixel_style_pref_title">Google Pixel</string>
 
     <string name="label_turn_off_suggestions">Disable</string>
@@ -507,7 +507,7 @@
     <string name="restore_success">Backup restored.</string>
     <string name="failed">Something went wrong.</string>
 
-    <string name="backup_share_text">Lawnchair Backup</string>
+    <string name="backup_share_text">Launcher Backup</string>
 
     <string name="developer_options_enabled">Developer Options enabled.</string>
     <string name="restart_lawnchair_pref_summary">Reapply settings.</string>
@@ -720,7 +720,7 @@
 
     <string name="weather_provider_accu" translatable="false">AccuWeather</string>
 
-    <string name="lawnchair_bug_report">Lawnchair Bug Report</string>
+    <string name="lawnchair_bug_report">Launcher Bug Report</string>
     <string name="action_dogbin_upload">Upload to Dogbin</string>
 
     <string name="action_dogbin_copy_link">Copy Link</string>
@@ -804,6 +804,14 @@
 
     <!-- Lawnchair Legacy -->
     <string name="action_grant_access">Grant access</string>
-    <string name="all_files_access_required_blur">Android only shares the wallpaper with apps that have \"All files access\". Grant it to Lawnchair to use the blur effect.</string>
+    <string name="all_files_access_required_blur">Android only shares the wallpaper with apps that have \"All files access\". Grant it to Launcher to use the blur effect.</string>
     <string name="all_files_access_required_backup">Backups in the Documents folder need \"All files access\". You can still restore a backup file through the file picker.</string>
+    <string name="about_fork_description">Launcher is a continuation of Lawnchair 2, kept as close as possible to its original look and feel and updated for current Android versions (private space, Android 16).\n\nLawnchair was created by the Lawnchair team (Till Kottmann, Patryk Michalik, David Sn and contributors). This app is not affiliated with or endorsed by the Lawnchair project.</string>
+    <string name="about_version">Version %1$s (%2$d)</string>
+    <string name="about_source_code">Source code</string>
+    <string name="about_based_on">Based on Lawnchair 2</string>
+    <string name="about_license">License</string>
+    <string name="about_license_summary">GNU General Public License v3.0</string>
+    <string name="about_third_party_licenses">Open source licenses</string>
+    <string name="about_third_party_licenses_summary">Launcher3 (AOSP) and other components</string>
 </resources>

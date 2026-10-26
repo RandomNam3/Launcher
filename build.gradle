@@ -22,10 +22,9 @@ if (localPropsFile.exists()) {
     localProps.load(localPropsFile.newDataInputStream())
 }
 
-// Version of the legacy fork. The version code continues above the last upstream
-// Lawnchair 2 build (2589) so that it is always recognised as an update.
-def legacyVersionCode = 3000
-def legacyVersionName = "2.0-legacy-1"
+// Launcher is based on Lawnchair 2.0 build 2589, see README.md
+def appVersionCode = 1
+def appVersionName = "1.0.0"
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -36,13 +35,13 @@ android {
     compileSdk 35
 
     signingConfigs {
-        legacy {
-            def keystore = localProps.getProperty("storeFile") ?: System.getenv("LEGACY_STORE_FILE")
+        release {
+            def keystore = localProps.getProperty("storeFile") ?: System.getenv("LAUNCHER_STORE_FILE")
             if (keystore != null) {
                 storeFile file(keystore)
-                storePassword localProps.getProperty("storePass") ?: System.getenv("LEGACY_STORE_PASSWORD")
-                keyAlias localProps.getProperty("keyAlias") ?: System.getenv("LEGACY_KEY_ALIAS") ?: "lawnchair-legacy"
-                keyPassword localProps.getProperty("keyPass") ?: System.getenv("LEGACY_KEY_PASSWORD")
+                storePassword localProps.getProperty("storePass") ?: System.getenv("LAUNCHER_STORE_PASSWORD")
+                keyAlias localProps.getProperty("keyAlias") ?: System.getenv("LAUNCHER_KEY_ALIAS") ?: "launcher"
+                keyPassword localProps.getProperty("keyPass") ?: System.getenv("LAUNCHER_KEY_PASSWORD")
             }
         }
     }
@@ -50,8 +49,8 @@ android {
         minSdk 21
         targetSdk 35
 
-        versionCode legacyVersionCode
-        versionName legacyVersionName
+        versionCode appVersionCode
+        versionName appVersionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -91,8 +90,8 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard.flags'
-            if (signingConfigs.legacy.storeFile != null) {
-                signingConfig signingConfigs.legacy
+            if (signingConfigs.release.storeFile != null) {
+                signingConfig signingConfigs.release
             }
         }
     }
@@ -122,25 +121,19 @@ android {
         }
     }
 
-    flavorDimensions = ["default", "custom", "build"]
+    flavorDimensions = ["default", "custom"]
 
     productFlavors {
         quickstep {
             dimension "default"
-            applicationId 'ch.deletescape.lawnchair'
-            testApplicationId 'com.android.launcher3.tests'
+            // Own package name, can be installed next to the original Lawnchair 2
+            // (ch.deletescape.lawnchair.plah). Settings can be moved with the backup function.
+            applicationId 'io.github.randomnam3.launcher'
+            testApplicationId 'io.github.randomnam3.launcher.tests'
         }
 
         lawnchair {
             dimension "custom"
-        }
-
-        legacy {
-            dimension "build"
-            // Own package name so that it can be installed next to the original
-            // Lawnchair 2 build (ch.deletescape.lawnchair.plah) and settings can be
-            // migrated with the built-in backup function.
-            applicationIdSuffix ".legacy"
         }
     }
 
@@ -223,13 +216,6 @@ dependencies {
     implementation 'com.github.KwabenBerko:OpenWeatherMap-Android-Library:2.0.1'
     implementation 'com.github.LawnchairLauncher:chroma:1.2.6'
     implementation 'com.github.LawnchairLauncher:hoko-lite:4e0d797'
-    implementation('com.github.LawnchairLauncher:attribouter-y:0.1.6') {
-        // The "MaterialButton" styleable defines an attr named iconSize which breaks compatibility with our source base
-        exclude group: 'com.android.support', module: 'design'
-        // Only available on JCenter, vendored in third_party/flexbox
-        exclude group: 'com.google.android', module: 'flexbox'
-    }
-    implementation project(':third_party:flexbox')
     implementation project(':platformcompat')
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 

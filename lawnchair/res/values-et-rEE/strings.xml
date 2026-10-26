@@ -261,7 +261,7 @@
     <string name="action_none">Ära tee midagi</string>
     <string name="action_sleep">Unerežiim</string>
     <string name="action_sleep_timeout">Kasutab ekraani aegumist</string>
-    <string name="action_open_settings">Ava Lawnchairi seaded</string>
+    <string name="action_open_settings">Ava Launcheri seaded</string>
     <string name="action_open_notifications">Ava teavituste paneel</string>
     <string name="action_overlay">Ava Google voog</string>
     <string name="action_despacito">Esita YouTube\'i tagasivaade 2018” (moonutatud)</string>
@@ -280,7 +280,7 @@
     <string name="backup_wallpaper">Taustapilt</string>
     <string name="name">Nimi</string>
     <string name="backup_location">Asukoht</string>
-    <string name="backup_location_device_storage">Kaust “Lawnchair”</string>
+    <string name="backup_location_device_storage">Kaust “Launcher”</string>
     <string name="custom">Kohandatud</string>
     <!-- Section 11 -->
     <string name="about">Teave</string>
@@ -319,7 +319,7 @@
     <string name="dismiss_drop_target_label">"Ära näita"</string>
     <string name="suggested_action_content_description">“%1$s” avaneb “%2$s”-s.</string>
     <string name="smartspace_setup_text">Puudutage seadistamiseks</string>
-    <string name="lawnchair_settings">Lawnchairi seaded</string>
+    <string name="lawnchair_settings">Launcheri seaded</string>
     <string name="label_voice_search">Häälotsing</string>
     <string name="icon_pack">Ikoonipakk</string>
     <string name="home_widget">Peale vaadates</string>
@@ -349,7 +349,7 @@
     <string name="backup_restarting">Taaskäivitumine...</string>
     <string name="restore_success">Varukoopia on taastatud.</string>
     <string name="failed">Midagi läks valesti.</string>
-    <string name="backup_share_text">Lawnchair varukoopia fail</string>
+    <string name="backup_share_text">Launcher varukoopia fail</string>
     <string name="developer_options_enabled">Arendaja valikud on sees.</string>
     <string name="restart_lawnchair_pref_summary">Rakenda seaded uuesti.</string>
     <string name="show_debug_info_pref_title">Näita komponendi nimesid</string>
@@ -501,7 +501,7 @@
     <string name="import_icon">Impordi ikoon</string>
     <string name="import_as_adaptive">Impordi adaptiivne ikoon</string>
     <string name="about_app_description">Kohandatav käivitaja Androidile.</string>
-    <string name="lawnchair_bug_report">Lawnchairi veaaruanne</string>
+    <string name="lawnchair_bug_report">Launcheri veaaruanne</string>
     <string name="action_dogbin_upload">Laadi üles dogbin-i</string>
     <string name="action_dogbin_copy_link">Kopeeri link</string>
     <string name="action_copy">Kopeeri</string>

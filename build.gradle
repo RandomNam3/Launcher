@@ -43,6 +43,9 @@ android {
                 keyAlias localProps.getProperty("keyAlias") ?: System.getenv("LAUNCHER_KEY_ALIAS") ?: "launcher"
                 keyPassword localProps.getProperty("keyPass") ?: System.getenv("LAUNCHER_KEY_PASSWORD")
             }
+            enableV1Signing true
+            enableV2Signing true
+            enableV3Signing true
         }
     }
     defaultConfig {

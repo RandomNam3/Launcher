@@ -11,11 +11,23 @@ aufbaut. Launcher steht in keiner Verbindung zum Lawnchair-Projekt.
 
 - Startbildschirm, Dock und App-Übersicht mit umfangreichen Anpassungen (Raster, Icons,
   Icon-Pakete, Formen, Farben, Schriften, Gesten, Unschärfe-Effekt)
-- App-Übersicht mit Tabs, Ordnern und automatischen Kategorien
-- Unterstützung für Arbeitsprofile und den privaten Bereich (Android 15+): eigener Tab „Privat“
-  mit Sperr-Schalter, gesperrte Apps sind überall ausgeblendet
-- At a Glance / Smartspace-Widget mit Wetter und Terminen
-- Backup und Wiederherstellung von Startbildschirm und Einstellungen
+- App-Übersicht mit Tabs, Ordnern, automatischen Kategorien und unscharfer App-Suche
+- Suchleiste: auf dem Startbildschirm öffnet sie den Standard-Browser, in der App-Übersicht
+  durchsucht sie die Apps
+- Arbeitsprofile und privater Bereich (Android 15+): eigener Tab „Privat“ mit Sperr-Schalter,
+  gesperrte Apps sind überall ausgeblendet
+- Widgets mit den Funktionen ab Android 12: abgerundete Ecken, responsive Größen,
+  Standardgröße, optionale Konfiguration, Vorschauen im Widget-Auswahlmenü
+- At a Glance / Smartspace mit Wetter (OpenWeatherMap, eigener API-Schlüssel) und Terminen
+- Backup und Wiederherstellung von Startbildschirm und Einstellungen, zusätzlich Unterstützung
+  für das Android-Backup und die Datenübertragung auf ein neues Gerät
+
+## Sicherheit
+
+- Memory Tagging (MTE) auf unterstützten Geräten, keine nativen Bibliotheken
+- Nur verschlüsselte Netzwerkverbindungen
+- Exportierte Komponenten sind auf das Nötigste beschränkt und prüfen ihre Eingaben
+- Wiederhergestellte Backups werden vor dem Einspielen geprüft
 
 ## Bauen
 

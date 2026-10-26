@@ -171,7 +171,7 @@
     <string name="bottom_work_tab_user_education_close_button" msgid="4224492243977802135">"Schließen"</string>
     <string name="bottom_work_tab_user_education_closed" msgid="1098340939861869465">"Geschlossen"</string>
 
-    <!-- Private space (Android 15), Lawnchair Legacy -->
+    <!-- Private space (Android 15) -->
     <string name="all_apps_private_tab">Privat</string>
     <string name="private_space_label">Privater Bereich</string>
     <string name="private_space_locked_label">Gesperrt. Die Apps sind ausgeblendet, bis du den privaten Bereich entsperrst.</string>

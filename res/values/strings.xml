@@ -348,7 +348,7 @@
     <string name="bottom_work_tab_user_education_closed">Closed</string>
     <string name="web_search_yahoo">Yahoo (web)</string>
 
-    <!-- Private space (Android 15), Lawnchair Legacy -->
+    <!-- Private space (Android 15) -->
     <string name="all_apps_private_tab">Private</string>
     <string name="private_space_label">Private space</string>
     <string name="private_space_locked_label">Locked. Apps are hidden until you unlock the private space.</string>

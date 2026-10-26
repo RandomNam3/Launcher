@@ -125,8 +125,6 @@ android {
     productFlavors {
         quickstep {
             dimension "default"
-            // Own package name, can be installed next to the original Lawnchair 2
-            // (ch.deletescape.lawnchair.plah). Settings can be moved with the backup function.
             applicationId 'io.github.randomnam3.launcher'
             testApplicationId 'io.github.randomnam3.launcher.tests'
         }

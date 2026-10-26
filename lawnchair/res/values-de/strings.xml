@@ -559,7 +559,6 @@
     <string name="icon_shape_system_default">Durch System festgelegt</string>
     <string name="title_missing_notification_access">Benachrichtigungszugriff erforderlich.</string>
 
-    <!-- Lawnchair Legacy -->
     <string name="action_grant_access">Zugriff erlauben</string>
     <string name="all_files_access_required_blur">Android gibt das Hintergrundbild nur an Apps mit „Zugriff auf alle Dateien“ weiter. Erlaube ihn für Launcher, um den Unschärfe-Effekt zu nutzen.</string>
     <string name="all_files_access_required_backup">Backups im Ordner „Documents“ benötigen „Zugriff auf alle Dateien“. Eine Backup-Datei kann trotzdem über die Dateiauswahl wiederhergestellt werden.</string>

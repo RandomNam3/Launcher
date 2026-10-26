@@ -19,8 +19,6 @@
 <resources>
     <!-- Theme for the widget container. -->
     <style name="WidgetContainerTheme" parent="@android:style/Theme.Material.Settings">
-        <!-- Keep the pre Android 15 window layout (no forced edge-to-edge) -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <item name="android:colorEdgeEffect">?android:attr/textColorSecondary</item>
         <item name="android:colorAccent">@color/colorAccent</item>
         <item name="bottomSheetNavBarColor">#00000000</item>

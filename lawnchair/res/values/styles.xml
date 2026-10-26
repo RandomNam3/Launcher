@@ -45,8 +45,6 @@
 
     <!-- Theme for the widget container. Overridden on API 26. -->
     <style name="WidgetContainerTheme" parent="@android:style/Theme.Material.Settings">
-        <!-- Keep the pre Android 15 window layout (no forced edge-to-edge) -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <item name="android:colorEdgeEffect">?android:attr/textColorSecondaryInverse</item>
         <item name="android:textColorPrimary">?android:attr/textColorPrimaryInverse</item>
         <item name="android:textColorSecondary">?android:attr/textColorSecondaryInverse</item>
@@ -115,8 +113,6 @@
     </style>
 
     <style name="SettingsTheme" parent="@android:style/Theme.Material.Settings">
-        <!-- Keep the pre Android 15 window layout (no forced edge-to-edge) -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <item name="android:actionBarTheme">@style/SettingsTheme.ActionBar</item>
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -179,8 +175,6 @@
     </style>
 
     <style name="SettingsTheme.Base" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <!-- Keep the pre Android 15 window layout (no forced edge-to-edge) -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <item name="android:windowBackground">@android:color/white</item>
         <item name="settingsBackground">@android:color/white</item>
         <item name="settingsSearchBackground">?settingsBackground</item>
@@ -232,8 +226,6 @@
     </style>
 
     <style name="SettingsTheme.V2.Dark" parent="@style/Theme.AppCompat.NoActionBar">
-        <!-- Keep the pre Android 15 window layout (no forced edge-to-edge) -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <item name="android:windowBackground">@color/settings_background_dark</item>
         <item name="colorPrimary">?android:windowBackground</item>
         <item name="colorPrimaryDark">?android:windowBackground</item>
@@ -317,8 +309,6 @@
     </style>
 
     <style name="SleepTimeoutTheme" parent="@android:style/Theme.Material.NoActionBar.Fullscreen">
-        <!-- Keep the pre Android 15 window layout (no forced edge-to-edge) -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <item name="android:windowBackground">@android:color/black</item>
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
@@ -326,8 +316,6 @@
     </style>
 
     <style name="Theme.Transparent" parent="Theme.AppCompat.Light">
-        <!-- Keep the pre Android 15 window layout (no forced edge-to-edge) -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>

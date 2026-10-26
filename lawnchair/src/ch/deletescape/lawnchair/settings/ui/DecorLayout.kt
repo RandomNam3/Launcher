@@ -18,6 +18,7 @@
 package ch.deletescape.lawnchair.settings.ui
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.*
@@ -74,11 +75,11 @@ class DecorLayout(context: Context, private val window: Window) : InsettableFram
             actionBarContainer.elevation = value
             if (value.compareTo(0f) == 0) {
                 actionBarContainer.background = null
-                window.statusBarColor = 0
+                setStatusBarBackground(0)
             } else {
                 val backgroundColor = settingsBackground
                 actionBarContainer.background = ColorDrawable(backgroundColor)
-                window.statusBarColor = backgroundColor
+                setStatusBarBackground(backgroundColor)
             }
         }
 
@@ -98,6 +99,37 @@ class DecorLayout(context: Context, private val window: Window) : InsettableFram
         hideToolbar -> 0
         useLargeTitle -> context.resources.getDimensionPixelSize(R.dimen.large_title_height)
         else -> context.getDimenAttr(R.attr.actionBarSize)
+    }
+
+    // Since Android 15 apps are always drawn edge-to-edge and Window.setStatusBarColor has no
+    // effect anymore, so the status bar background is drawn by this view instead.
+    private val drawStatusBarBackground = Build.VERSION.SDK_INT >= 35
+    private val statusBarPaint = Paint()
+    private var statusBarHeight = 0
+
+    private fun setStatusBarBackground(color: Int) {
+        if (drawStatusBarBackground) {
+            statusBarPaint.color = color
+            invalidate()
+        } else {
+            @Suppress("DEPRECATION")
+            window.statusBarColor = color
+        }
+    }
+
+    override fun setInsets(insets: Rect) {
+        super.setInsets(insets)
+        if (statusBarHeight != insets.top) {
+            statusBarHeight = insets.top
+            invalidate()
+        }
+    }
+
+    override fun dispatchDraw(canvas: Canvas) {
+        super.dispatchDraw(canvas)
+        if (drawStatusBarBackground && statusBarHeight > 0 && statusBarPaint.color != 0) {
+            canvas.drawRect(0f, 0f, width.toFloat(), statusBarHeight.toFloat(), statusBarPaint)
+        }
     }
 
     private fun updateToolbar() {

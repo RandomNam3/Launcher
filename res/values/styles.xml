@@ -20,8 +20,6 @@
 <resources>
     <!-- Launcher theme -->
     <style name="BaseLauncherTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
-        <!-- Keep the pre Android 15 window layout (no forced edge-to-edge) -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowShowWallpaper">true</item>
@@ -122,8 +120,6 @@
 
     <!-- Theme for the widget container. Overridden on API 26. -->
     <style name="WidgetContainerTheme" parent="@android:style/Theme.Material.Settings">
-        <!-- Keep the pre Android 15 window layout (no forced edge-to-edge) -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <item name="android:colorEdgeEffect">?android:attr/textColorSecondaryInverse</item>
         <item name="android:textColorPrimary">?android:attr/textColorPrimaryInverse</item>
         <item name="android:textColorSecondary">?android:attr/textColorSecondaryInverse</item>

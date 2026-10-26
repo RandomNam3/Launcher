@@ -8,7 +8,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.7.3'
+        classpath 'com.android.tools.build:gradle:8.12.3'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -32,7 +32,7 @@ apply plugin: 'com.google.protobuf'
 
 android {
     namespace 'com.android.launcher3'
-    compileSdk 35
+    compileSdk 36
 
     signingConfigs {
         release {
@@ -47,7 +47,7 @@ android {
     }
     defaultConfig {
         minSdk 21
-        targetSdk 35
+        targetSdk 36
 
         versionCode appVersionCode
         versionName appVersionName

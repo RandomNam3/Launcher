@@ -21,6 +21,7 @@ import ch.deletescape.lawnchair.platform.StorageCompat
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.util.Log
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
@@ -105,13 +106,31 @@ open class LawnchairLauncher : NexusLauncherActivity(),
         ColorEngine.getInstance(this).addColorChangeListeners(this, *colorsToWatch)
 
         performSignatureVerification()
+        requestNotificationPermissionOnce()
+    }
+
+    private fun requestNotificationPermissionOnce() {
+        // Crash notifications need a runtime permission since Android 13
+        if (Build.VERSION.SDK_INT < 33 || !BuildConfig.FEATURE_BUG_REPORTER
+                || !lawnchairPrefs.showCrashNotifications) return
+        val prefs = Utilities.getPrefs(this)
+        if (prefs.getBoolean(KEY_NOTIFICATION_PERMISSION_REQUESTED, false)) return
+        prefs.edit().putBoolean(KEY_NOTIFICATION_PERMISSION_REQUESTED, true).apply()
+        if (!Utilities.hasPermission(this, PERMISSION_POST_NOTIFICATIONS)) {
+            requestPermissions(arrayOf(PERMISSION_POST_NOTIFICATIONS), REQUEST_PERMISSION_NOTIFICATIONS)
+        }
     }
 
     override fun startActivitySafely(v: View?, intent: Intent, item: ItemInfo?): Boolean {
         val success = super.startActivitySafely(v, intent, item)
         if (success) {
-            (launcherAppTransitionManager as LawnchairAppTransitionManagerImpl)
-                    .playLaunchAnimation(this, v, intent)
+            try {
+                (launcherAppTransitionManager as LawnchairAppTransitionManagerImpl)
+                        .playLaunchAnimation(this, v, intent)
+            } catch (e: Exception) {
+                // The app has been started already, a failing animation must not crash us
+                Log.e("LawnchairLauncher", "Unable to play launch animation", e)
+            }
         }
         return success
     }
@@ -428,6 +447,10 @@ open class LawnchairLauncher : NexusLauncherActivity(),
     companion object {
 
         const val REQUEST_PERMISSION_STORAGE_ACCESS = 666
+
+        private const val REQUEST_PERMISSION_NOTIFICATIONS = 669
+        private const val PERMISSION_POST_NOTIFICATIONS = "android.permission.POST_NOTIFICATIONS"
+        private const val KEY_NOTIFICATION_PERMISSION_REQUESTED = "pref_legacy_notification_permission_requested"
 
         private var storageAccessPromptShown = false
         private var lastStorageAccess: Boolean? = null

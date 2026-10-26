@@ -37,6 +37,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.launcher3.compat.LauncherAppsCompat;
+import com.android.launcher3.compat.UserManagerCompat;
 
 import java.util.List;
 
@@ -67,6 +68,9 @@ public class SessionCommitReceiver extends BroadcastReceiver {
         SessionInfo info = intent.getParcelableExtra(PackageInstaller.EXTRA_SESSION);
         UserHandle user = intent.getParcelableExtra(Intent.EXTRA_USER);
 
+        if (info == null || user == null) {
+            return;
+        }
         if (TextUtils.isEmpty(info.getAppPackageName()) ||
                 info.getInstallReason() != PackageManager.INSTALL_REASON_USER) {
             return;
@@ -76,6 +80,11 @@ public class SessionCommitReceiver extends BroadcastReceiver {
     }
 
     public static void queueAppIconAddition(Context context, String packageName, UserHandle user) {
+        // Like the Android 15 launcher: apps of the private space are never added to the home
+        // screen automatically (this is also called when a locked private space gets unlocked).
+        if (UserManagerCompat.getInstance(context).isPrivateProfile(user)) {
+            return;
+        }
         List<LauncherActivityInfo> activities = LauncherAppsCompat.getInstance(context)
                 .getActivityList(packageName, user);
         if (activities == null || activities.isEmpty()) {

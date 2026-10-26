@@ -78,6 +78,8 @@ public class AllAppsGridAdapter extends RecyclerView.Adapter<AllAppsGridAdapter.
     public static final int VIEW_TYPE_FOLDER = 1 << 6;
     // Web search suggestions
     public static final int VIEW_TYPE_SEARCH_SUGGESTION = 1 << 7;
+    // Lock switch of the private space tab
+    public static final int VIEW_TYPE_PRIVATE_SPACE_FOOTER = 1 << 8;
 
     // Common view type masks
     public static final int VIEW_TYPE_MASK_DIVIDER = VIEW_TYPE_ALL_APPS_DIVIDER;
@@ -291,6 +293,9 @@ public class AllAppsGridAdapter extends RecyclerView.Adapter<AllAppsGridAdapter.
             case VIEW_TYPE_WORK_TAB_FOOTER:
                 View footer = mLayoutInflater.inflate(R.layout.work_tab_footer, parent, false);
                 return new ViewHolder(footer);
+            case VIEW_TYPE_PRIVATE_SPACE_FOOTER:
+                return new ViewHolder(mLayoutInflater.inflate(
+                        R.layout.private_space_footer, parent, false));
             case VIEW_TYPE_FOLDER:
                 FrameLayout layout = new FrameLayout(mLauncher);
 
@@ -343,6 +348,17 @@ public class AllAppsGridAdapter extends RecyclerView.Adapter<AllAppsGridAdapter.
                         managedByLabel.getContext()).isAnyProfileQuietModeEnabled();
                 managedByLabel.setText(anyProfileQuietModeEnabled
                         ? R.string.work_mode_off_label : R.string.work_mode_on_label);
+                break;
+            case VIEW_TYPE_PRIVATE_SPACE_FOOTER:
+                PrivateSpaceSwitch privateSpaceToggle =
+                        holder.itemView.findViewById(R.id.private_space_toggle);
+                privateSpaceToggle.refresh();
+                TextView privateStateLabel =
+                        holder.itemView.findViewById(R.id.private_space_state_label);
+                privateStateLabel.setText(UserManagerCompat.getInstance(
+                        privateStateLabel.getContext()).isPrivateSpaceLocked()
+                        ? R.string.private_space_locked_label
+                        : R.string.private_space_unlocked_label);
                 break;
             case VIEW_TYPE_FOLDER:
                 ViewGroup container = (ViewGroup) holder.itemView;

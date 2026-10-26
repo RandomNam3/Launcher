@@ -60,7 +60,8 @@ android {
         buildConfigField "boolean", "FEATURE_SETTINGS_SEARCH", "true"
         buildConfigField "boolean", "DEBUG_STRICT_MODE", "false"
         buildConfigField "boolean", "HAS_LEAKCANARY", "false"
-        buildConfigField "boolean", "FEATURE_BUG_REPORTER", "false"
+        // Crash notifications with a "share" action, helps to find the remaining bugs
+        buildConfigField "boolean", "FEATURE_BUG_REPORTER", "true"
 
         def githubToken = localProps.getProperty('githubToken') ?: '"' + (System.getenv("GITHUB_TOKEN") ?: "") + '"'
         buildConfigField "String", "GITHUB_TOKEN", githubToken

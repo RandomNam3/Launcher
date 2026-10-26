@@ -119,6 +119,12 @@ abstract class DrawerTabs(manager: AppGroupsManager, type: AppGroupsManager.Cate
 
     class WorkTab(context: Context) : PredefinedTab(context, TYPE_WORK, R.string.all_apps_work_tab, true)
 
+    /**
+     * Tab of the Android 15 private space. Not part of the configurable tab list, it is always
+     * added at the end while a private space exists.
+     */
+    class PrivateSpaceTab(context: Context) : Tab(context, TYPE_PRIVATE_SPACE, R.string.all_apps_private_tab)
+
     class HiddenAppsRow(private val filterIsWork: Boolean? = null) :
             Group.Customization<Collection<ComponentKey>, Boolean>(KEY_HIDDEN, emptySet()) {
 
@@ -185,6 +191,8 @@ abstract class DrawerTabs(manager: AppGroupsManager, type: AppGroupsManager.Cate
         const val TYPE_WORK = 1
         const val TYPE_CUSTOM = 2
         const val TYPE_ALL_APPS = 3
+        // Never persisted, must not collide with FlowerpotTabs.TYPE_FLOWERPOT
+        const val TYPE_PRIVATE_SPACE = 100
 
         const val KEY_ITEMS = "items"
         const val KEY_HIDDEN = "hidden"

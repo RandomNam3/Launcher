@@ -16,6 +16,8 @@
 
 package com.android.launcher3;
 
+import ch.deletescape.lawnchair.platform.ProfileCompat;
+
 import ch.deletescape.lawnchair.platform.ReceiverCompat;
 
 import android.content.ComponentName;
@@ -110,6 +112,11 @@ public class LauncherAppState {
         filter.addAction(Intent.ACTION_MANAGED_PROFILE_AVAILABLE);
         filter.addAction(Intent.ACTION_MANAGED_PROFILE_UNAVAILABLE);
         filter.addAction(Intent.ACTION_MANAGED_PROFILE_UNLOCKED);
+        // For handling the private space
+        filter.addAction(ProfileCompat.ACTION_PROFILE_ADDED);
+        filter.addAction(ProfileCompat.ACTION_PROFILE_REMOVED);
+        filter.addAction(ProfileCompat.ACTION_PROFILE_AVAILABLE);
+        filter.addAction(ProfileCompat.ACTION_PROFILE_UNAVAILABLE);
 
         if (FeatureFlags.IS_DOGFOOD_BUILD) {
             filter.addAction(ACTION_FORCE_ROLOAD);

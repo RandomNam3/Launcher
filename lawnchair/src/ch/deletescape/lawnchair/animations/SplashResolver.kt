@@ -28,13 +28,26 @@ import ch.deletescape.lawnchair.settings.ui.SettingsActivity
 import ch.deletescape.lawnchair.theme.ThemeOverride
 import ch.deletescape.lawnchair.util.LawnchairSingletonHolder
 import ch.deletescape.lawnchair.util.extensions.d
+import ch.deletescape.lawnchair.util.extensions.w
 import com.android.launcher3.BuildConfig
 import com.android.launcher3.Utilities
 
 class SplashResolver(private val context: Context) {
 
     fun loadSplash(intent: Intent): SplashData {
-        val activityInfo = intent.resolveActivityInfo(context.packageManager, 0)
+        return try {
+            loadSplash(intent, true)
+        } catch (e: Exception) {
+            // The app might be in the middle of an update (or got uninstalled) and its
+            // resources are not available. This used to crash the launcher.
+            w("Unable to load splash for $intent", e)
+            loadSplash(intent, false)
+        }
+    }
+
+    private fun loadSplash(intent: Intent, useAppTheme: Boolean): SplashData {
+        val activityInfo = if (useAppTheme)
+            intent.resolveActivityInfo(context.packageManager, 0) else null
         val themedContext: Context
         themedContext = if (activityInfo == null
                             || (activityInfo.packageName == BuildConfig.APPLICATION_ID

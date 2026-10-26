@@ -1,5 +1,7 @@
 package com.google.android.apps.nexuslauncher.allapps;
 
+import com.android.launcher3.compat.UserManagerCompat;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -326,6 +328,11 @@ public class PredictionRowView extends PredictionsDividerLayout implements LogCo
         List<ItemInfoWithIcon> arrayList = new ArrayList<>();
         for (ComponentKeyMapper app : list) {
             ItemInfoWithIcon app2 = app.getApp(getAppsStore());
+            // Never suggest private space apps, that would reveal them while it is locked
+            if (app2 != null && UserManagerCompat.getInstance(getContext())
+                    .isPrivateProfile(app2.user)) {
+                continue;
+            }
             if (app2 != null) {
                 arrayList.add(app2);
             }

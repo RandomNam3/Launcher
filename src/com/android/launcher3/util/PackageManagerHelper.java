@@ -79,6 +79,21 @@ public class PackageManagerHelper {
         return info != null && (info.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0;
     }
 
+    /**
+     * Returns true if the package is installed for the user, even if it is currently not usable
+     * (e.g. disabled or being updated right now).
+     */
+    public boolean isAppInstalledForUser(String packageName, UserHandle user) {
+        try {
+            ApplicationInfo info = mLauncherApps.getApplicationInfo(
+                    packageName, PackageManager.MATCH_DISABLED_COMPONENTS, user);
+            return info != null && (info.flags & ApplicationInfo.FLAG_INSTALLED) != 0;
+        } catch (RuntimeException e) {
+            // Better keep an icon than wrongly deleting it
+            return true;
+        }
+    }
+
     public static boolean isAppEnabled(PackageManager pm, String packageName, int flags) {
         try {
             ApplicationInfo info = pm.getApplicationInfo(packageName, flags);

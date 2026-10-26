@@ -1,5 +1,7 @@
 package com.google.android.apps.nexuslauncher.search;
 
+import java.util.Iterator;
+
 import android.content.ComponentName;
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -207,7 +209,15 @@ public class AppSearchProvider extends ContentProvider
                 Log.d("AppSearchProvider", "Loading workspace failed");
                 return Collections.emptyList();
             }
-            final List<AppInfo> results = FuzzyAppSearchAlgorithm.query(mApp.getContext(), mQuery, mAllAppsList.data, getBaseFilter());
+            final List<AppInfo> results = new ArrayList<>(FuzzyAppSearchAlgorithm.query(mApp.getContext(), mQuery, mAllAppsList.data, getBaseFilter()));
+            // This provider is queried by other apps (Google search), never expose the private space
+            UserManagerCompat userManager = UserManagerCompat.getInstance(mApp.getContext());
+            Iterator<AppInfo> iterator = results.iterator();
+            while (iterator.hasNext()) {
+                if (userManager.isPrivateProfile(iterator.next().user)) {
+                    iterator.remove();
+                }
+            }
             for (AppInfo appInfo : results) {
                 if (appInfo.usingLowResIcon) {
                     mApp.getIconCache().getTitleAndIcon(appInfo, false);

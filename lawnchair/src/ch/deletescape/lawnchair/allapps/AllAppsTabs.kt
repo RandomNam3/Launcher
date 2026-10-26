@@ -27,6 +27,7 @@ import ch.deletescape.lawnchair.iconpack.IconPackManager
 import com.android.launcher3.ItemInfo
 import com.android.launcher3.util.ComponentKey
 import com.android.launcher3.util.ItemInfoMatcher
+import com.android.launcher3.util.ProfileMatchers
 
 class AllAppsTabs(private val context: Context) : Iterable<AllAppsTabs.Tab> {
 
@@ -41,7 +42,21 @@ class AllAppsTabs(private val context: Context) : Iterable<AllAppsTabs.Tab> {
             }
         }
 
+    var hasPrivateSpace = false
+        set(value) {
+            if (value != field) {
+                field = value
+                reloadTabs()
+            }
+        }
+
     private val addedApps = ArrayList<ComponentKey>()
+
+    // Declared before init, reloadTabs() needs them
+    private val personalMatcher = ItemInfoMatcher.ofUser(Process.myUserHandle())!!
+    private val workMatcher = ProfileMatchers.ofWorkProfile(context)
+    private val notPrivateMatcher = ProfileMatchers.notPrivateProfile(context)
+    private val privateMatcher = ProfileMatchers.ofUnlockedPrivateProfile(context)
 
     init {
         reloadTabs()
@@ -57,20 +72,32 @@ class AllAppsTabs(private val context: Context) : Iterable<AllAppsTabs.Tab> {
                 hasWorkApps && it is DrawerTabs.WorkTab ->
                     WorkTab(createMatcher(addedApps, workMatcher), drawerTab = it)
                 !hasWorkApps && it is DrawerTabs.AllAppsTab ->
-                    AllAppsTab(createMatcher(addedApps), drawerTab = it)
+                    AllAppsTab(createMatcher(addedApps, notPrivateMatcher), drawerTab = it)
                 it is DrawerTabs.CustomTab -> {
                     if (it.hideFromAllApps.value()) {
                         addedApps.addAll(it.contents.value())
                     }
-                    Tab(it.getTitle(), it.getFilter(context).matcher, drawerTab = it)
+                    Tab(it.getTitle(), withoutPrivate(it.getFilter(context).matcher), drawerTab = it)
                 }
                 it is FlowerpotTabs.FlowerpotTab && !it.getMatches().isEmpty() -> {
                     addedApps.addAll(it.getMatches())
-                    Tab(it.getTitle(), it.getFilter(context).matcher, drawerTab = it)
+                    Tab(it.getTitle(), withoutPrivate(it.getFilter(context).matcher), drawerTab = it)
                 }
                 else -> null
             }
         }
+        if (hasPrivateSpace) {
+            tabs.add(PrivateTab(privateMatcher, DrawerTabs.PrivateSpaceTab(context)))
+        }
+    }
+
+    /**
+     * Matcher for the tab shown when the app drawer is not split into tabs.
+     */
+    val mainMatcher: ItemInfoMatcher get() = notPrivateMatcher
+
+    private fun withoutPrivate(matcher: ItemInfoMatcher?): ItemInfoMatcher {
+        return matcher?.and(notPrivateMatcher) ?: notPrivateMatcher
     }
 
     private fun createTabMatcher(components: Set<ComponentKey>): ItemInfoMatcher {
@@ -99,14 +126,15 @@ class AllAppsTabs(private val context: Context) : Iterable<AllAppsTabs.Tab> {
     class AllAppsTab(matcher: ItemInfoMatcher?, drawerTab: DrawerTabs.Tab)
         : Tab(drawerTab.getTitle(), matcher, drawerTab = drawerTab)
 
-    private val personalMatcher = ItemInfoMatcher.ofUser(Process.myUserHandle())!!
-    private val workMatcher = ItemInfoMatcher.not(personalMatcher)!!
 
     inner class PersonalTab(matcher: ItemInfoMatcher?, drawerTab: DrawerTabs.Tab)
         : Tab(drawerTab.getTitle(), matcher, drawerTab = drawerTab)
     inner class WorkTab(matcher: ItemInfoMatcher?, drawerTab: DrawerTabs.Tab)
         : Tab(drawerTab.getTitle(), matcher, true, drawerTab)
+    inner class PrivateTab(matcher: ItemInfoMatcher?, drawerTab: DrawerTabs.Tab)
+        : Tab(drawerTab.getTitle(), matcher, drawerTab = drawerTab, isPrivate = true)
 
     open class Tab(val name: String, val matcher: ItemInfoMatcher?,
-                   val isWork: Boolean = false, val drawerTab: DrawerTabs.Tab)
+                   val isWork: Boolean = false, val drawerTab: DrawerTabs.Tab,
+                   val isPrivate: Boolean = false)
 }

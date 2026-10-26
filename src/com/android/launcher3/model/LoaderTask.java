@@ -236,6 +236,19 @@ public class LoaderTask implements Runnable {
         this.notify();
     }
 
+    /**
+     * Returns the current launch intent of the package, or null if there is none right now.
+     */
+    private static Intent getRelaunchIntent(PackageManagerHelper pmHelper, String pkg,
+            UserHandle user, Intent original) {
+        try {
+            return pmHelper.getAppLaunchIntent(pkg, user);
+        } catch (RuntimeException e) {
+            Log.w(TAG, "Unable to resolve launch intent of " + pkg, e);
+            return null;
+        }
+    }
+
     private void loadWorkspace() {
         final Context context = mApp.getContext();
         final ContentResolver contentResolver = context.getContentResolver();
@@ -416,6 +429,29 @@ public class LoaderTask implements Runnable {
                                             c.markDeleted("Unable to find a launch target");
                                             continue;
                                         }
+                                    } else if (c.itemType
+                                            == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION
+                                            && (intent = getRelaunchIntent(pmHelper, targetPkg,
+                                                    c.user, intent)) != null
+                                            && intent.getComponent() != null
+                                            && !intent.getComponent().equals(cn)) {
+                                        // The app renamed its launcher activity in an update,
+                                        // point the icon to the new one instead of removing it.
+                                        FileLog.d(TAG, "Launch activity changed: " + cn
+                                                + " -> " + intent.getComponent());
+                                        c.updater().put(LauncherSettings.Favorites.INTENT,
+                                                intent.toUri(0)).commit();
+                                        cn = intent.getComponent();
+                                    } else if (installingPkgs.containsKey(targetPkg)
+                                            || c.itemType != LauncherSettings.Favorites
+                                                    .ITEM_TYPE_APPLICATION) {
+                                        // The app is being updated right now (or this is a
+                                        // shortcut whose activity is temporarily missing). Keep
+                                        // the icon disabled, it is updated or removed as soon as
+                                        // the package manager reports the final state.
+                                        if (intent == null) intent = c.parseIntent();
+                                        disabledState |= ShortcutInfo.FLAG_DISABLED_NOT_AVAILABLE;
+                                        allowMissingTarget = true;
                                     } else {
                                         // The app is installed but the component is no
                                         // longer available.
@@ -458,6 +494,15 @@ public class LoaderTask implements Runnable {
                                     pendingPackages.addToList(c.user, targetPkg);
                                     // Add the icon on the workspace anyway.
                                     allowMissingTarget = true;
+                                } else if (installingPkgs.containsKey(targetPkg)
+                                        || pmHelper.isAppInstalledForUser(targetPkg, c.user)) {
+                                    // The package is still installed but not usable at the
+                                    // moment, most likely because it is being updated while we
+                                    // load. Deleting the icon here was the reason why icons
+                                    // sometimes disappeared from the home screen.
+                                    FileLog.d(TAG, "Package temporarily unavailable: " + targetPkg);
+                                    disabledState |= ShortcutInfo.FLAG_DISABLED_NOT_AVAILABLE;
+                                    allowMissingTarget = true;
                                 } else {
                                     // Do not wait for external media load anymore.
                                     c.markDeleted("Invalid package removed: " + targetPkg);
@@ -492,31 +537,43 @@ public class LoaderTask implements Runnable {
                                 if (unlockedUsers.get(c.serialNumber)) {
                                     ShortcutInfoCompat pinnedShortcut =
                                             shortcutKeyToPinnedShortcuts.get(key);
-                                    if (pinnedShortcut == null) {
+                                    if (pinnedShortcut == null
+                                            && (installingPkgs.containsKey(targetPkg)
+                                                    || !validTarget)) {
+                                        // The app is being updated, the shortcut service does
+                                        // not report its shortcuts in the meantime. Keep the
+                                        // shortcut (disabled) instead of deleting it.
+                                        FileLog.d(TAG, "Keeping shortcut of updating app: " + key);
+                                        info = c.loadSimpleShortcut();
+                                        info.runtimeStatusFlags |=
+                                                ShortcutInfo.FLAG_DISABLED_NOT_AVAILABLE;
+                                        intent = info.intent;
+                                    } else if (pinnedShortcut == null) {
                                         // The shortcut is no longer valid.
                                         c.markDeleted("Pinned shortcut not found");
                                         continue;
-                                    }
-                                    info = new ShortcutInfo(pinnedShortcut, context);
-                                    final ShortcutInfo finalInfo = info;
-                                    Provider<Bitmap> fallbackIconProvider = new Provider<Bitmap>() {
-                                        @Override
-                                        public Bitmap get() {
-                                            // If the pinned deep shortcut is no longer published,
-                                            // use the last saved icon instead of the default.
-                                            return c.loadIcon(finalInfo)
-                                                    ? finalInfo.iconBitmap : null;
+                                    } else {
+                                        info = new ShortcutInfo(pinnedShortcut, context);
+                                        final ShortcutInfo finalInfo = info;
+                                        Provider<Bitmap> fallbackIconProvider = new Provider<Bitmap>() {
+                                            @Override
+                                            public Bitmap get() {
+                                                // If the pinned deep shortcut is no longer published,
+                                                // use the last saved icon instead of the default.
+                                                return c.loadIcon(finalInfo)
+                                                        ? finalInfo.iconBitmap : null;
+                                            }
+                                        };
+                                        LauncherIcons li = LauncherIcons.obtain(context);
+                                        li.createShortcutIcon(pinnedShortcut,
+                                                true /* badged */, fallbackIconProvider).applyTo(info);
+                                        li.recycle();
+                                        if (pmHelper.isAppSuspended(
+                                                pinnedShortcut.getPackage(), info.user)) {
+                                            info.runtimeStatusFlags |= FLAG_DISABLED_SUSPENDED;
                                         }
-                                    };
-                                    LauncherIcons li = LauncherIcons.obtain(context);
-                                    li.createShortcutIcon(pinnedShortcut,
-                                            true /* badged */, fallbackIconProvider).applyTo(info);
-                                    li.recycle();
-                                    if (pmHelper.isAppSuspended(
-                                            pinnedShortcut.getPackage(), info.user)) {
-                                        info.runtimeStatusFlags |= FLAG_DISABLED_SUSPENDED;
+                                        intent = info.intent;
                                     }
-                                    intent = info.intent;
                                 } else {
                                     // Create a shortcut info in disabled mode for now.
                                     info = c.loadSimpleShortcut();

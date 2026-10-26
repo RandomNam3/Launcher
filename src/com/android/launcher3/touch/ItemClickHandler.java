@@ -28,6 +28,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Process;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
@@ -214,7 +215,8 @@ public class ItemClickHandler {
         }
 
         // Check for abandoned promise
-        if ((v instanceof BubbleTextView) && shortcut.hasPromiseIconUi()) {
+        if ((v instanceof BubbleTextView) && shortcut.hasPromiseIconUi()
+                && shortcut.intent != null) {
             String packageName = shortcut.intent.getComponent() != null ?
                     shortcut.intent.getComponent().getPackageName() : shortcut.intent.getPackage();
             if (!TextUtils.isEmpty(packageName)) {
@@ -237,7 +239,11 @@ public class ItemClickHandler {
             intent = item.getIntent();
         }
         if (intent == null) {
-            throw new IllegalArgumentException("Input must have a valid intent");
+            // Happens e.g. for an app that is currently being installed or updated
+            // (no market app to show it in). Used to throw an IllegalArgumentException.
+            Log.w("ItemClickHandler", "No intent to launch for " + item);
+            Toast.makeText(launcher, R.string.activity_not_available, Toast.LENGTH_SHORT).show();
+            return;
         }
         if (item instanceof ShortcutInfo) {
             ShortcutInfo si = (ShortcutInfo) item;

@@ -64,4 +64,32 @@ public abstract class UserManagerCompat {
     public abstract boolean isDemoUser();
     public abstract boolean requestQuietModeEnabled(boolean enableQuietMode, UserHandle user);
     public abstract boolean isAnyProfileQuietModeEnabled();
+
+    /**
+     * Returns whether the user is the private space profile (Android 15+). Private space apps are
+     * kept out of the regular app lists and are only shown in their own tab while unlocked.
+     */
+    public abstract boolean isPrivateProfile(UserHandle user);
+
+    /**
+     * Returns the private space profile or null if there is none (or it is not visible to us,
+     * e.g. because we are not the default home app).
+     */
+    public abstract UserHandle getPrivateProfile();
+
+    /**
+     * Returns whether the user is a work profile, i.e. neither the main user nor private space.
+     */
+    public boolean isWorkProfile(UserHandle user) {
+        return user != null && !android.os.Process.myUserHandle().equals(user)
+                && !isPrivateProfile(user);
+    }
+
+    /**
+     * Returns whether a private space exists and is currently locked.
+     */
+    public boolean isPrivateSpaceLocked() {
+        UserHandle user = getPrivateProfile();
+        return user != null && isQuietModeEnabled(user);
+    }
 }

@@ -63,6 +63,8 @@ import com.android.launcher3.config.FeatureFlags;
 import com.android.launcher3.keyboard.FocusedItemDecorator;
 import com.android.launcher3.userevent.nano.LauncherLogProto.Target;
 import com.android.launcher3.util.ItemInfoMatcher;
+import com.android.launcher3.util.ProfileMatchers;
+import com.android.launcher3.compat.UserManagerCompat;
 import com.android.launcher3.util.Themes;
 import com.android.launcher3.views.BottomUserEducationView;
 import com.android.launcher3.views.RecyclerViewFastScroller;
@@ -86,7 +88,7 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
     private final Launcher mLauncher;
     private AdapterHolder[] mAH;
     private final ItemInfoMatcher mPersonalMatcher = ItemInfoMatcher.ofUser(Process.myUserHandle());
-    private final ItemInfoMatcher mWorkMatcher = ItemInfoMatcher.not(mPersonalMatcher);
+    private final ItemInfoMatcher mWorkMatcher;
     private final AllAppsStore mAllAppsStore = new AllAppsStore();
 
     private final Paint mNavBarScrimPaint;
@@ -122,6 +124,7 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
         super(context, attrs, defStyleAttr);
 
         mLauncher = Launcher.getLauncher(context);
+        mWorkMatcher = ProfileMatchers.ofWorkProfile(context);
         mLauncher.addOnDeviceProfileChangeListener(this);
 
         mSearchQueryBuilder = new SpannableStringBuilder();
@@ -183,6 +186,14 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
             AllAppsTabs allAppsTabs = mTabsController.getTabs();
             force = allAppsTabs.getHasWorkApps() != hasWorkApps;
             allAppsTabs.setHasWorkApps(hasWorkApps);
+        }
+        if (FeatureFlags.ALL_APPS_TABS_ENABLED) {
+            // The private space always gets its own tab, its apps are never mixed into others
+            boolean hasPrivateSpace =
+                    UserManagerCompat.getInstance(getContext()).getPrivateProfile() != null;
+            AllAppsTabs allAppsTabs = mTabsController.getTabs();
+            force |= allAppsTabs.getHasPrivateSpace() != hasPrivateSpace;
+            allAppsTabs.setHasPrivateSpace(hasPrivateSpace);
         }
         rebindAdapters(mTabsController.getShouldShowTabs(), force);
     }
@@ -652,6 +663,10 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
         public void setIsWork(boolean isWork) {
             this.isWork = isWork;
             appsList.setIsWork(isWork);
+        }
+
+        public void setIsPrivate(boolean isPrivate) {
+            appsList.setIsPrivate(isPrivate);
         }
 
         public boolean isWork() {

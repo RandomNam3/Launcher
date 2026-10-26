@@ -42,6 +42,7 @@ import com.android.launcher3.compat.LauncherAppsCompat;
 import com.android.launcher3.compat.UserManagerCompat;
 import com.android.launcher3.shortcuts.DeepShortcutManager;
 import com.android.launcher3.util.ComponentKey;
+import com.android.launcher3.util.ProfileMatchers;
 import com.android.launcher3.util.ItemInfoMatcher;
 import com.android.launcher3.util.LabelComparator;
 
@@ -152,6 +153,13 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
             return item;
         }
 
+        public static AdapterItem asPrivateSpaceFooter(int pos) {
+            AdapterItem item = new AdapterItem();
+            item.viewType = AllAppsGridAdapter.VIEW_TYPE_PRIVATE_SPACE_FOOTER;
+            item.position = pos;
+            return item;
+        }
+
         public static AdapterItem asWorkTabFooter(int pos) {
             AdapterItem item = new AdapterItem();
             item.viewType = AllAppsGridAdapter.VIEW_TYPE_WORK_TAB_FOOTER;
@@ -192,6 +200,7 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
     private final List<FastScrollSectionInfo> mFastScrollerSections = new ArrayList<>();
     // Is it the work profile app list.
     private boolean mIsWork;
+    private boolean mIsPrivate;
 
     // The of ordered component names as a result of a search query
     private ArrayList<ComponentKey> mSearchResults;
@@ -530,6 +539,10 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
         if (shouldShowWorkFooter()) {
             mAdapterItems.add(AdapterItem.asWorkTabFooter(position++));
         }
+        // Lock/unlock switch of the private space
+        if (mIsPrivate && !hasFilter()) {
+            mAdapterItems.add(AdapterItem.asPrivateSpaceFooter(position++));
+        }
     }
 
     private boolean shouldShowWorkFooter() {
@@ -552,6 +565,9 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
         for (ComponentKey key : mSearchResults) {
             AppInfo match = mAllAppsStore.getApp(key);
             if (match != null) {
+                if (ProfileMatchers.isHiddenPrivateItem(mLauncher, match)) {
+                    continue;
+                }
                 result.add(match);
             } else {
                 for (LauncherActivityInfo info : launcherApps
@@ -589,6 +605,14 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
 
     public void setIsWork(boolean isWork) {
         mIsWork = isWork;
+    }
+
+    public void setIsPrivate(boolean isPrivate) {
+        mIsPrivate = isPrivate;
+    }
+
+    public boolean isPrivate() {
+        return mIsPrivate;
     }
 
     private List<DrawerFolderInfo> getFolderInfos() {

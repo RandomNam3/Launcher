@@ -36,20 +36,13 @@ class BlurWallpaperProvider(val context: Context) {
     private val mWallpaperManager: WallpaperManager = WallpaperManager.getInstance(context)
     private val mListeners = ArrayList<Listener>()
     private val mDisplayMetrics = DisplayMetrics()
+    // Only changed on the main thread. The previous bitmaps are not recycled manually: blur
+    // drawables may still draw them until they received onWallpaperChanged, recycling them from
+    // the background thread crashed with "Canvas: trying to use a recycled bitmap".
     var wallpaper: Bitmap? = null
-        private set(value) {
-            if (field != value) {
-                field?.recycle()
-                field = value
-            }
-        }
+        private set
     var placeholder: Bitmap? = null
-        private set(value) {
-            if (field != value) {
-                field?.recycle()
-                field = value
-            }
-        }
+        private set
     private var mOffset: Float = 0.6f
     var blurRadius = 25
         private set
@@ -101,8 +94,10 @@ class BlurWallpaperProvider(val context: Context) {
         }
 
         if (!isEnabled) {
-            wallpaper = null
-            placeholder = null
+            runOnMainThread {
+                wallpaper = null
+                placeholder = null
+            }
             return
         }
 
@@ -129,16 +124,21 @@ class BlurWallpaperProvider(val context: Context) {
 
         mWallpaperWidth = wallpaper.width
 
-        placeholder = createPlaceholder(wallpaper.width, wallpaper.height)
+        val newPlaceholder = createPlaceholder(wallpaper.width, wallpaper.height)
+        runOnMainThread {
+            placeholder = newPlaceholder
+        }
         wallpaper = applyVibrancy(wallpaper)
         Log.d("BWP", "starting blur")
 
         applyTask = wallpaperFilter.apply(wallpaper).setCallback { result, error ->
             if (error == null) {
-                this@BlurWallpaperProvider.wallpaper = result
                 Log.d("BWP", "blur done")
-                runOnMainThread(::notifyWallpaperChanged)
-                wallpaper.recycle()
+                runOnMainThread {
+                    this@BlurWallpaperProvider.wallpaper = result
+                    notifyWallpaperChanged()
+                }
+                if (wallpaper !== result) wallpaper.recycle()
             } else {
                 if (error is OutOfMemoryError) {
                     prefs.enableBlur = false
@@ -147,7 +147,7 @@ class BlurWallpaperProvider(val context: Context) {
                         notifyWallpaperChanged()
                     }
                 }
-                wallpaper.recycle()
+                if (!wallpaper.isRecycled) wallpaper.recycle()
             }
             applyTask = null
             if (updatePending) {

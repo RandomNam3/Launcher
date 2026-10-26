@@ -17,6 +17,7 @@
 package com.android.launcher3.compat;
 
 import android.content.Context;
+import ch.deletescape.lawnchair.platform.ProfileCompat;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.UserHandle;
@@ -38,6 +39,8 @@ public class UserManagerCompatVL extends UserManagerCompat {
     // Create a separate reverse map as LongArrayMap.indexOfValue checks if objects are same
     // and not {@link Object#equals}
     protected ArrayMap<UserHandle, Long> mUserToSerialMap;
+    // Users known to be (or not to be) the private space profile
+    private final ArrayMap<UserHandle, Boolean> mPrivateProfileCache = new ArrayMap<>();
 
     UserManagerCompatVL(Context context) {
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
@@ -92,7 +95,42 @@ public class UserManagerCompatVL extends UserManagerCompat {
     }
 
     @Override
+    public boolean isPrivateProfile(UserHandle user) {
+        if (!ProfileCompat.SUPPORTS_PRIVATE_SPACE || user == null
+                || android.os.Process.myUserHandle().equals(user)) {
+            return false;
+        }
+        synchronized (mPrivateProfileCache) {
+            Boolean cached = mPrivateProfileCache.get(user);
+            if (cached != null) {
+                return cached;
+            }
+        }
+        boolean isPrivate = ProfileCompat.isPrivateProfile(mContext, user);
+        synchronized (mPrivateProfileCache) {
+            mPrivateProfileCache.put(user, isPrivate);
+        }
+        return isPrivate;
+    }
+
+    @Override
+    public UserHandle getPrivateProfile() {
+        if (!ProfileCompat.SUPPORTS_PRIVATE_SPACE) {
+            return null;
+        }
+        for (UserHandle user : getUserProfiles()) {
+            if (isPrivateProfile(user)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public void enableAndResetCache() {
+        synchronized (mPrivateProfileCache) {
+            mPrivateProfileCache.clear();
+        }
         synchronized (this) {
             mUsers = new LongArrayMap<>();
             mUserToSerialMap = new ArrayMap<>();

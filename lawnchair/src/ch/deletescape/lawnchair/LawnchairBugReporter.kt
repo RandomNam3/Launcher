@@ -40,8 +40,7 @@ import java.util.*
 class LawnchairBugReporter(private val context: Context, private val crashHandler: Thread.UncaughtExceptionHandler)
     : Thread.UncaughtExceptionHandler {
 
-    private val hasPermission get() = ContextCompat.checkSelfPermission(context,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+    private val hasPermission get() = ch.deletescape.lawnchair.platform.StorageCompat.hasStorageAccess(context)
     private val folder = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "Lawnchair/logs")
     private val cacheFolder by lazy { BugReportFileManager.getFolder(context) }
     private val appName by lazy { context.getString(R.string.derived_app_name) }
@@ -95,10 +94,12 @@ class LawnchairBugReporter(private val context: Context, private val crashHandle
         fun save(): File? {
             val dest = if (cacheFolder.exists()) {
                 cacheFolder
-            } else {
-                if (!hasPermission) return null
+            } else if (hasPermission) {
                 if (!folder.exists()) folder.mkdirs()
                 folder
+            } else {
+                // Android/data/<package>/files/logs, needs no permission
+                context.getExternalFilesDir("logs") ?: return null
             }
 
             val file = File(dest, "$fileName.txt")

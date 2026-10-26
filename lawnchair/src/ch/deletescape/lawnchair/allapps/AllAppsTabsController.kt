@@ -62,13 +62,16 @@ class AllAppsTabsController(val tabs: AllAppsTabs, private val container: AllApp
     fun setup(pagedView: AllAppsPagedView) {
         tabs.forEachIndexed { index, tab ->
             holders[index].setIsWork(tab.isWork)
+            holders[index].setIsPrivate(tab.isPrivate)
             holders[index].setup(pagedView.getChildAt(index), tab.matcher)
         }
     }
 
     fun setup(view: View) {
         holders.forEach { it.recyclerView = null }
-        holders[0].setup(view, null)
+        holders[0].setIsWork(false)
+        holders[0].setIsPrivate(false)
+        holders[0].setup(view, tabs.mainMatcher)
     }
 
     fun bindButtons(buttonsContainer: ViewGroup, pagedView: AllAppsPagedView) {

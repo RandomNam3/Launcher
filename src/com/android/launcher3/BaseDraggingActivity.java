@@ -164,9 +164,16 @@ public abstract class BaseDraggingActivity extends BaseActivity
         // private contract between launcher and may be ignored in the future).
         boolean useLaunchAnimation = (v != null) &&
                 !intent.hasExtra(INTENT_EXTRA_IGNORE_LAUNCH_ANIMATION);
-        Bundle optsBundle = useLaunchAnimation
-                ? getActivityLaunchOptionsAsBundle(v)
-                : null;
+        Bundle optsBundle = null;
+        if (useLaunchAnimation) {
+            try {
+                optsBundle = getActivityLaunchOptionsAsBundle(v);
+            } catch (RuntimeException e) {
+                // e.g. the view got detached while switching apps quickly, just launch the app
+                // without the custom animation.
+                Log.w(TAG, "Unable to create launch animation options", e);
+            }
+        }
 
         UserHandle user = item == null ? null : item.user;
 
@@ -191,13 +198,23 @@ public abstract class BaseDraggingActivity extends BaseActivity
                 LauncherAppsCompat.getInstance(this).startActivityForProfile(
                         intent.getComponent(), user, intent.getSourceBounds(), optsBundle);
             }
-            getUserEventDispatcher().logAppLaunch(v, intent, user);
-            return true;
         } catch (ActivityNotFoundException|SecurityException e) {
             Toast.makeText(this, R.string.activity_not_found, Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Unable to launch. tag=" + item + " intent=" + intent, e);
+            return false;
+        } catch (RuntimeException e) {
+            // Starting an app that is being updated (or removed) right now can fail in various
+            // ways (IllegalStateException, IllegalArgumentException, ...). Don't crash.
+            Toast.makeText(this, R.string.activity_not_found, Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Unable to launch. tag=" + item + " intent=" + intent, e);
+            return false;
         }
-        return false;
+        try {
+            getUserEventDispatcher().logAppLaunch(v, intent, user);
+        } catch (RuntimeException e) {
+            Log.w(TAG, "Unable to log app launch", e);
+        }
+        return true;
     }
 
     private void startShortcutIntentSafely(Intent intent, Bundle optsBundle, ItemInfo info) {

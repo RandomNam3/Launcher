@@ -16,6 +16,8 @@
 
 package com.android.launcher3;
 
+import ch.deletescape.lawnchair.platform.ProfileCompat;
+
 import static com.android.launcher3.LauncherAppState.ACTION_FORCE_ROLOAD;
 import static com.android.launcher3.config.FeatureFlags.IS_DOGFOOD_BUILD;
 
@@ -426,6 +428,26 @@ public class LauncherModel extends BroadcastReceiver
                         Intent.ACTION_MANAGED_PROFILE_UNLOCKED.equals(action)) {
                     enqueueModelUpdateTask(new UserLockStateChangedTask(user));
                 }
+            }
+        } else if (ProfileCompat.ACTION_PROFILE_ADDED.equals(action)
+                || ProfileCompat.ACTION_PROFILE_REMOVED.equals(action)) {
+            // Sent for every kind of profile since Android 11 (work profiles additionally send
+            // the MANAGED_PROFILE variant), needed for the private space.
+            UserManagerCompat.getInstance(context).enableAndResetCache();
+            forceReload();
+        } else if (ProfileCompat.ACTION_PROFILE_AVAILABLE.equals(action)
+                || ProfileCompat.ACTION_PROFILE_UNAVAILABLE.equals(action)) {
+            // Private space locked or unlocked. Work profiles are handled above.
+            UserHandle user = intent.getParcelableExtra(Intent.EXTRA_USER);
+            if (user != null && UserManagerCompat.getInstance(context).isPrivateProfile(user)) {
+                if (ProfileCompat.ACTION_PROFILE_AVAILABLE.equals(action)) {
+                    // The app list of a locked private space might be incomplete
+                    enqueueModelUpdateTask(new PackageUpdatedTask(
+                            PackageUpdatedTask.OP_RELOAD, user));
+                }
+                enqueueModelUpdateTask(new PackageUpdatedTask(
+                        PackageUpdatedTask.OP_USER_AVAILABILITY_CHANGE, user));
+                enqueueModelUpdateTask(new UserLockStateChangedTask(user));
             }
         } else if (IS_DOGFOOD_BUILD && ACTION_FORCE_ROLOAD.equals(action)) {
             forceReload();

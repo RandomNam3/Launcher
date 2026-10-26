@@ -76,7 +76,7 @@ class BugReportService : Service() {
     }
 
     fun onNewReport(report: BugReport) {
-        if (autoUpload) {
+        if (DOGBIN_UPLOAD_AVAILABLE && autoUpload) {
             startDogbinUpload(report)
         } else {
             notify(report)
@@ -153,7 +153,7 @@ class BugReportService : Service() {
         if (uploading) {
             builder.setOngoing(true)
             builder.setProgress(0, 0, true)
-        } else if (report.link == null) {
+        } else if (DOGBIN_UPLOAD_AVAILABLE && report.link == null) {
             val uploadIntent = Intent(UPLOAD_ACTION)
                     .setPackage(BuildConfig.APPLICATION_ID)
                     .putExtra("report", report)
@@ -203,6 +203,9 @@ class BugReportService : Service() {
     }
 
     companion object {
+
+        // The del.dog paste service used for uploads does not exist anymore
+        private const val DOGBIN_UPLOAD_AVAILABLE = false
 
         private const val CHANNEL_ID = "bugreport"
         const val STATUS_ID = "status"

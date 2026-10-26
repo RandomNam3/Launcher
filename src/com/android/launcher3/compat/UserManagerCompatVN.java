@@ -56,6 +56,10 @@ public class UserManagerCompatVN extends UserManagerCompatVM {
             if (Process.myUserHandle().equals(userProfile)) {
                 continue;
             }
+            // The private space has its own lock and is not paused together with work apps
+            if (isPrivateProfile(userProfile)) {
+                continue;
+            }
             if (isQuietModeEnabled(userProfile)) {
                 return true;
             }

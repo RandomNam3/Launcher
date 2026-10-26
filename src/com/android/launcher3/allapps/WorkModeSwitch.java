@@ -91,7 +91,9 @@ public class WorkModeSwitch extends Switch {
                 List<UserHandle> userProfiles = userManager.getUserProfiles();
                 boolean showConfirm = false;
                 for (UserHandle userProfile : userProfiles) {
-                    if (Process.myUserHandle().equals(userProfile)) {
+                    if (Process.myUserHandle().equals(userProfile)
+                            || userManager.isPrivateProfile(userProfile)) {
+                        // The private space has its own switch
                         continue;
                     }
                     showConfirm |= !userManager.requestQuietModeEnabled(enabled, userProfile);

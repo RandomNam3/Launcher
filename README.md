@@ -23,7 +23,6 @@ Android-Versionen (bis Android 16) weiterentwickelt wird.
     kurzzeitig nicht verfügbar waren (z. B. während eines Updates), wurden dauerhaft gelöscht
 - Anpassungen an neue Android-Regeln (Broadcast-Receiver, PendingIntents, Paketsichtbarkeit,
   Zugriff auf Hintergrundbild und Speicher, Hidden-API-Beschränkungen, Edge-to-Edge)
-- Eingebauter Fehlerbericht: Abstürze erscheinen als Benachrichtigung mit „Teilen“-Knopf
 
 ## Installation & Umzug von Lawnchair 2
 

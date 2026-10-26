@@ -8,4 +8,4 @@
 
 **Schritte zum Reproduzieren:**
 
-**Absturzbericht** (Benachrichtigung „Fehlerbericht“ → Teilen, oder `adb logcat`):
+**Absturzbericht** (z. B. per `adb logcat`):

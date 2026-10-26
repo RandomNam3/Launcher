@@ -20,8 +20,6 @@ package ch.deletescape.lawnchair.blur
 import android.content.Context
 import android.graphics.Bitmap
 import ch.deletescape.lawnchair.LawnchairPreferences
-import com.hoko.blur.HokoBlur
-import com.hoko.blur.task.AsyncBlurTask
 
 class BlurWallpaperFilter(private val context: Context) : WallpaperFilter {
 
@@ -34,23 +32,14 @@ class BlurWallpaperFilter(private val context: Context) : WallpaperFilter {
 
     override fun apply(wallpaper: Bitmap): WallpaperFilter.ApplyTask {
         return WallpaperFilter.ApplyTask.create { emitter ->
-            HokoBlur.with(context)
-                    .scheme(HokoBlur.SCHEME_OPENGL)
-                    .mode(HokoBlur.MODE_STACK)
-                    .radius(blurRadius)
-                    .sampleFactor(BlurWallpaperProvider.DOWNSAMPLE_FACTOR.toFloat())
-                    .forceCopy(false)
-                    .needUpscale(true)
-                    .processor()
-                    .asyncBlur(wallpaper, object : AsyncBlurTask.Callback {
-                        override fun onBlurSuccess(bitmap: Bitmap) {
-                            emitter.onSuccess(bitmap)
-                        }
-
-                        override fun onBlurFailed(error: Throwable?) {
-                            emitter.onError(error!!)
-                        }
-                    })
+            StackBlur.blurAsync(wallpaper, blurRadius,
+                    BlurWallpaperProvider.DOWNSAMPLE_FACTOR.toFloat(), true) { bitmap, error ->
+                if (bitmap != null) {
+                    emitter.onSuccess(bitmap)
+                } else {
+                    emitter.onError(error ?: IllegalStateException("Blur failed"))
+                }
+            }
         }
     }
 }

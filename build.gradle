@@ -59,8 +59,7 @@ android {
         buildConfigField "boolean", "FEATURE_SETTINGS_SEARCH", "true"
         buildConfigField "boolean", "DEBUG_STRICT_MODE", "false"
         buildConfigField "boolean", "HAS_LEAKCANARY", "false"
-        // Crash notifications with a "share" action, helps to find the remaining bugs
-        buildConfigField "boolean", "FEATURE_BUG_REPORTER", "true"
+        buildConfigField "boolean", "FEATURE_BUG_REPORTER", "false"
 
         def githubToken = localProps.getProperty('githubToken') ?: '"' + (System.getenv("GITHUB_TOKEN") ?: "") + '"'
         buildConfigField "String", "GITHUB_TOKEN", githubToken
@@ -215,7 +214,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.github.KwabenBerko:OpenWeatherMap-Android-Library:2.0.1'
     implementation 'com.github.LawnchairLauncher:chroma:1.2.6'
-    implementation 'com.github.LawnchairLauncher:hoko-lite:4e0d797'
     implementation project(':platformcompat')
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 

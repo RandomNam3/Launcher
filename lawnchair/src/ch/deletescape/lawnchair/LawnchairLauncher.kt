@@ -106,19 +106,6 @@ open class LawnchairLauncher : NexusLauncherActivity(),
         ColorEngine.getInstance(this).addColorChangeListeners(this, *colorsToWatch)
 
         performSignatureVerification()
-        requestNotificationPermissionOnce()
-    }
-
-    private fun requestNotificationPermissionOnce() {
-        // Crash notifications need a runtime permission since Android 13
-        if (Build.VERSION.SDK_INT < 33 || !BuildConfig.FEATURE_BUG_REPORTER
-                || !lawnchairPrefs.showCrashNotifications) return
-        val prefs = Utilities.getPrefs(this)
-        if (prefs.getBoolean(KEY_NOTIFICATION_PERMISSION_REQUESTED, false)) return
-        prefs.edit().putBoolean(KEY_NOTIFICATION_PERMISSION_REQUESTED, true).apply()
-        if (!Utilities.hasPermission(this, PERMISSION_POST_NOTIFICATIONS)) {
-            requestPermissions(arrayOf(PERMISSION_POST_NOTIFICATIONS), REQUEST_PERMISSION_NOTIFICATIONS)
-        }
     }
 
     override fun startActivitySafely(v: View?, intent: Intent, item: ItemInfo?): Boolean {
@@ -447,10 +434,6 @@ open class LawnchairLauncher : NexusLauncherActivity(),
     companion object {
 
         const val REQUEST_PERMISSION_STORAGE_ACCESS = 666
-
-        private const val REQUEST_PERMISSION_NOTIFICATIONS = 669
-        private const val PERMISSION_POST_NOTIFICATIONS = "android.permission.POST_NOTIFICATIONS"
-        private const val KEY_NOTIFICATION_PERMISSION_REQUESTED = "pref_legacy_notification_permission_requested"
 
         private var storageAccessPromptShown = false
         private var lastStorageAccess: Boolean? = null

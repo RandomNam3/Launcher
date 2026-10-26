@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android backup and device-to-device transfer (Android 12+) -->
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Home screen layout -->
+        <include domain="database" path="launcher.db" />
+        <!-- All settings, except the device specific ones (grid migration state etc.) -->
+        <include domain="sharedpref" path="." />
+        <exclude domain="sharedpref" path="com.android.launcher3.device.prefs.xml" />
+        <include domain="file" path="downgrade_schema.json" />
+    </cloud-backup>
+    <device-transfer>
+        <!-- Home screen layout -->
+        <include domain="database" path="launcher.db" />
+        <!-- All settings, except the device specific ones (grid migration state etc.) -->
+        <include domain="sharedpref" path="." />
+        <exclude domain="sharedpref" path="com.android.launcher3.device.prefs.xml" />
+        <include domain="file" path="downgrade_schema.json" />
+    </device-transfer>
+</data-extraction-rules>

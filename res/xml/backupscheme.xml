@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Android backup (Android 11 and older, see data_extraction_rules.xml for newer versions) -->
 <full-backup-content xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <!-- Home screen layout -->
     <include domain="database" path="launcher.db" />
-    <include domain="sharedpref" path="com.android.launcher3.prefs.xml" />
+    <!-- All settings, except the device specific ones (grid migration state etc.) -->
+    <include domain="sharedpref" path="." />
+    <exclude domain="sharedpref" path="com.android.launcher3.device.prefs.xml" />
     <include domain="file" path="downgrade_schema.json" />
-
 </full-backup-content>

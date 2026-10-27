@@ -805,7 +805,7 @@
     <string name="action_grant_access">Grant access</string>
     <string name="all_files_access_required_blur">Android only shares the wallpaper with apps that have \"All files access\". Grant it to Launcher to use the blur effect.</string>
     <string name="all_files_access_required_backup">Backups in the Documents folder need \"All files access\". You can still restore a backup file through the file picker.</string>
-    <string name="about_fork_description">Launcher is a continuation of Lawnchair 2, kept as close as possible to its original look and feel and updated for current Android versions (private space, Android 16).\n\nLawnchair was created by the Lawnchair team (Till Kottmann, Patryk Michalik, David Sn and contributors). This app is not affiliated with or endorsed by the Lawnchair project.</string>
+    <string name="about_fork_description">Launcher is a continuation of Lawnchair 2, kept as close as possible to its original look and feel and updated for current Android versions (private space, Android 17).\n\nLawnchair was created by the Lawnchair team (Till Kottmann, Patryk Michalik, David Sn and contributors). This app is not affiliated with or endorsed by the Lawnchair project.</string>
     <string name="about_version">Version %1$s (%2$d)</string>
     <string name="about_source_code">Source code</string>
     <string name="about_based_on">Based on Lawnchair 2</string>

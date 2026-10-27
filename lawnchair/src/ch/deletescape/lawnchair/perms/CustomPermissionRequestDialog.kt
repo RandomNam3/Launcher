@@ -51,11 +51,11 @@ class CustomPermissionRequestDialog private constructor(private val context: Con
         AlertDialog.Builder(themedContext, ThemeOverride.AlertDialog().getTheme(context))
                 .setView(DialogView(context, string, icon, explanation))
                 .setIcon(icon)
-                .setPositiveButton(context.getString(R.string.allow).toUpperCase(), DialogInterface.OnClickListener { _, _ ->
+                .setPositiveButton(context.getString(R.string.allow).uppercase(java.util.Locale.getDefault()), DialogInterface.OnClickListener { _, _ ->
                     SHOWING.remove(key)
                     listeners.forEach { it(true) }
                 })
-                .setNegativeButton(context.getString(R.string.deny).toUpperCase(), DialogInterface.OnClickListener { _, _ ->
+                .setNegativeButton(context.getString(R.string.deny).uppercase(java.util.Locale.getDefault()), DialogInterface.OnClickListener { _, _ ->
                     SHOWING.remove(key)
                     listeners.forEach { it(false) }
                 })

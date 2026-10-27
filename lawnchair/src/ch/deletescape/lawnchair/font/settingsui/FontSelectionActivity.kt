@@ -217,7 +217,7 @@ class FontSelectionActivity : SettingsBaseActivity(), SearchView.OnQueryTextList
         }
 
         fun search(query: String) {
-            searchQuery = query.toLowerCase()
+            searchQuery = query.lowercase(java.util.Locale.getDefault())
             filterItems()
         }
 
@@ -225,7 +225,7 @@ class FontSelectionActivity : SettingsBaseActivity(), SearchView.OnQueryTextList
             filtered.clear()
             if (!searchQuery.isEmpty()) {
                 items.filterTo(filtered) {
-                    it is FamilyCache && it.displayName.toLowerCase().contains(searchQuery)
+                    it is FamilyCache && it.displayName.lowercase(java.util.Locale.getDefault()).contains(searchQuery)
                 }
             } else {
                 filtered.addAll(items)

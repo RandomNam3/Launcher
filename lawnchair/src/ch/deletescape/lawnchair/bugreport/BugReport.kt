@@ -76,6 +76,9 @@ data class BugReport(val id: Long, val type: String, val description: String, va
             val fileUri = getFileUri(context)
             if (fileUri != null) {
                 putExtra(Intent.EXTRA_STREAM, fileUri)
+                // Explicit grant, Android no longer grants access implicitly for ACTION_SEND
+                clipData = android.content.ClipData.newRawUri(null, fileUri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             } else {
                 putExtra(Intent.EXTRA_TEXT, link ?: contents)
             }

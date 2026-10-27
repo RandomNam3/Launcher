@@ -5,9 +5,9 @@ import smali.SmaliTask
 // again together with the rest of the app.
 
 def smaliInputDir = file('lawnchair/smali')
-def dexFile = file("$buildDir/lawnchairsmali/lawnchair.dex")
-def jarFile = file("$buildDir/lawnchairlibs/lawnchair.jar")
-def errorFile = file("$buildDir/lawnchairlibs/lawnchair-error.zip")
+def dexFile = layout.buildDirectory.file("lawnchairsmali/lawnchair.dex").get().asFile
+def jarFile = layout.buildDirectory.file("lawnchairlibs/lawnchair.jar").get().asFile
+def errorFile = layout.buildDirectory.file("lawnchairlibs/lawnchair-error.zip").get().asFile
 
 def smaliToDex = tasks.register('smaliToDexLawnchair', SmaliTask) {
     source = fileTree(dir: smaliInputDir, include: '**/*.smali')

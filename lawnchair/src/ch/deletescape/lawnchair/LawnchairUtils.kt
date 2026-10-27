@@ -383,7 +383,7 @@ fun java.text.Collator.matches(query: String, target: String): Boolean {
     }
 }
 
-fun String.toTitleCase(): String = splitToSequence(" ").map { it.capitalize() }.joinToString(" ")
+fun String.toTitleCase(): String = splitToSequence(" ").map { it.replaceFirstChar { c -> if (c.isLowerCase()) c.titlecase(java.util.Locale.getDefault()) else c.toString() } }.joinToString(" ")
 
 fun reloadIconsFromComponents(context: Context, components: Collection<ComponentKey>) {
     reloadIcons(context, components.map { PackageUserKey(it.componentName.packageName, it.user) })

@@ -21,6 +21,7 @@ import ch.deletescape.lawnchair.platform.StorageCompat
 
 import android.Manifest
 import android.app.Activity
+import android.content.ClipData
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -180,10 +181,15 @@ class BackupListActivity : SettingsBaseActivity(), BackupListAdapter.Callbacks {
         val shareText = getString(R.string.backup_share_text)
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = LawnchairBackup.MIME_TYPE
-        shareIntent.putExtra(Intent.EXTRA_STREAM, adapter[position].uri)
+        val uri = adapter[position].uri
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareTitle)
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareText)
-        startActivity(Intent.createChooser(shareIntent, shareTitle))
+        // Explicit grant, Android no longer grants access implicitly for ACTION_SEND
+        shareIntent.clipData = ClipData.newRawUri(shareTitle, uri)
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        startActivity(Intent.createChooser(shareIntent, shareTitle)
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION))
     }
 
     private fun saveChanges() {

@@ -36,7 +36,7 @@ abstract class SelectableAppsAdapter(context: Context, private val callback: Cal
     private val accentTintList = ColorStateList.valueOf(ColorEngine.getInstance(context).accent)
 
     override val comparator = comparing<App, Int> { if (isSelected(it.key)) 0 else 1 }
-            .then { it.info.label.toString().toLowerCase() }
+            .then { it.info.label.toString().lowercase(java.util.Locale.getDefault()) }
 
     init {
         postLoadApps()

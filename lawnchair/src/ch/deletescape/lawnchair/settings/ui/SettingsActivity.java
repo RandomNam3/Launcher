@@ -251,28 +251,26 @@ public class SettingsActivity extends SettingsBaseActivity implements
                 toolbar.inflateMenu(R.menu.menu_change_default_home);
             }
             toolbar.setOnMenuItemClickListener(menuItem -> {
-                switch (menuItem.getItemId()) {
-                    case R.id.action_toggle_fools:
-                        prefs.beginBlockingEdit();
-                        prefs.setNoFools(!prefs.getNoFools());
-                        prefs.endBlockingEdit();
-                    case R.id.action_change_default_home:
-                        FakeLauncherKt.changeDefaultHome(this);
-                        break;
-                    case R.id.action_restart_lawnchair:
-                        Utilities.killLauncher();
-                        break;
-                    case R.id.action_dev_options:
-                        Intent intent = new Intent(this, SettingsActivity.class);
-                        intent.putExtra(SettingsActivity.SubSettingsFragment.TITLE,
-                                getString(R.string.developer_options_title));
-                        intent.putExtra(SettingsActivity.SubSettingsFragment.CONTENT_RES_ID,
-                                R.xml.lawnchair_dev_options_preference);
-                        intent.putExtra(SettingsBaseActivity.EXTRA_FROM_SETTINGS, true);
-                        startActivity(intent);
-                        break;
-                    default:
-                        return false;
+                // Resource ids are not constant expressions anymore (AGP 9), no switch
+                int itemId = menuItem.getItemId();
+                if (itemId == R.id.action_toggle_fools) {
+                    prefs.beginBlockingEdit();
+                    prefs.setNoFools(!prefs.getNoFools());
+                    prefs.endBlockingEdit();
+                } else if (itemId == R.id.action_change_default_home) {
+                    FakeLauncherKt.changeDefaultHome(this);
+                } else if (itemId == R.id.action_restart_lawnchair) {
+                    Utilities.killLauncher();
+                } else if (itemId == R.id.action_dev_options) {
+                    Intent intent = new Intent(this, SettingsActivity.class);
+                    intent.putExtra(SettingsActivity.SubSettingsFragment.TITLE,
+                            getString(R.string.developer_options_title));
+                    intent.putExtra(SettingsActivity.SubSettingsFragment.CONTENT_RES_ID,
+                            R.xml.lawnchair_dev_options_preference);
+                    intent.putExtra(SettingsBaseActivity.EXTRA_FROM_SETTINGS, true);
+                    startActivity(intent);
+                } else {
+                    return false;
                 }
                 return true;
             });

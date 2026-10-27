@@ -100,7 +100,7 @@ class ThemePreference(context: Context, attrs: AttributeSet?) : PreferenceDialog
         val strings = ArrayList<String>()
         themeDesc.mapTo(strings) { res.getString(it) }
         for (i in (1 until strings.size)) {
-            strings[i] = strings[i].toLowerCase()
+            strings[i] = strings[i].lowercase(java.util.Locale.getDefault())
         }
         summary = TextUtils.join(", ", strings)
     }

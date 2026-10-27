@@ -1,7 +1,7 @@
 # Launcher
 
 Ein anpassbarer Android-Launcher mit dem Aussehen und Funktionsumfang von Lawnchair 2,
-gepflegt für aktuelle Android-Versionen (Android 5.0 bis Android 16).
+gepflegt für aktuelle Android-Versionen (Android 5.0 bis Android 17).
 
 Launcher basiert auf [Lawnchair 2](https://github.com/LawnchairLauncher/lawnchair) (Version 2.0,
 Build 2589) des Lawnchair-Teams, das wiederum auf Launcher3 aus dem Android Open Source Project

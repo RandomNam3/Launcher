@@ -6,7 +6,7 @@ apply plugin: 'com.android.library'
 
 android {
     namespace 'ch.deletescape.lawnchair.platform'
-    compileSdk 36
+    compileSdk 37
 
     defaultConfig {
         minSdk 21

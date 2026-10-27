@@ -1,15 +1,14 @@
 import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
 
 buildscript {
-    ext.kotlin_version = '2.0.21'
+    ext.kotlin_version = '2.4.21'
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.12.3'
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.4'
+        classpath 'com.android.tools.build:gradle:9.4.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -24,8 +23,8 @@ if (localPropsFile.exists()) {
 
 // Launcher is based on Lawnchair 2.0 build 2589, see README.md
 // The release workflow sets the version from the git tag.
-def appVersionCode = (System.getenv("LAUNCHER_VERSION_CODE") ?: "10001") as int
-def appVersionName = System.getenv("LAUNCHER_VERSION_NAME") ?: "1.0.1"
+def appVersionCode = (System.getenv("LAUNCHER_VERSION_CODE") ?: "10002") as int
+def appVersionName = System.getenv("LAUNCHER_VERSION_NAME") ?: "1.0.2"
 
 // Signing: local.properties for local builds, environment variables (GitHub Actions secrets) on CI
 def releaseKeystore = localProps.getProperty("storeFile") ?: System.getenv("LAUNCHER_STORE_FILE")
@@ -39,12 +38,10 @@ if (System.getenv("LAUNCHER_REQUIRE_SIGNING") == "true") {
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'com.google.protobuf'
 
 android {
     namespace 'com.android.launcher3'
-    compileSdk 36
+    compileSdk 37
 
     signingConfigs {
         release {
@@ -61,7 +58,7 @@ android {
     }
     defaultConfig {
         minSdk 21
-        targetSdk 36
+        targetSdk 37
 
         versionCode appVersionCode
         versionName appVersionName
@@ -109,15 +106,12 @@ android {
     buildFeatures {
         buildConfig true
         aidl true
+        resValues true
     }
 
     lint {
         checkReleaseBuilds false
         abortOnError false
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
     }
 
     compileOptions {
@@ -148,15 +142,10 @@ android {
     sourceSets {
         main {
             res.srcDirs = ['res']
-            java.srcDirs = ['src', 'third_party/librootjava/java', 'third_party/recyclerviewmergeadapter/java']
+            java.srcDirs = ['src', 'src_generated', 'third_party/librootjava/java', 'third_party/recyclerviewmergeadapter/java']
             aidl.srcDirs = ['src', 'third_party/librootjava/aidl']
             assets.srcDirs = ['assets']
             manifest.srcFile 'AndroidManifest-common.xml'
-            proto {
-                srcDir 'protos/'
-                srcDir 'proto_overrides/'
-                srcDir 'proto_pixel/'
-            }
         }
 
         debug {
@@ -179,6 +168,12 @@ android {
             manifest.srcFile "lawnchair/AndroidManifest.xml"
         }
     }
+
+    // Java and Kotlin sources share the same directories (built-in Kotlin of AGP 9 only looks at
+    // the kotlin directories by default)
+    sourceSets.configureEach { sourceSet ->
+        sourceSet.kotlin.srcDirs(sourceSet.java.srcDirs)
+    }
 }
 
 // Hidden framework APIs (compiled against a stub of the Android 9 framework). The jar is put
@@ -197,8 +192,11 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     libraries.from(frameworkJar)
 }
 
-android.applicationVariants.configureEach { variant ->
-    variant.resValue 'string', 'application_id', variant.applicationId
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        variant.resValues.put(variant.makeResValueKey("string", "application_id"),
+                new com.android.build.api.variant.ResValue(variant.applicationId.get(), null))
+    }
 }
 
 apply from: 'lawnchair/smali.gradle'
@@ -223,6 +221,8 @@ dependencies {
     implementation "com.android.support:preference-v7:${SUPPORT_LIBS_VERSION}"
     implementation "com.android.support:preference-v14:${SUPPORT_LIBS_VERSION}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    // Resolved to 28.0.0 through the chroma module before, keep that explicit (Consumer etc.)
+    implementation "com.android.support:support-compat:28.0.0"
 
     implementation 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -232,29 +232,8 @@ dependencies {
 
 
     // Lifts the non-SDK interface restrictions that apply to apps targeting API > 28.
-    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.2'
 
     quickstepImplementation project(':systemui-shared')
     lawnchairImplementation files('lawnchair/libs/sesame-lib.aar')
-}
-
-protobuf {
-    protoc {
-        artifact = 'com.google.protobuf:protoc:3.0.0-alpha-3'
-    }
-    generateProtoTasks {
-        all().configureEach { task ->
-            task.builtins {
-                remove java
-                javanano {
-                    option "java_package=launcher_log_extension.proto|com.android.launcher3.userevent.nano"
-                    option "java_package=launcher_log.proto|com.android.launcher3.userevent.nano"
-                    option "java_package=launcher_dump.proto|com.android.launcher3.model.nano"
-                    option "java_package=search.proto|com.google.android.apps.nexuslauncher.search.nano"
-                    option "java_package=smartspace.proto|com.google.android.apps.nexuslauncher.smartspace.nano"
-                    option "enum_style=java"
-                }
-            }
-        }
-    }
 }

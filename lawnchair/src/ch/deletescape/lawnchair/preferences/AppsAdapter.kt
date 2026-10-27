@@ -152,6 +152,6 @@ open class AppsAdapter(
     }
 
     companion object {
-        val defaultComparator = comparing<App, String> { it.info.label.toString().toLowerCase() }
+        val defaultComparator = comparing<App, String> { it.info.label.toString().lowercase(java.util.Locale.getDefault()) }
     }
 }

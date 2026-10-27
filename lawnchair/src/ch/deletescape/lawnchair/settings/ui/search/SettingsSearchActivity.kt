@@ -119,7 +119,7 @@ class SettingsSearchActivity : SettingsBaseActivity(), SearchView.OnQueryTextLis
         val matches = if (query.isEmpty())
             emptyList()
         else
-            searchIndex.entries.filter { it.title.toLowerCase().contains(query.toLowerCase()) }
+            searchIndex.entries.filter { it.title.lowercase(java.util.Locale.getDefault()).contains(query.lowercase(java.util.Locale.getDefault())) }
         val showNoResults = matches.isEmpty() && !query.isEmpty()
         no_results_layout.animate().alpha(if (showNoResults) 1f else 0f).start()
         searchAdapter.postSearchResults(matches)

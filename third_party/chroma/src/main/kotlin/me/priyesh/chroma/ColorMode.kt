@@ -32,7 +32,7 @@ enum class ColorMode {
     override fun evaluateColor(channels: List<Channel>): Int = Color.argb(
         channels[0].progress, channels[1].progress, channels[2].progress, channels[3].progress)
 
-    override fun toHex(color: Int): String = String.format("%08X", color).toUpperCase()
+    override fun toHex(color: Int): String = String.format("%08X", color).uppercase()
   },
 
   RGB {
@@ -42,7 +42,7 @@ enum class ColorMode {
     override fun evaluateColor(channels: List<Channel>): Int = Color.rgb(
         channels[0].progress, channels[1].progress, channels[2].progress)
 
-    override fun toHex(color: Int): String = String.format("%06X", (0xFFFFFF and color)).toUpperCase()
+    override fun toHex(color: Int): String = String.format("%06X", (0xFFFFFF and color)).uppercase()
   },
 
   HSV {

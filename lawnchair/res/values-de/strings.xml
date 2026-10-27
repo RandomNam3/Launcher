@@ -562,7 +562,7 @@
     <string name="action_grant_access">Zugriff erlauben</string>
     <string name="all_files_access_required_blur">Android gibt das Hintergrundbild nur an Apps mit „Zugriff auf alle Dateien“ weiter. Erlaube ihn für Launcher, um den Unschärfe-Effekt zu nutzen.</string>
     <string name="all_files_access_required_backup">Backups im Ordner „Documents“ benötigen „Zugriff auf alle Dateien“. Eine Backup-Datei kann trotzdem über die Dateiauswahl wiederhergestellt werden.</string>
-    <string name="about_fork_description">Launcher ist eine Weiterentwicklung von Lawnchair 2. Aussehen und Funktionen des Originals bleiben so weit wie möglich erhalten, die App wurde für aktuelle Android-Versionen angepasst (privater Bereich, Android 16).\n\nLawnchair wurde vom Lawnchair-Team entwickelt (Till Kottmann, Patryk Michalik, David Sn und weitere). Diese App steht in keiner Verbindung zum Lawnchair-Projekt und wird von diesem nicht unterstützt.</string>
+    <string name="about_fork_description">Launcher ist eine Weiterentwicklung von Lawnchair 2. Aussehen und Funktionen des Originals bleiben so weit wie möglich erhalten, die App wurde für aktuelle Android-Versionen angepasst (privater Bereich, Android 17).\n\nLawnchair wurde vom Lawnchair-Team entwickelt (Till Kottmann, Patryk Michalik, David Sn und weitere). Diese App steht in keiner Verbindung zum Lawnchair-Projekt und wird von diesem nicht unterstützt.</string>
     <string name="about_version">Version %1$s (%2$d)</string>
     <string name="about_source_code">Quellcode</string>
     <string name="about_based_on">Basiert auf Lawnchair 2</string>

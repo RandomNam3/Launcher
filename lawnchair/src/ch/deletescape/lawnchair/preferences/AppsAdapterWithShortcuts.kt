@@ -103,7 +103,7 @@ open class AppsAdapterWithShortcuts(
 
     protected open fun loadAppsList() {
         val apps = getAppsList(context)
-                .sortedBy { it.label.toString().toLowerCase() }
+                .sortedBy { it.label.toString().lowercase(java.util.Locale.getDefault()) }
                 .map { AppItem(context, it) }
         handler.postAtFrontOfQueue { onAppsListLoaded(apps) }
     }

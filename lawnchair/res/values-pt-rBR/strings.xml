@@ -242,15 +242,6 @@
     <string name="pref_search_bar_radius">Raio de Canto</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Extensões</string>
-    <string name="pref_integrations_summary">Atalhos do Sesame, Feed do Google</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Compartilhamento de Dados</string>
-    <string name="sesame_upsell">Toque pra instalar Sesame.</string>
-    <string name="pref_sesame_show_shortcuts">Mostrar nos Icones</string>
-    <string name="sesame_search_engine">Usar como Pesquisa</string>
-    <string name="pref_sesame_sync_look_and_feel">Compartilhar suas Configurações</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">Aplicar Configurações da Barra de Pesquisa na Barra do Sesame.</string>
-    <string name="sesame_version">Versão da Livraria</string>
     <string name="title_show_google_app">Mostrar Feed do Google</string>
     <string name="feed_theme_pref_title">Cor de Fundo</string>
     <!-- Section 9 -->
@@ -466,14 +457,8 @@
     <string name="delete">Excluir</string>
     <string name="none">Nenhum</string>
     <string name="undo">Desfazer</string>
-    <string name="shortcut_sesame">Atalhos</string>
-    <string name="pref_sesame_enabled">Compartilhar o Uso com o Sesame.</string>
-    <string name="pref_sesame_disabled">Sem uso de data compartilhado.</string>
     <string name="allow">Permitir</string>
     <string name="deny">Negar</string>
-    <string name="sesame_enable_integration_title">Compartilhamento de Dados</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Habilitar o compartilhamento de dados com o Sesame? Você pode mudar isso depois.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame está desativado.</string>
     <string name="font_variant_italic">Itálico</string>
     <string name="font_weight_thin">Fino</string>
     <string name="font_weight_extra_light">Extra fino</string>

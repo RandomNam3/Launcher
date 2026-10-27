@@ -26,13 +26,6 @@
         android:persistent="true"
         android:title="@string/remove_drop_target_label" />
 
-    <ch.deletescape.lawnchair.preferences.StyledSwitchPreferenceCompat
-        android:defaultValue="true"
-        android:key="pref_iconPopup_sesame"
-        android:icon="@drawable/ic_sesame"
-        android:persistent="true"
-        android:title="@string/shortcut_sesame"
-        app:controllerClass=".SesameShortcutController" />
 
     <ch.deletescape.lawnchair.preferences.StyledSwitchPreferenceCompat
         android:defaultValue="true"

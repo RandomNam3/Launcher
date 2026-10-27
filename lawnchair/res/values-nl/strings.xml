@@ -242,15 +242,6 @@
     <string name="pref_search_bar_radius">Hoekradius</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Plugins</string>
-    <string name="pref_integrations_summary">Sesame Shortcuts, Google Feed</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Data delen</string>
-    <string name="sesame_upsell">Tik om Sesame te installeren.</string>
-    <string name="pref_sesame_show_shortcuts">Toon in snelkoppelingsbubbles</string>
-    <string name="sesame_search_engine">Gebruik als zoekmachine</string>
-    <string name="pref_sesame_sync_look_and_feel">Instellingen voor delen stijl</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">Zoekbalk instellingen toepassen op Sesame balk.</string>
-    <string name="sesame_version">Bibliotheek versie</string>
     <string name="title_show_google_app">Toon %1$s Feed</string>
     <string name="feed_theme_pref_title">Achtergrondkleur</string>
     <!-- Section 9 -->
@@ -464,14 +455,8 @@
     <string name="delete">Verwijderen</string>
     <string name="none">Geen</string>
     <string name="undo">Ongedaan maken</string>
-    <string name="shortcut_sesame">Snelkoppelingen</string>
-    <string name="pref_sesame_enabled">Gebruiksgegevens aan het delen met Sesame.</string>
-    <string name="pref_sesame_disabled">Geen gebruiksgegevens gedeeld.</string>
     <string name="allow">Toestaan</string>
     <string name="deny">Afwijzen</string>
-    <string name="sesame_enable_integration_title">Data delen</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Gebruiksgegevens delen met Sesame? Je kan dit later aanpassen.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame is uitgeschakeld.</string>
     <string name="font_variant_italic">Cursief</string>
     <string name="font_weight_thin">Dun</string>
     <string name="font_weight_extra_light">Extra licht</string>

@@ -246,15 +246,6 @@
     <string name="pref_search_bar_radius">زاوية نصف قطرية</string>
     <!-- Section 8 -->
     <string name="pref_integrations">الإضافات</string>
-    <string name="pref_integrations_summary">إختصارات Sesame، Google feed</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">مشاركة البيانات</string>
-    <string name="sesame_upsell">انقر لتثبيت Sesame.</string>
-    <string name="pref_sesame_show_shortcuts">عرض في فقاعة الاختصارات</string>
-    <string name="sesame_search_engine">استخدامه كمحرك بحث</string>
-    <string name="pref_sesame_sync_look_and_feel">مشاركة إعدادات التصميم</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">تطبيق إعدادات شريط البحث على شريط Sesame.</string>
-    <string name="sesame_version">إصدار المكتبة</string>
     <string name="title_show_google_app">عرض %1$s الخلاصة</string>
     <string name="feed_theme_pref_title">لون الخلفية</string>
     <!-- Section 9 -->
@@ -472,14 +463,8 @@
     <string name="delete">حذف</string>
     <string name="none">لا شئ</string>
     <string name="undo">تراجع</string>
-    <string name="shortcut_sesame">الاختصارات</string>
-    <string name="pref_sesame_enabled">مشاركة معلومات الإستخدام مع Sesame.</string>
-    <string name="pref_sesame_disabled">لا يوجد معلومات الإستخدام مشاركة.</string>
     <string name="allow">السماح</string>
     <string name="deny">رفض</string>
-    <string name="sesame_enable_integration_title">مشاركة البيانات</string>
-    <string name="sesame_enable_integration_description"><![CDATA[تمكين مشاركة بيانات الاستخدام مع sesame؟ يمكنك تغيير هذا لاحقا.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame معطل.</string>
     <string name="font_variant_italic">خط مائل</string>
     <string name="font_weight_thin">نحيف</string>
     <string name="font_weight_extra_light">خفيف جداً</string>

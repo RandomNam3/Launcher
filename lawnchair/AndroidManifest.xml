@@ -92,7 +92,7 @@
     <uses-permission android:name="xyz.paphonb.systemuituner.permission.MODIFY_NAVBAR"/>
 
     <!-- Needed on newer Android versions -->
-    <!-- Package visibility (Android 11+): icon packs, app pickers, Sesame, feed -->
+    <!-- Package visibility (Android 11+): icon packs, app pickers, feed -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
     <!-- "All files access": wallpaper for blur and local backups (Android 11+) -->
@@ -276,17 +276,11 @@
         </activity>
 
         <activity
-            android:exported="true"
+            android:exported="false"
             android:label="@string/pref_integrations"
             android:name="ch.deletescape.lawnchair.settings.ui.SettingsIntegrationActivity"
             android:parentActivityName="ch.deletescape.lawnchair.settings.ui.SettingsActivity"
-            android:theme="@style/SettingsTheme.V2">
-            <intent-filter>
-                <action android:name="ninja.sesame.app.action.CONFIG_INTEGRATION"/>
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/SettingsTheme.V2" />
 
         <activity
             android:label="@string/search"

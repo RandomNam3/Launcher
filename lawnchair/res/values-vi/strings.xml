@@ -137,7 +137,6 @@
     <string name="weather_provider_oneplus_weather">Thời tiết OnePlus</string>
     <string name="searchbar_appearance_title">Giao diện</string>
     <!-- Section 8 -->
-    <string name="sesame">Sesame</string>
     <!-- Section 9 -->
     <string name="gestures_pref_title">Cử chỉ</string>
     <string name="action_sleep">Ngủ</string>
@@ -225,7 +224,6 @@
     <string name="delete">Xóa</string>
     <string name="none">Không</string>
     <string name="undo">Hoàn tác</string>
-    <string name="shortcut_sesame">Lối tắt</string>
     <string name="allow">Cho phép</string>
     <string name="deny">Từ chối</string>
     <string name="font_variant_italic">Nghiêng</string>

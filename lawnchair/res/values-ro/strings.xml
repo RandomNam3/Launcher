@@ -185,7 +185,6 @@
     <string name="pref_show_assistant_title">Arată Butonul de Căutare Vocală</string>
     <string name="action_assistant">Deschide Asistentul</string>
     <!-- Section 8 -->
-    <string name="sesame">Sesame</string>
     <!-- Section 9 -->
     <string name="gestures_pref_title">Gesturi</string>
     <string name="action_sleep">Pauză</string>
@@ -270,7 +269,6 @@
     <string name="delete">Ștergeți</string>
     <string name="none">Niciuna</string>
     <string name="undo">Anulați</string>
-    <string name="shortcut_sesame">Scurtături</string>
     <string name="allow">Permite</string>
     <string name="deny">Refuzați</string>
     <string name="font_variant_italic">Cursiv</string>

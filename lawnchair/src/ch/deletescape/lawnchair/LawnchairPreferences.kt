@@ -35,7 +35,6 @@ import ch.deletescape.lawnchair.groups.DrawerTabs
 import ch.deletescape.lawnchair.iconpack.IconPackManager
 import ch.deletescape.lawnchair.iconpack.ThemedIcons
 import ch.deletescape.lawnchair.preferences.DockStyle
-import ch.deletescape.lawnchair.sesame.Sesame
 import ch.deletescape.lawnchair.settings.GridSize
 import ch.deletescape.lawnchair.settings.GridSize2D
 import ch.deletescape.lawnchair.settings.ui.SettingsActivity
@@ -262,8 +261,6 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
         SearchProviderController.getInstance(context).onSearchProviderChanged()
     }
     val dualBubbleSearch by BooleanPref("pref_bubbleSearchStyle", false, doNothing)
-    // This purely exists to abuse preference change listeners, the value is never actually read.
-    var sesameIconColor by IntPref("pref_sesameIconColor", -1)
     var searchBarRadius by DimensionPref("pref_searchbarRadius", -1f)
 
     // Quickstep
@@ -274,11 +271,6 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
     }
     val recentsBlurredBackground by BooleanPref("pref_recents_blur_background", true) {
         onChangeCallback?.launcher?.background?.onEnabledChanged()
-    }
-
-    // Integrations
-    var syncLookNFeelWithSesame by BooleanPref("pref_sesame_sync_icon_pack", true) {
-        Sesame.setupSync(context)
     }
 
     // Misc

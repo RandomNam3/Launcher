@@ -241,15 +241,6 @@
     <string name="pref_search_bar_radius">ความโค้งของมุม</string>
     <!-- Section 8 -->
     <string name="pref_integrations">ปลั๊กอิน</string>
-    <string name="pref_integrations_summary">ทางลัด Sesame, ฟีด Google</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">การแบ่งปันข้อมูล</string>
-    <string name="sesame_upsell">แตะเพื่อติดตั้ง Sesame</string>
-    <string name="pref_sesame_show_shortcuts">แสดงในทางลัดแอป</string>
-    <string name="sesame_search_engine">ใช้เป็นเครื่องมือค้นหา</string>
-    <string name="pref_sesame_sync_look_and_feel">แบ่งปันการตั้งค่าลักษณะ</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">ใช้การตั้งค่าแถบค้นหากับแถบ Sesame</string>
-    <string name="sesame_version">เวอร์ชันไลบรารี</string>
     <string name="title_show_google_app">แสดงฟีด %1$s</string>
     <string name="feed_theme_pref_title">สีพื้นหลัง</string>
     <!-- Section 9 -->
@@ -463,14 +454,8 @@
     <string name="delete">ลบ</string>
     <string name="none">ไม่มี</string>
     <string name="undo">เลิกทำ</string>
-    <string name="shortcut_sesame">ทางลัด</string>
-    <string name="pref_sesame_enabled">แบ่งปันข้อมูลการใช้งานกับ Sesame</string>
-    <string name="pref_sesame_disabled">ไม่แบ่งปันข้อมูลการใช้งาน</string>
     <string name="allow">อนุญาต</string>
     <string name="deny">ปฏิเสธ</string>
-    <string name="sesame_enable_integration_title">การแบ่งปันข้อมูล</string>
-    <string name="sesame_enable_integration_description"><![CDATA[เปิดใช้งานการแบ่งปันข้อมูลการใช้งานกับ Sesame? คุณสามารถเปลี่ยนได้ภายหลัง]]></string>
-    <string name="sesame_shortcut_disabled">Sesame ปิดใช้งานอยู่</string>
     <string name="font_variant_italic">Italic</string>
     <string name="font_weight_thin">Thin</string>
     <string name="font_weight_extra_light">Extralight</string>

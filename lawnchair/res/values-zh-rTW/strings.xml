@@ -241,15 +241,6 @@
     <string name="pref_search_bar_radius">圓角半徑</string>
     <!-- Section 8 -->
     <string name="pref_integrations">插件</string>
-    <string name="pref_integrations_summary">Sesame 捷徑、Google 即時資訊</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">資料共享</string>
-    <string name="sesame_upsell">輕觸以安裝 Sesame</string>
-    <string name="pref_sesame_show_shortcuts">顯示在捷徑泡泡裡</string>
-    <string name="sesame_search_engine">使用此搜尋引擎</string>
-    <string name="pref_sesame_sync_look_and_feel">共享我的配置</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">套用搜尋列設定至 Sesame</string>
-    <string name="sesame_version">套件版本</string>
     <string name="title_show_google_app">顯示 %1$s 即時資訊</string>
     <string name="feed_theme_pref_title">背景顏色</string>
     <!-- Section 9 -->
@@ -464,14 +455,8 @@
     <string name="delete">刪除</string>
     <string name="none">無</string>
     <string name="undo">復原</string>
-    <string name="shortcut_sesame">捷徑</string>
-    <string name="pref_sesame_enabled">與 Sesame 共享使用資料</string>
-    <string name="pref_sesame_disabled">沒有資料被共享</string>
     <string name="allow">允許</string>
     <string name="deny">拒絕</string>
-    <string name="sesame_enable_integration_title">資料共享</string>
-    <string name="sesame_enable_integration_description"><![CDATA[是否要啟用Sesame資料共享? 你可以在稍後改變這項設定]]></string>
-    <string name="sesame_shortcut_disabled">Sesame 已停用</string>
     <string name="font_variant_italic">斜體</string>
     <string name="font_weight_thin">極細</string>
     <string name="font_weight_extra_light">極細</string>

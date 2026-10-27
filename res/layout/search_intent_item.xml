@@ -33,7 +33,7 @@
             android:singleLine="true"
             android:textAppearance="@style/SettingsTheme.PreferenceTheme.Preference.Title"
             android:ellipsize="marquee"
-            tools:text="@string/pref_sesame_show_shortcuts" />
+            tools:text="@string/pref_icon_packs" />
         <TextView
             android:id="@android:id/summary"
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceListItemSecondary"
             android:ellipsize="marquee"
-            tools:text="@string/pref_sesame_show_shortcuts_summary" />
+            tools:text="@string/pref_icon_pack_masking_summary" />
         <include layout="@layout/search_breadcrumb_view"/>
         <LinearLayout
             android:id="@+id/slice_horizontal"

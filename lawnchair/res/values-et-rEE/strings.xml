@@ -237,15 +237,6 @@
     <string name="pref_search_bar_radius">Nurga raadius</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Pluginad</string>
-    <string name="pref_integrations_summary">Seesami otseteed, Google\'i kanal</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Andmete jagamine</string>
-    <string name="sesame_upsell">Sesame paigaldamiseks vajuta.</string>
-    <string name="pref_sesame_show_shortcuts">Kuva otsetee mullides</string>
-    <string name="sesame_search_engine">Kasutage otsingumootorina</string>
-    <string name="pref_sesame_sync_look_and_feel">Jaga stiili seadeid</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">Rakendage otsinguvälja sätted väljale Sesame.</string>
-    <string name="sesame_version">Teegi verisoon</string>
     <string name="title_show_google_app">Näita %1$s voogu</string>
     <string name="feed_theme_pref_title">Taustavärv</string>
     <!-- Section 9 -->
@@ -461,14 +452,8 @@
     <string name="delete">Kustuta</string>
     <string name="none">Pole</string>
     <string name="undo">Tühista</string>
-    <string name="shortcut_sesame">Otseteed</string>
-    <string name="pref_sesame_enabled">Jagage kasutamise andmeid Sesame\'ga.</string>
-    <string name="pref_sesame_disabled">Andmeid ei jagata.</string>
     <string name="allow">Luba</string>
     <string name="deny">Keela</string>
-    <string name="sesame_enable_integration_title">Andmete jagamine</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Kas lubada kasutusandmete jagamine Sesame\'ga? Saate seda hiljem muuta.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame on keelatud.</string>
     <string name="font_variant_italic">Kaldkiri</string>
     <string name="font_weight_thin">Õhuline</string>
     <string name="font_weight_extra_light">Eriti õhuline</string>

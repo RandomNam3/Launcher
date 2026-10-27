@@ -66,7 +66,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
-        buildConfigField "boolean", "FEATURE_QUINOA", "true"
         buildConfigField "boolean", "FEATURE_SETTINGS_SEARCH", "true"
         buildConfigField "boolean", "DEBUG_STRICT_MODE", "false"
         buildConfigField "boolean", "HAS_LEAKCANARY", "false"
@@ -235,5 +234,4 @@ dependencies {
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.2'
 
     quickstepImplementation project(':systemui-shared')
-    lawnchairImplementation files('lawnchair/libs/sesame-lib.aar')
 }

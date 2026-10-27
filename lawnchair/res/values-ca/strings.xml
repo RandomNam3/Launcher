@@ -223,12 +223,6 @@
     <string name="pref_search_bar_radius">Radi del marge</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Complements</string>
-    <string name="pref_integrations_summary">Dreceres del Sesame, Google Feed</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Compartició de dades</string>
-    <string name="sesame_upsell">Toqueu per instal·lar el Sesame.</string>
-    <string name="sesame_search_engine">Utilitza com a motor de cerca</string>
-    <string name="sesame_version">Versió de la llibreria</string>
     <string name="title_show_google_app">Mostra %1$s notícies</string>
     <string name="feed_theme_pref_title">Color de fons</string>
     <!-- Section 9 -->
@@ -433,14 +427,8 @@
     <string name="delete">Suprimeix</string>
     <string name="none">Cap</string>
     <string name="undo">Desfés</string>
-    <string name="shortcut_sesame">Dreceres</string>
-    <string name="pref_sesame_enabled">Comparteix l\'ús de dades amb el Sesame.</string>
-    <string name="pref_sesame_disabled">No s\'ha compartit cap dada.</string>
     <string name="allow">Permet</string>
     <string name="deny">Denega</string>
-    <string name="sesame_enable_integration_title">Compartició de dades</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Voleu habilitar la compartició de dades amb el Sesame? Podeu canviar aquest paràmetre més tard.]]></string>
-    <string name="sesame_shortcut_disabled">El Sesame està desactivat.</string>
     <string name="font_variant_italic">Cursiva</string>
     <string name="font_weight_thin">Prima</string>
     <string name="font_weight_extra_light">Extra prima</string>

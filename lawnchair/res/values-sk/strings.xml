@@ -87,7 +87,6 @@
     <string name="weather_provider_oneplus_weather">Počasie OnePlus</string>
     <string name="searchbar_appearance_title">Štýl</string>
     <!-- Section 8 -->
-    <string name="sesame">Sesame</string>
     <!-- Section 9 -->
     <string name="gestures_pref_title">Gestá</string>
     <string name="action_sleep">Uspať</string>
@@ -169,7 +168,6 @@
     <string name="delete">Vymazať</string>
     <string name="none">Žiadne</string>
     <string name="undo">Odvolať zmenu</string>
-    <string name="shortcut_sesame">Odkazy</string>
     <string name="allow">Povoliť</string>
     <string name="font_variant_italic">Šikmé</string>
     <string name="font_weight_thin">Tenké</string>

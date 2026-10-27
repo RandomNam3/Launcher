@@ -12,4 +12,3 @@ Further components:
 - Chroma color picker, Copyright Priyesh Patel and the Lawnchair team, Apache License 2.0
 - librootjava, Copyright Jorrit "Chainfire" Jongma, Apache License 2.0
 - RecyclerViewMergeAdapter, Copyright Martijn van der Woude, Apache License 2.0
-- Sesame launcher integration library, Copyright Steel Toe Software

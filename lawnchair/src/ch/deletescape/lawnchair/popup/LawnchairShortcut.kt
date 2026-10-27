@@ -25,7 +25,6 @@ import android.net.Uri
 import android.view.View
 import ch.deletescape.lawnchair.lawnchairPrefs
 import ch.deletescape.lawnchair.override.CustomInfoProvider
-import ch.deletescape.lawnchair.sesame.Sesame
 import ch.deletescape.lawnchair.util.LawnchairSingletonHolder
 import ch.deletescape.lawnchair.util.hasFlag
 import com.android.launcher3.*
@@ -34,14 +33,12 @@ import com.android.launcher3.LauncherSettings.BaseLauncherColumns.ITEM_TYPE_APPL
 import com.android.launcher3.compat.LauncherAppsCompat
 import com.android.launcher3.popup.SystemShortcut
 import com.google.android.apps.nexuslauncher.CustomBottomSheet
-import ninja.sesame.lib.bridge.v1.SesameFrontend
 import java.net.URISyntaxException
 
 class LawnchairShortcut(private val context: Context) {
 
     private val shortcuts = listOf(
             ShortcutEntry("edit", Edit(), true),
-            ShortcutEntry("sesame", SesameSettings(), true),
             ShortcutEntry("info", SystemShortcut.AppInfo(), true),
             ShortcutEntry("widgets", SystemShortcut.Widgets(), true),
             ShortcutEntry("install", SystemShortcut.Install(), true),
@@ -116,21 +113,6 @@ class LawnchairShortcut(private val context: Context) {
             return View.OnClickListener {
                 AbstractFloatingView.closeAllOpenViews(launcher)
                 CustomBottomSheet.show(launcher, itemInfo)
-            }
-        }
-    }
-
-    class SesameSettings : SystemShortcut<Launcher>(R.drawable.ic_sesame, R.string.shortcut_sesame) {
-
-        override fun getOnClickListener(launcher: Launcher, itemInfo: ItemInfo): View.OnClickListener? {
-            if (itemInfo.itemType != ITEM_TYPE_APPLICATION) return null
-            val packageName = itemInfo.targetComponent?.packageName ?: itemInfo.intent.`package`
-            ?: itemInfo.intent.component?.packageName ?: return null
-            if (!Sesame.isAvailable(launcher)) return null
-            val intent = SesameFrontend.createAppConfigIntent(packageName) ?: return null
-
-            return View.OnClickListener {
-                launcher.startActivity(intent)
             }
         }
     }

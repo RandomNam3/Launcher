@@ -29,8 +29,6 @@ import android.view.View
 import ch.deletescape.lawnchair.runOnMainThread
 import ch.deletescape.lawnchair.runOnThread
 import ch.deletescape.lawnchair.runOnUiWorkerThread
-import ch.deletescape.lawnchair.sesame.Sesame
-import ch.deletescape.lawnchair.sesame.SesameShortcutInfo
 import ch.deletescape.lawnchair.settings.ui.SettingsActivity
 import com.android.launcher3.*
 import com.android.launcher3.graphics.LauncherIcons
@@ -43,13 +41,10 @@ import com.google.android.apps.nexuslauncher.allapps.ActionView
 import com.google.android.apps.nexuslauncher.allapps.ActionsController
 import com.google.android.apps.nexuslauncher.allapps.PredictionsFloatingHeader
 import com.google.android.apps.nexuslauncher.util.ComponentKeyMapper
-import ninja.sesame.lib.bridge.v1.SesameFrontend
-import ninja.sesame.lib.bridge.v1.ShortcutType
 import org.json.JSONObject
 import java.util.HashSet
 import java.util.concurrent.TimeUnit
 
-// TODO: Fix action icons being loaded too early, leading to f*cked icons when using sesame
 /**
  * Fallback app predictor for users without quickswitch
  */
@@ -73,7 +68,6 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
 
     private var actionsCache = listOf<String>()
 
-    private val sesameComponent = ComponentName.unflattenFromString("ninja.sesame.app.edge/.activities.MainActivity")
 
     /**
      * Time at which headphones have been plugged in / connected. 0 if disconnected, -1 before initialized
@@ -131,7 +125,7 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
     }
 
     init {
-        if (isPredictorEnabled && !Sesame.isAvailable(context)) {
+        if (isPredictorEnabled) {
             setupBroadcastReceiver()
         }
     }
@@ -180,9 +174,7 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
 
     private fun logAppLaunchImpl(v: View?, intent: Intent?, user: UserHandle) {
         if (isPredictorEnabled) {
-            if (Sesame.isAvailable(context)) {
-              updatePredictions()
-            } else if (v !is ActionView && intent?.component != null && mAppFilter.shouldShowApp(intent.component, user)) {
+            if (v !is ActionView && intent?.component != null && mAppFilter.shouldShowApp(intent.component, user)) {
                 clearRemovedComponents()
 
                 var changed = false
@@ -207,11 +199,7 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
     override fun logShortcutLaunch(intent: Intent, info: ItemInfo) {
         super.logShortcutLaunch(intent, info)
         if (isActionsEnabled) {
-            if (Sesame.isAvailable(context)) {
-                runOnMainThread {
-                    updateActions()
-                }
-            } else if (info is ShortcutInfo && info.shortcutInfo != null) {
+            if (info is ShortcutInfo && info.shortcutInfo != null) {
                 runOnThread(handler) {
                     cleanActions()
 
@@ -233,27 +221,7 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
 
     // TODO: There must be a better, more elegant way to concatenate these lists
     override fun getPredictions(): MutableList<ComponentKeyMapper> {
-        return if(isPredictorEnabled && Sesame.isAvailable(context)) {
-            val lst = SesameFrontend.getUsageCounts(System.currentTimeMillis() - TimeUnit.HOURS.toMillis(3),
-                    System.currentTimeMillis(), MAX_PREDICTIONS * 2,
-                    arrayOf(ShortcutType.APP_COMPONENT))
-            val user = Process.myUserHandle()
-            val fullList = lst?.mapNotNull { it.shortcut.componentName }
-                                   ?.map { getComponentFromString(it) }
-                                   ?.filterNot { it.componentKey.componentName == sesameComponent }
-                                   ?.filterNot { isHiddenApp(context, it.componentKey) }
-                                   ?.filter {
-                                       mAppFilter.shouldShowApp(it.componentKey.componentName, user)
-                                   }?.toMutableList() ?: mutableListOf<ComponentKeyMapper>()
-            if (fullList.size < MAX_PREDICTIONS) {
-                fullList.addAll(
-                        PLACE_HOLDERS.mapNotNull { packageManager.getLaunchIntentForPackage(it)?.component }
-                                .map { ComponentKeyMapper(context, ComponentKey(it, user)) }
-                                .filterNot { fullList.contains(it) }
-                )
-            }
-            fullList.take(MAX_PREDICTIONS).toMutableList()
-        } else if (isPredictorEnabled) {
+        return if (isPredictorEnabled) {
             clearRemovedComponents()
             val user = Process.myUserHandle()
             val appList = if (phonesJustConnected) phonesList.getRanked().take(MAX_HEADPHONE_SUGGESTIONS).toMutableList() else mutableListOf()
@@ -337,20 +305,6 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
             return
         }
         runOnUiWorkerThread {
-            if (Sesame.isAvailable(context)) {
-                val lst = SesameFrontend.getUsageCounts(System.currentTimeMillis() - TimeUnit.HOURS.toMillis(4),
-                        System.currentTimeMillis(), ActionsController.MAX_ITEMS + 3,
-                        arrayOf(ShortcutType.DEEP_LINK, ShortcutType.CONTACT))
-                if (lst != null) {
-                    callback(getFilteredActionList(ArrayList(lst.mapIndexedNotNull { index, usage ->
-                        val shortcut = SesameShortcutInfo(context, usage.shortcut)
-                        actionFromString(
-                                actionToString(shortcut.id, shortcut.getBadgePackage(context), shortcut.`package`),
-                                index.toLong())
-                    })))
-                    return@runOnUiWorkerThread
-                }
-            }
             callback(getFilteredActionList(ArrayList(actionList.getRanked()
                                                              .take(ActionsController.MAX_ITEMS)
                                                              .mapIndexedNotNull { index, s ->

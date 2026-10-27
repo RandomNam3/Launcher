@@ -11,7 +11,6 @@ import ch.deletescape.lawnchair.theme.ThemeManager
 import ch.deletescape.lawnchair.theme.ThemeOverride
 import ch.deletescape.lawnchair.useApplicationContext
 import ch.deletescape.lawnchair.util.SingletonHolder
-import com.android.launcher3.BuildConfig
 import com.android.launcher3.Utilities
 
 class SearchProviderController(private val context: Context) : ColorEngine.OnColorChangeListener {
@@ -112,11 +111,6 @@ class SearchProviderController(private val context: Context) : ColorEngine.OnCol
                 // TODO: fall back to this if google is not available per default
                 GoogleWebSearchProvider(context),
                 SFinderSearchProvider(context),
-                if (BuildConfig.FEATURE_QUINOA) {
-                    SesameSearchProvider(context)
-                } else {
-                    DisabledDummySearchProvider(context)
-                },
                 GoogleGoSearchProvider(context),
                 FirefoxSearchProvider(context),
                 DuckDuckGoSearchProvider(context),

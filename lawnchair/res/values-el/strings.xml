@@ -173,11 +173,6 @@
     <string name="pref_search_bar_radius">Ακτίνα Γωνίας</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Πρόσθετα</string>
-    <string name="pref_integrations_summary">Συντομεύσεις Sesame, Google Feed</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_upsell">Πατήστε για εγκατάσταση της εφαρμογής Sesame.</string>
-    <string name="sesame_search_engine">Χρήση ως Μηχανή Αναζήτησης</string>
-    <string name="sesame_version">Έκδοση Βιβλιοθήκης</string>
     <string name="feed_theme_pref_title">Χρώμα Φόντου</string>
     <!-- Section 9 -->
     <string name="gestures_pref_title">Χειρονομίες αφής</string>
@@ -319,7 +314,6 @@
     <string name="delete">Διαγραφή</string>
     <string name="none">Κανένα</string>
     <string name="undo">Αναίρεση</string>
-    <string name="shortcut_sesame">Συντομεύσεις</string>
     <string name="allow">Αποδοχή</string>
     <string name="deny">Απόρριψη</string>
     <string name="font_variant_italic">Πλάγια</string>

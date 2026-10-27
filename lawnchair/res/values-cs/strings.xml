@@ -244,15 +244,6 @@
     <string name="pref_search_bar_radius">Poloměr rohů</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Doplňky</string>
-    <string name="pref_integrations_summary">Zástupci Sesame, Google Feed</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Sdílení dat</string>
-    <string name="sesame_upsell">Klepnutím nainstalujete Sesame.</string>
-    <string name="pref_sesame_show_shortcuts">Zobrazit v\u00a0bublinách zástupců</string>
-    <string name="sesame_search_engine">Použít jako vyhledávač</string>
-    <string name="pref_sesame_sync_look_and_feel">Sdílet nastavení stylu</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">Použít nastavení lišty vyhledávání pro lištu Sesame.</string>
-    <string name="sesame_version">Verze knihovny</string>
     <string name="title_show_google_app">Zobrazit %1$s Feed</string>
     <string name="feed_theme_pref_title">Barva pozadí</string>
     <!-- Section 9 -->
@@ -467,14 +458,8 @@
     <string name="delete">Smazat</string>
     <string name="none">Žádné</string>
     <string name="undo">Vrátit zpět</string>
-    <string name="shortcut_sesame">Zástupci</string>
-    <string name="pref_sesame_enabled">Sdílí se data o\u00a0používání se Sesame.</string>
-    <string name="pref_sesame_disabled">Žádná data o\u00a0používání nejsou sdílena.</string>
     <string name="allow">Povolit</string>
     <string name="deny">Odepřít</string>
-    <string name="sesame_enable_integration_title">Sdílení dat</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Povolit sdílení dat o\u00a0používání pomocí Sesame? Toto nastavení můžete později změnit.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame je vypnutý.</string>
     <string name="font_variant_italic">Italic</string>
     <string name="font_weight_thin">Thin</string>
     <string name="font_weight_extra_light">Extra tenké</string>

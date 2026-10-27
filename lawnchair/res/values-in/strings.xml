@@ -241,15 +241,6 @@
     <string name="pref_search_bar_radius">Lengkungan Sudut</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Tambahan</string>
-    <string name="pref_integrations_summary">Pintasan Sesame, Umpan Google</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Berbagi data</string>
-    <string name="sesame_upsell">Tekan untuk memasang Sesame.</string>
-    <string name="pref_sesame_show_shortcuts">Tampilkan di Gelembung Pintas</string>
-    <string name="sesame_search_engine">Gunakan sebagai Mesin Pencari</string>
-    <string name="pref_sesame_sync_look_and_feel">Berbagi Pengaturan Gaya</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">Terapkan Bilah Sesame sebagai Bilah Pencarian.</string>
-    <string name="sesame_version">Versi Pustaka</string>
     <string name="title_show_google_app">Tampilkan Umpan %1$s</string>
     <string name="feed_theme_pref_title">Warna Latar Belakang</string>
     <!-- Section 9 -->
@@ -462,14 +453,8 @@
     <string name="delete">Hapus</string>
     <string name="none">Kosong</string>
     <string name="undo">Batal</string>
-    <string name="shortcut_sesame">Pintasan</string>
-    <string name="pref_sesame_enabled">Bagikan penggunaan data dengan Sesame.</string>
-    <string name="pref_sesame_disabled">Tidak ada penggunaan data yang dibagikan.</string>
     <string name="allow">Izinkan</string>
     <string name="deny">Tolak</string>
-    <string name="sesame_enable_integration_title">Berbagi Data</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Aktifkan berbagi penggunaan data dengan Sesame? Kamu dapat mengubahnya Nanti.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame dimatikan.</string>
     <string name="font_variant_italic">Italic</string>
     <string name="font_weight_thin">Tipis</string>
     <string name="font_weight_extra_light">Super Tipis</string>

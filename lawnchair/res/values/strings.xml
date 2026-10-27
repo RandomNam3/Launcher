@@ -342,21 +342,13 @@
     <!-- Section 8 -->
 
     <string name="pref_integrations">Plugins</string>
-    <string name="pref_integrations_summary">Sesame Shortcuts, Google Feed</string>
+    <string name="pref_integrations_summary">Search provider, Google Feed</string>
 
-    <string name="sesame">Sesame</string>
 
-    <string name="sesame_data_integration">Data Sharing</string>
-    <string name="sesame_upsell">Tap to install Sesame.</string>
 
-    <string name="pref_sesame_show_shortcuts">Show in Shortcut Bubbles</string>
 
-    <string name="sesame_search_engine">Use as Search Engine</string>
 
-    <string name="pref_sesame_sync_look_and_feel">Share Style Settings</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">Apply Search Bar settings to Sesame Bar.</string>
 
-    <string name="sesame_version">Library Version</string>
 
     <string name="title_show_google_app">Show %1$s Feed</string>
 
@@ -664,17 +656,11 @@
     <string name="none">None</string>
     <string name="undo">Undo</string>
 
-    <string name="shortcut_sesame">Shortcuts</string>
 
-    <string name="pref_sesame_enabled">Sharing usage data with Sesame.</string>
-    <string name="pref_sesame_disabled">No usage data shared.</string>
 
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
 
-    <string name="sesame_enable_integration_title">Data Sharing</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Enable usage data sharing with Sesame? You can change this later.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame is disabled.</string>
 
     <string name="font_variant_italic">Italic</string>
     <string name="font_weight_thin">Thin</string>

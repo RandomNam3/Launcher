@@ -169,7 +169,6 @@
     <string name="weather_provider_oneplus_weather">OnePlus Väder</string>
     <string name="searchbar_appearance_title">Stil</string>
     <!-- Section 8 -->
-    <string name="sesame">Sesame</string>
     <!-- Section 9 -->
     <string name="gestures_pref_title">Gester</string>
     <string name="action_sleep">Viloläge</string>
@@ -257,7 +256,6 @@
     <string name="delete">Ta bort</string>
     <string name="none">Ingen</string>
     <string name="undo">Ångra</string>
-    <string name="shortcut_sesame">Genvägar</string>
     <string name="allow">Tillåt</string>
     <string name="deny">Neka</string>
     <string name="font_variant_italic">Kursiv</string>

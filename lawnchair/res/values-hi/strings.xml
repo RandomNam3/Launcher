@@ -159,7 +159,6 @@
     <string name="weather_provider_oneplus_weather">वन प्लस मौसम</string>
     <string name="searchbar_appearance_title">शैली/स्टाइल</string>
     <!-- Section 8 -->
-    <string name="sesame">सेसमे</string>
     <!-- Section 9 -->
     <string name="gestures_pref_title">जेशचर्स</string>
     <string name="action_sleep">स्लीप</string>
@@ -244,7 +243,6 @@
     <string name="delete">हटाएं</string>
     <string name="none">कुछ नहीं</string>
     <string name="undo">अकृत करें</string>
-    <string name="shortcut_sesame">शॉर्टकट</string>
     <string name="allow">अनुमति दें</string>
     <string name="deny">मना</string>
     <string name="font_variant_italic">इटालिक</string>

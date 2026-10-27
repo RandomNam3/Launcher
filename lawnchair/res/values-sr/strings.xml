@@ -198,13 +198,6 @@
     <string name="pref_search_bar_radius">Ниво заобљености ивица</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Додаци</string>
-    <string name="pref_integrations_summary">Sesame-ове пречице, Google фид</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Дељење података</string>
-    <string name="sesame_upsell">Додирните да бисте инсталирали Sesame.</string>
-    <string name="pref_sesame_show_shortcuts">Прикажи у искачућем менију</string>
-    <string name="sesame_search_engine">Користи као претраживач</string>
-    <string name="pref_sesame_sync_look_and_feel">Дели подешавања стилова</string>
     <!-- Section 9 -->
     <string name="gestures_pref_title">Покрети</string>
     <string name="action_sleep">Спавање</string>
@@ -289,7 +282,6 @@
     <string name="delete">Избриши</string>
     <string name="none">Нема</string>
     <string name="undo">Опозови</string>
-    <string name="shortcut_sesame">Пречице</string>
     <string name="allow">Дозволи</string>
     <string name="deny">Одбиј</string>
     <string name="font_variant_italic">курзив</string>

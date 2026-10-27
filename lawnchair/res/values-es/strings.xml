@@ -242,15 +242,6 @@
     <string name="pref_search_bar_radius">Radio de la Esquina</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Extensiones</string>
-    <string name="pref_integrations_summary">Sesame Shortcuts, Feed de Google</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Compartir Datos</string>
-    <string name="sesame_upsell">Toca para instalar Sesame.</string>
-    <string name="pref_sesame_show_shortcuts">Mostrar en burbujas de acceso directo</string>
-    <string name="sesame_search_engine">Usar como Motor de Búsqueda</string>
-    <string name="pref_sesame_sync_look_and_feel">Compartir Configuración de Estilo</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">Aplicar la configuración de la Barra de Búsqueda a la Barra de Sesame.</string>
-    <string name="sesame_version">Versión de librería</string>
     <string name="title_show_google_app">Mostrar %1$s Feed</string>
     <string name="feed_theme_pref_title">Color de Fondo</string>
     <!-- Section 9 -->
@@ -467,14 +458,8 @@ Fundador de los proyectos Lawnchair y dogbin.</string>
     <string name="delete">Eliminar</string>
     <string name="none">Ninguno</string>
     <string name="undo">Deshacer</string>
-    <string name="shortcut_sesame">Accesos directos</string>
-    <string name="pref_sesame_enabled">Compartir datos de uso con Sesame.</string>
-    <string name="pref_sesame_disabled">Datos de uso no han sido compartidos.</string>
     <string name="allow">Permitir</string>
     <string name="deny">No permitir</string>
-    <string name="sesame_enable_integration_title">Compartir Datos</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Habilitar el uso de datos compartidos con Sesame? Puedes cambiar esto después.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame esta deshabilitado.</string>
     <string name="font_variant_italic">Cursiva</string>
     <string name="font_weight_thin">Delgada</string>
     <string name="font_weight_extra_light">Extra fino</string>

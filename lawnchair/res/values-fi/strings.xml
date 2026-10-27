@@ -144,7 +144,6 @@
     <string name="weather_provider_oneplus_weather">OnePlus Weather</string>
     <string name="searchbar_appearance_title">Tyyli</string>
     <!-- Section 8 -->
-    <string name="sesame">Sesame</string>
     <!-- Section 9 -->
     <string name="gestures_pref_title">Eleet</string>
     <string name="action_sleep">Lepotila</string>
@@ -227,7 +226,6 @@
     <string name="delete">Poista</string>
     <string name="none">Ei mitään</string>
     <string name="undo">Kumoa</string>
-    <string name="shortcut_sesame">Pikakuvakkeet</string>
     <string name="allow">Salli</string>
     <string name="deny">Estä</string>
     <string name="font_variant_italic">Kursivoitu</string>

@@ -204,7 +204,6 @@
     <string name="weather_provider_oneplus_weather">OnePlus Időjárás</string>
     <string name="searchbar_appearance_title">Stílus</string>
     <!-- Section 8 -->
-    <string name="sesame">Sesame</string>
     <!-- Section 9 -->
     <string name="gestures_pref_title">Mozdulatvezérlés</string>
     <string name="action_sleep">Alvó mód</string>
@@ -294,10 +293,8 @@
     <string name="delete">Törlés</string>
     <string name="none">Egyik sem</string>
     <string name="undo">Visszavonás</string>
-    <string name="shortcut_sesame">Parancsikonok</string>
     <string name="allow">Engedélyezés</string>
     <string name="deny">Elutasítás</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Engedélyezi az adatmegosztás használatát a Sesame-mal? Később módosítani tudja.]]></string>
     <string name="font_variant_italic">Dőlt</string>
     <string name="font_weight_thin">Keskeny</string>
     <string name="font_weight_light">Vékony</string>

@@ -236,15 +236,6 @@
     <string name="pref_search_bar_radius">زاویه شعاعی</string>
     <!-- Section 8 -->
     <string name="pref_integrations">پلاگین ها</string>
-    <string name="pref_integrations_summary">میانبرهای راه گشا, تغذیه گوگل</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">اشتراک گذاری داده ها</string>
-    <string name="sesame_upsell">برای نصب حل المسایل ضربه بزنید.</string>
-    <string name="pref_sesame_show_shortcuts">نمایش درون حباب های میانبر</string>
-    <string name="sesame_search_engine">استفاده به عنوان موتور جستجوگر</string>
-    <string name="pref_sesame_sync_look_and_feel">اشتراک تنظیمات شکل بندی</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">تنظیمات نوار جستجو را برای نوار راه حل نیز اعمال کنید.</string>
-    <string name="sesame_version">نسخه کتابخانه</string>
     <string name="title_show_google_app">1_ نمایش تغذیه %1$s
 
 (String is not number)</string>
@@ -423,7 +414,6 @@
     <string name="delete">حذف</string>
     <string name="none">هیچ‌کدام</string>
     <string name="undo">برگردان</string>
-    <string name="shortcut_sesame">میان‌برها</string>
     <string name="allow">مجاز</string>
     <string name="deny">رد کردن</string>
     <string name="font_variant_italic">مورب</string>

@@ -244,15 +244,7 @@
     <string name="pref_search_bar_radius">Eckenrundung</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Plugins</string>
-    <string name="pref_integrations_summary">Sesame Shortcuts, Google Feed</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Datenaustausch</string>
-    <string name="sesame_upsell">Tippen, um Sesame zu installieren.</string>
-    <string name="pref_sesame_show_shortcuts">In Schnellzugriff-Blasen anzeigen</string>
-    <string name="sesame_search_engine">Als Suchmaschine verwenden</string>
-    <string name="pref_sesame_sync_look_and_feel">Stil-Einstellungen teilen</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">Einstellungen der Suchleiste auf Sesame anwenden.</string>
-    <string name="sesame_version">Bibliotheksversion</string>
+    <string name="pref_integrations_summary">Suchanbieter, Google Feed</string>
     <string name="title_show_google_app">Zeige %1$s-Feed</string>
     <string name="feed_theme_pref_title">Hintergrundfarbe</string>
     <!-- Section 9 -->
@@ -467,14 +459,8 @@
     <string name="delete">Löschen</string>
     <string name="none">Nichts</string>
     <string name="undo">Rückgängig</string>
-    <string name="shortcut_sesame">Verknüpfungen</string>
-    <string name="pref_sesame_enabled">Teile Nutzungsdaten mit Sesame.</string>
-    <string name="pref_sesame_disabled">Keine Nutzungsdaten geteilt.</string>
     <string name="allow">Erlauben</string>
     <string name="deny">Ablehnen</string>
-    <string name="sesame_enable_integration_title">Datenaustausch</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Aktiviere Teilen von Nutzungsdaten mit Sesame? Du kannst das später ändern.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame ist deaktiviert.</string>
     <string name="font_variant_italic">Kursiv</string>
     <string name="font_weight_thin">Schmal</string>
     <string name="font_weight_extra_light">Extradünn</string>

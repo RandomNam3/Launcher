@@ -28,7 +28,6 @@ import android.text.TextUtils;
 
 import android.util.DisplayMetrics;
 import ch.deletescape.lawnchair.iconpack.IconPackManager;
-import ch.deletescape.lawnchair.sesame.SesameShortcutInfo;
 import com.android.launcher3.LauncherSettings.Favorites;
 import com.android.launcher3.compat.UserManagerCompat;
 import com.android.launcher3.model.ModelWriter;
@@ -207,11 +206,6 @@ public class ShortcutInfo extends ItemInfoWithIcon {
             runtimeStatusFlags |= FLAG_DISABLED_BY_PUBLISHER;
         }
         disabledMessage = shortcutInfo.getDisabledMessage();
-
-        // Treat sesame shortcuts like normal shortcuts and not like deep shortcuts
-        if (shortcutInfo instanceof SesameShortcutInfo) {
-            itemType = LauncherSettings.BaseLauncherColumns.ITEM_TYPE_SHORTCUT;
-        }
     }
 
     /** Returns the ShortcutInfo id associated with the deep shortcut. */

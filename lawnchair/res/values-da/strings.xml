@@ -242,15 +242,6 @@
     <string name="pref_search_bar_radius">Hjørneradius</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Plugins</string>
-    <string name="pref_integrations_summary">Sesame-genveje, Google Feed</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Datadeling</string>
-    <string name="sesame_upsell">Tryk for at installere Sesame.</string>
-    <string name="pref_sesame_show_shortcuts">Vis i Genvejsbobler</string>
-    <string name="sesame_search_engine">Benyt som søgemaskine</string>
-    <string name="pref_sesame_sync_look_and_feel">Del Stilindstillinger</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">Anvend Søgebjælkeindstillinger på Sesame-bjælke.</string>
-    <string name="sesame_version">Biblioteksversion</string>
     <string name="title_show_google_app">Vis %1$s-feed</string>
     <string name="feed_theme_pref_title">Baggrundsfarve</string>
     <!-- Section 9 -->
@@ -464,14 +455,8 @@
     <string name="delete">Slet</string>
     <string name="none">Ingen</string>
     <string name="undo">Fortryd</string>
-    <string name="shortcut_sesame">Genveje</string>
-    <string name="pref_sesame_enabled">Deling af brugsdata med Sesame.</string>
-    <string name="pref_sesame_disabled">Ingen brugsdata delt.</string>
     <string name="allow">Tillad</string>
     <string name="deny">Afvis</string>
-    <string name="sesame_enable_integration_title">Datadeling</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Aktivér brugsdatadeling med Sesame? Du kan ændre dette senere.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame er deaktiveret.</string>
     <string name="font_variant_italic">Kursiv</string>
     <string name="font_weight_thin">Tynd</string>
     <string name="font_weight_extra_light">Ekstra let</string>

@@ -244,15 +244,6 @@
     <string name="pref_search_bar_radius">Zaokrąglenie rogów</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Wtyczki</string>
-    <string name="pref_integrations_summary">Skróty Sesame, kanał Google</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Udostępnianie danych</string>
-    <string name="sesame_upsell">Kliknij aby zainstalować Sesame.</string>
-    <string name="pref_sesame_show_shortcuts">Pokazuj w dymkach skrótów</string>
-    <string name="sesame_search_engine">Używaj jako wyszukiwarki</string>
-    <string name="pref_sesame_sync_look_and_feel">Przeszukaj ustawienia wyglądu</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">Zastosuj ustawienia paska wyszukiwania do Sesame.</string>
-    <string name="sesame_version">Wersja biblioteki</string>
     <string name="title_show_google_app">Pokaż kanał %1$s</string>
     <string name="feed_theme_pref_title">Kolor tła</string>
     <!-- Section 9 -->
@@ -470,14 +461,8 @@
     <string name="delete">Usuń</string>
     <string name="none">Brak</string>
     <string name="undo">Cofnij</string>
-    <string name="shortcut_sesame">Skróty</string>
-    <string name="pref_sesame_enabled">Udostępnianie danych użycia z Sesame.</string>
-    <string name="pref_sesame_disabled">Nie udostępniono danych użycia.</string>
     <string name="allow">Zezwól</string>
     <string name="deny">Odrzuć</string>
-    <string name="sesame_enable_integration_title">Udostępnianie danych</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Włączyć udostępnianie danych z Sesame? Możesz zmienić to później.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame jest wyłączony.</string>
     <string name="font_variant_italic">Kursywa</string>
     <string name="font_weight_thin">Cienki</string>
     <string name="font_weight_extra_light">Bardzo cienka</string>

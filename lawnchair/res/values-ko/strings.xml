@@ -191,15 +191,6 @@
     <string name="pref_search_bar_radius">가장자리 반경</string>
     <!-- Section 8 -->
     <string name="pref_integrations">플러그 인</string>
-    <string name="pref_integrations_summary">Sesame 바로가기 및 Google 피드</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">데이터 공유</string>
-    <string name="sesame_upsell">눌러서 Sesame 설치</string>
-    <string name="pref_sesame_show_shortcuts">바로가기 버블에 표시</string>
-    <string name="sesame_search_engine">검색 엔진으로 사용</string>
-    <string name="pref_sesame_sync_look_and_feel">스타일 설정 공유</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">검색 바 설정을 Sesame Bar에 적용</string>
-    <string name="sesame_version">라이브러리 버전</string>
     <string name="title_show_google_app">%1$s 피드 표시</string>
     <string name="feed_theme_pref_title">배경 색</string>
     <!-- Section 9 -->
@@ -341,7 +332,6 @@
     <string name="delete">삭제</string>
     <string name="none">없음</string>
     <string name="undo">실행 취소</string>
-    <string name="shortcut_sesame">바로가기</string>
     <string name="allow">허용</string>
     <string name="deny">거부</string>
     <string name="font_variant_italic">이탤릭체</string>

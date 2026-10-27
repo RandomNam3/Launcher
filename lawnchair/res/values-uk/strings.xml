@@ -244,15 +244,6 @@
     <string name="pref_search_bar_radius">Радіус закруглення</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Плагіни</string>
-    <string name="pref_integrations_summary">Sesame Shortcuts, Google Feed</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">Ділитись даними</string>
-    <string name="sesame_upsell">Тицьніть щоб встановити Sesame.</string>
-    <string name="pref_sesame_show_shortcuts">Показувати в бульбашках ярликів</string>
-    <string name="sesame_search_engine">Використовувати як пошукову систему</string>
-    <string name="pref_sesame_sync_look_and_feel">Поділитись налаштуваннями стилю</string>
-    <string name="pref_sesame_sync_look_and_feel_summary">Застосувати налаштування панелі пошуку до панелі Sesame.</string>
-    <string name="sesame_version">Версія бібліотеки</string>
     <string name="title_show_google_app">Показувати стрічку %1$s</string>
     <string name="feed_theme_pref_title">Колір фону</string>
     <!-- Section 9 -->
@@ -467,14 +458,8 @@
     <string name="delete">Видалити</string>
     <string name="none">НІчого</string>
     <string name="undo">Відмінити</string>
-    <string name="shortcut_sesame">Ярлики</string>
-    <string name="pref_sesame_enabled">Ділитись інформацією про використання з Sesame.</string>
-    <string name="pref_sesame_disabled">Інформація про використання не передається.</string>
     <string name="allow">Дозволити</string>
     <string name="deny">Відхилити</string>
-    <string name="sesame_enable_integration_title">Ділитись даними</string>
-    <string name="sesame_enable_integration_description"><![CDATA[Увімкнути обмін даними про використання за допомогою Sesame? Ви можете змінити це пізніше.]]></string>
-    <string name="sesame_shortcut_disabled">Sesame вимкнуто.</string>
     <string name="font_variant_italic">Курсив</string>
     <string name="font_weight_thin">Тонкий</string>
     <string name="font_weight_extra_light">Надсвітлий</string>

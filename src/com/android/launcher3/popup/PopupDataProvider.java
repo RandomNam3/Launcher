@@ -24,8 +24,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import ch.deletescape.lawnchair.popup.LawnchairShortcut;
-import ch.deletescape.lawnchair.sesame.Sesame;
-import ch.deletescape.lawnchair.sesame.SesameShortcutInfo;
 import com.android.launcher3.ItemInfo;
 import com.android.launcher3.Launcher;
 import com.android.launcher3.R;
@@ -48,8 +46,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import ninja.sesame.lib.bridge.v1.SesameFrontend;
-import ninja.sesame.lib.bridge.v1.SesameShortcut;
 
 /**
  * Provides data for the popup menu that appears after long-clicking on apps.
@@ -177,13 +173,7 @@ public class PopupDataProvider implements NotificationListener.NotificationsChan
             return Collections.EMPTY_LIST;
         }
         List<String> ids = new ArrayList<>();
-        if (Sesame.isAvailable(mLauncher) && Sesame.getShowShortcuts()) {
-            List<SesameShortcut> shortcuts = SesameFrontend
-                    .getRecentAppShortcuts(component.getPackageName(), false, PopupPopulator.MAX_SHORTCUTS);
-            for (SesameShortcut shortcut : shortcuts) {
-                ids.add(new SesameShortcutInfo(mLauncher, shortcut).getId());
-            }
-        } else if (!Utilities.ATLEAST_NOUGAT_MR1) {
+        if (!Utilities.ATLEAST_NOUGAT_MR1) {
             for (ShortcutInfoCompat compat : DeepShortcutManagerBackport.getForPackage(mLauncher,
                     (LauncherApps) mLauncher.getSystemService(Context.LAUNCHER_APPS_SERVICE),
                     info.getTargetComponent(),

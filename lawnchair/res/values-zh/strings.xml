@@ -237,12 +237,6 @@
     <string name="pref_search_bar_radius">圆角半径</string>
     <!-- Section 8 -->
     <string name="pref_integrations">插件</string>
-    <string name="pref_integrations_summary">Sesame 快捷方式、Google Feed</string>
-    <string name="sesame">Sesame</string>
-    <string name="sesame_data_integration">数据共享</string>
-    <string name="sesame_upsell">点击安装 Sesame</string>
-    <string name="sesame_search_engine">使用其作为搜索引擎</string>
-    <string name="pref_sesame_sync_look_and_feel">分享我的风格设置</string>
     <string name="feed_theme_pref_title">背景颜色</string>
     <!-- Section 9 -->
     <string name="gestures_pref_title">手势</string>
@@ -421,13 +415,8 @@
     <string name="delete">删除</string>
     <string name="none">无</string>
     <string name="undo">撤销</string>
-    <string name="shortcut_sesame">快捷方式</string>
-    <string name="pref_sesame_enabled">同 Sesame 共享使用数据</string>
-    <string name="pref_sesame_disabled">没有使用数据被共享</string>
     <string name="allow">允许</string>
     <string name="deny">拒绝</string>
-    <string name="sesame_enable_integration_title">数据共享</string>
-    <string name="sesame_shortcut_disabled">Sesame 已禁用</string>
     <string name="font_variant_italic">斜体</string>
     <string name="font_weight_thin">细体</string>
     <string name="font_weight_extra_light">极细</string>

@@ -44,7 +44,6 @@ import android.util.MutableInt;
 
 import ch.deletescape.lawnchair.iconpack.IconPackManager;
 import ch.deletescape.lawnchair.model.HomeWidgetMigrationTask;
-import ch.deletescape.lawnchair.sesame.Sesame;
 import com.android.launcher3.AllAppsList;
 import com.android.launcher3.AppInfo;
 import com.android.launcher3.FolderInfo;
@@ -598,10 +597,6 @@ public class LoaderTask implements Runnable {
                                     intent.addFlags(
                                         Intent.FLAG_ACTIVITY_NEW_TASK |
                                         Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                                }
-
-                                if(!Sesame.isAvailable(context) && intent.getBooleanExtra(Sesame.EXTRA_TAG, false)) {
-                                    disabledState  |= ShortcutInfo.FLAG_DISABLED_BY_SESAME;
                                 }
                             }
 

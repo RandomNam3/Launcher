@@ -100,7 +100,6 @@
     <string name="weather_provider_oneplus_weather">Време на OnePlus</string>
     <string name="searchbar_appearance_title">Стил</string>
     <!-- Section 8 -->
-    <string name="sesame">Sesame</string>
     <!-- Section 9 -->
     <string name="gestures_pref_title">Жестове</string>
     <string name="action_sleep">Изключване на екрана</string>
@@ -183,7 +182,6 @@
     <string name="delete">Изтрий</string>
     <string name="none">Няма</string>
     <string name="undo">Отмяна</string>
-    <string name="shortcut_sesame">Преки пътища</string>
     <string name="allow">Разреши</string>
     <string name="deny">Откажи</string>
     <string name="font_variant_italic">Наклонени букви</string>

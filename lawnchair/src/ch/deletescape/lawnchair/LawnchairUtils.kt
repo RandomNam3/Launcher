@@ -539,11 +539,12 @@ fun Switch.applyColor(color: Int) {
     fun dp(value: Float) = (value * density).toInt()
 
     val outline = Themes.getAttrColor(context, android.R.attr.textColorSecondary)
+    // 0..255
     val alphaDisabled = Themes.getAlpha(context, android.R.attr.disabledAlpha)
     val onColor = if (ColorUtils.calculateLuminance(color) < 0.5) Color.WHITE
             else ColorUtils.blendARGB(color, Color.BLACK, 0.75f)
 
-    fun disabled(c: Int) = ColorUtils.setAlphaComponent(c, (Color.alpha(c) * alphaDisabled).toInt())
+    fun disabled(c: Int) = ColorUtils.setAlphaComponent(c, Color.alpha(c) * alphaDisabled / 255)
 
     fun track(fill: Int, stroke: Int?) = GradientDrawable().apply {
         shape = GradientDrawable.RECTANGLE

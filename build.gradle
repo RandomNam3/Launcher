@@ -184,11 +184,17 @@ android {
 // Hidden framework APIs (compiled against a stub of the Android 9 framework). The jar is put
 // in front of android.jar so that javac resolves the hidden members.
 def frameworkJar = file('lawnchair/libs/framework.jar')
+// Only the compilers may see the stub, never D8/R8: they would treat the android.* classes in it
+// as app code and desugar default interface methods to non-existing companion classes
+// (NoClassDefFoundError: android/content/ServiceConnection$-CC).
 tasks.withType(JavaCompile).configureEach {
     doFirst {
         options.bootstrapClasspath = files(frameworkJar) + (options.bootstrapClasspath ?: files())
     }
     options.compilerArgs += ['-Xlint:-deprecation', '-Xlint:-unchecked', '-Xmaxerrs', '10000']
+}
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    libraries.from(frameworkJar)
 }
 
 android.applicationVariants.configureEach { variant ->
@@ -206,7 +212,6 @@ allprojects {
 }
 
 dependencies {
-    compileOnly files(frameworkJar)
 
     implementation "com.android.support:appcompat-v7:${SUPPORT_LIBS_VERSION}"
     implementation "com.android.support:cardview-v7:${SUPPORT_LIBS_VERSION}"

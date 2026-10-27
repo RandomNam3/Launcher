@@ -28,7 +28,12 @@ public final class StorageCompat {
 
     public static boolean hasStorageAccess(Context context) {
         if (usesAllFilesAccess()) {
-            return Environment.isExternalStorageManager();
+            try {
+                return Environment.isExternalStorageManager();
+            } catch (RuntimeException e) {
+                // No primary storage volume available (e.g. while it is being mounted)
+                return false;
+            }
         }
         return context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED;

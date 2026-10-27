@@ -37,7 +37,7 @@ import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
 
-class LawnchairBugReporter(private val context: Context, private val crashHandler: Thread.UncaughtExceptionHandler)
+class LawnchairBugReporter(private val context: Context, private val crashHandler: Thread.UncaughtExceptionHandler?)
     : Thread.UncaughtExceptionHandler {
 
     private val hasPermission get() = ch.deletescape.lawnchair.platform.StorageCompat.hasStorageAccess(context)
@@ -47,7 +47,8 @@ class LawnchairBugReporter(private val context: Context, private val crashHandle
 
     override fun uncaughtException(t: Thread?, e: Throwable?) {
         handleException(e)
-        crashHandler.uncaughtException(t, e)
+        // Android always sets a default handler, other runtimes (tests) might not
+        crashHandler?.uncaughtException(t, e) ?: e?.printStackTrace()
     }
 
     @RequiresApi(Build.VERSION_CODES.P)

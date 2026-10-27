@@ -39,7 +39,7 @@
         <TextView
             android:id="@+id/txtValue"
             android:layout_width="40dp"
-            android:layout_height="30dp"
+            android:layout_height="44dp"
             android:layout_below="@android:id/summary"
             android:gravity="center|end"
             tools:text="100"/>
@@ -47,7 +47,7 @@
         <SeekBar
             android:id="@+id/seekbar"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="44dp"
             android:layout_below="@android:id/summary"
             android:layout_toEndOf="@id/txtValue"
             android:layout_alignParentEnd="true" />

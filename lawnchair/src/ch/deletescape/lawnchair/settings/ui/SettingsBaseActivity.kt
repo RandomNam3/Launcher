@@ -22,6 +22,9 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -31,6 +34,7 @@ import android.view.ViewGroup
 import ch.deletescape.lawnchair.LawnchairLayoutInflater
 import ch.deletescape.lawnchair.colors.ColorEngine
 import ch.deletescape.lawnchair.getBooleanAttr
+import ch.deletescape.lawnchair.getColorAttr
 import ch.deletescape.lawnchair.launcherAppState
 import ch.deletescape.lawnchair.theme.ThemeManager
 import ch.deletescape.lawnchair.theme.ThemeOverride
@@ -144,10 +148,27 @@ open class SettingsBaseActivity : AppCompatActivity(), ColorEngine.OnColorChange
     override fun onColorChange(resolveInfo: ColorEngine.ResolveInfo) {
         when (resolveInfo.key) {
             ColorEngine.Resolvers.ACCENT -> {
-                val arrowBack = resources.getDrawable(R.drawable.ic_arrow_back, null)
-                arrowBack?.setTint(resolveInfo.color)
-                supportActionBar?.setHomeAsUpIndicator(arrowBack)
+                supportActionBar?.setHomeAsUpIndicator(createBackButton())
             }
+        }
+    }
+
+    /**
+     * Material 3 Expressive back button: the arrow on a round tonal surface.
+     */
+    private fun createBackButton(): Drawable {
+        val density = resources.displayMetrics.density
+        val circle = GradientDrawable().apply {
+            shape = GradientDrawable.OVAL
+            setColor(getColorAttr(R.attr.settingsSearchBackground))
+            setSize((40 * density).toInt(), (40 * density).toInt())
+        }
+        val arrow = resources.getDrawable(R.drawable.ic_arrow_back, null).mutate().apply {
+            setTint(getColorAttr(android.R.attr.textColorPrimary))
+        }
+        val inset = (8 * density).toInt()
+        return LayerDrawable(arrayOf(circle, arrow)).apply {
+            setLayerInset(1, inset, inset, inset, inset)
         }
     }
 

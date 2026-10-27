@@ -20,7 +20,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Path;
+import android.support.v4.graphics.ColorUtils;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -57,6 +57,7 @@ public class PersonalWorkSlidingTabStrip extends LinearLayout implements PageInd
 
     private final Paint mSelectedIndicatorPaint;
     private final Paint mDividerPaint;
+    private final Paint mPillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final SharedPreferences mSharedPreferences;
 
     private int mSelectedIndicatorHeight;
@@ -70,7 +71,6 @@ public class PersonalWorkSlidingTabStrip extends LinearLayout implements PageInd
     private boolean mIsRtl;
 
     private ArgbEvaluator mArgbEvaluator = new ArgbEvaluator();
-    private Path mIndicatorPath = new Path();
 
     public PersonalWorkSlidingTabStrip(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -233,24 +233,16 @@ public class PersonalWorkSlidingTabStrip extends LinearLayout implements PageInd
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        float y = getHeight() - mDividerPaint.getStrokeWidth() / 2;
-        canvas.drawLine(getPaddingLeft(), y, getWidth() - getPaddingRight(), y, mDividerPaint);
-        drawIndicator(canvas, mIndicatorLeft, getHeight() - mSelectedIndicatorHeight,
-                mIndicatorRight, getHeight(), mSelectedIndicatorPaint);
-    }
-
-    private void drawIndicator(Canvas canvas, int l, int t, int r, int b, Paint paint) {
-        l = Math.max(l, getPaddingLeft());
-        r = Math.min(r, getWidth() - getPaddingRight());
-        paint.setAntiAlias(true);
-        mIndicatorPath.reset();
-        mIndicatorPath.moveTo(l, b);
-        mIndicatorPath.quadTo(l, t, l + mSelectedIndicatorHeight, t);
-        mIndicatorPath.lineTo(r - mSelectedIndicatorHeight, t);
-        mIndicatorPath.quadTo(r, t, r, b);
-        mIndicatorPath.lineTo(r, b);
-        canvas.drawPath(mIndicatorPath, paint);
+        // Material 3: a tonal pill behind the selected tab (drawn before the tabs), no divider
+        if (mIndicatorLeft < 0 || mIndicatorRight <= mIndicatorLeft) return;
+        float inset = 4 * getResources().getDisplayMetrics().density;
+        float top = getPaddingTop() + inset;
+        float bottom = getHeight() - getPaddingBottom() - inset;
+        float radius = (bottom - top) / 2;
+        int color = mSelectedIndicatorPaint.getColor();
+        mPillPaint.setColor(ColorUtils.setAlphaComponent(color, 0x33));
+        canvas.drawRoundRect(mIndicatorLeft, top, mIndicatorRight, bottom, radius, radius,
+                mPillPaint);
     }
 
     public void highlightWorkTabIfNecessary() {

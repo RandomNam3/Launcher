@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair.settings.ui
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.os.Build
 import android.annotation.TargetApi
@@ -54,34 +56,34 @@ class DecorLayout(context: Context, private val window: Window) : InsettableFram
     private val toolbar: View
     private val largeTitle: View
     private val toolbarShadow: View
+    // Material 3: the top app bar has the colour of the page and gets a container colour as soon
+    // as the content is scrolled under it
+    private val toolbarColor = ColorDrawable(0)
+    private var toolbarColorAnimator: ValueAnimator? = null
     internal var toolbarElevated = false
         set(value) {
             if (field != value) {
                 field = value
-                if (value) {
-                    toolbarShadow.animate().alpha(1f).setDuration(200).start()
-                } else {
-                    toolbarShadow.animate().alpha(0f).setDuration(200).start()
+                toolbarColorAnimator?.cancel()
+                toolbarColorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), toolbarColor.color,
+                        if (value) toolbarScrolledBackground else settingsBackground).apply {
+                    duration = 200
+                    addUpdateListener { setToolbarColor(it.animatedValue as Int) }
+                    start()
                 }
             }
         }
 
     private val shouldDrawBackground by lazy { context.getBooleanAttr(android.R.attr.windowShowWallpaper) }
     private val settingsBackground by lazy { context.getColorAttr(R.attr.settingsBackground) }
+    private val toolbarScrolledBackground by lazy {
+        context.getColorAttr(R.attr.settingsToolbarScrolledBackground)
+    }
 
-    var actionBarElevation: Float
-        get() = actionBarContainer.elevation
-        set(value) {
-            actionBarContainer.elevation = value
-            if (value.compareTo(0f) == 0) {
-                actionBarContainer.background = null
-                setStatusBarBackground(0)
-            } else {
-                val backgroundColor = settingsBackground
-                actionBarContainer.background = ColorDrawable(backgroundColor)
-                setStatusBarBackground(backgroundColor)
-            }
-        }
+    private fun setToolbarColor(color: Int) {
+        toolbarColor.color = color
+        setStatusBarBackground(color)
+    }
 
     var useLargeTitle: Boolean = false
         set(value) {
@@ -135,7 +137,8 @@ class DecorLayout(context: Context, private val window: Window) : InsettableFram
     private fun updateToolbar() {
         largeTitle.visibility = if (useLargeTitle && !hideToolbar) View.VISIBLE else View.GONE
         toolbar.visibility = if (!useLargeTitle && !hideToolbar) View.VISIBLE else View.GONE
-        toolbarShadow.visibility = toolbar.visibility
+        // The status bar keeps its background also without toolbar
+        actionBarContainer.background = if (hideToolbar) null else toolbarColor
     }
 
     init {
@@ -147,6 +150,9 @@ class DecorLayout(context: Context, private val window: Window) : InsettableFram
         largeTitle = findViewById(R.id.large_title)
         largeTitle.setOnClickListener(this)
         toolbarShadow = findViewById(R.id.toolbar_shadow)
+        toolbarShadow.visibility = View.GONE
+        actionBarContainer.background = toolbarColor
+        setToolbarColor(settingsBackground)
 
         onEnabledChanged()
 

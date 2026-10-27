@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.UserHandle;
 import android.util.AttributeSet;
-import android.widget.Switch;
+import ch.deletescape.lawnchair.views.M3Switch;
 
 import ch.deletescape.lawnchair.LawnchairUtilsKt;
 import ch.deletescape.lawnchair.colors.ColorEngine;
@@ -14,7 +14,7 @@ import com.android.launcher3.compat.UserManagerCompat;
  * Locks and unlocks the private space (Android 15). Checked means unlocked.
  * Modelled after {@link WorkModeSwitch}, but only affects the private space profile.
  */
-public class PrivateSpaceSwitch extends Switch {
+public class PrivateSpaceSwitch extends M3Switch {
 
     public PrivateSpaceSwitch(Context context) {
         super(context);

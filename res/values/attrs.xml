@@ -23,6 +23,9 @@
     <attr name="allAppsInterimScrimAlpha" format="integer" />
     <attr name="allAppsNavBarScrimColor" format="color" />
     <attr name="popupColorPrimary" format="color" />
+    <!-- Material 3 roles of the launcher theme, not overridden by HomeScreenElementTheme -->
+    <attr name="m3SurfaceContainerHigh" format="color" />
+    <attr name="m3OnSurface" format="color" />
     <attr name="popupColorSecondary" format="color" />
     <attr name="popupColorTertiary" format="color" />
     <attr name="isMainColorDark" format="boolean" />

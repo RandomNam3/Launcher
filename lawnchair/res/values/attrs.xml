@@ -64,6 +64,8 @@
     <attr name="settingsPopupBackground" format="color" />
     <!-- Background of the grouped preference cards -->
     <attr name="settingsCardBackground" format="color" />
+    <!-- Top app bar while the content is scrolled under it -->
+    <attr name="settingsToolbarScrolledBackground" format="color" />
     <attr name="bottomSheetScrimColor" format="color" />
     <attr name="qsbEdgeRadius" format="dimension" />
     <attr name="folderIconRadius" format="float" />

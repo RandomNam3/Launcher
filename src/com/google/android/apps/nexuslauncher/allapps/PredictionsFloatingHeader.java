@@ -76,10 +76,9 @@ public class PredictionsFloatingHeader extends FloatingHeaderView implements Ins
         boolean useAllAppsLabel = mShowAllAppsLabel && mTabsHidden;
         mActionsRowView.setShowAllAppsLabel(useAllAppsLabel && mActionsRowView.shouldDraw(), false);
         DividerType dividerType = DividerType.NONE;
+        // Material 3: no divider line between the suggestions and the apps
         if (useAllAppsLabel && !mActionsRowView.shouldDraw()) {
             dividerType = DividerType.ALL_APPS_LABEL;
-        } else if (mTabsHidden && !mActionsRowView.shouldDraw()) {
-            dividerType = DividerType.LINE;
         }
         mPredictionRowView.setDividerType(dividerType, false);
         mMaxTranslation = mPredictionRowView.getExpectedHeight() + mActionsRowView.getExpectedHeight();

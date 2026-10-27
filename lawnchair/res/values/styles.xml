@@ -184,6 +184,7 @@
         <item name="settingsSearchBackground">@color/m3_surface_container_highest_light</item>
         <item name="settingsPopupBackground">@color/m3_surface_container_high_light</item>
         <item name="settingsCardBackground">@color/m3_surface_container_lowest_light</item>
+        <item name="settingsToolbarScrolledBackground">@color/m3_surface_container_high_light</item>
         <item name="android:colorBackgroundFloating">@color/m3_surface_container_high_light</item>
         <item name="android:textColorPrimary">@color/m3_on_surface_light</item>
         <item name="android:textColorSecondary">@color/m3_on_surface_variant_light</item>
@@ -255,6 +256,7 @@
         <item name="settingsSearchBackground">@color/m3_surface_container_highest_dark</item>
         <item name="settingsPopupBackground">@color/m3_surface_container_high_dark</item>
         <item name="settingsCardBackground">@color/m3_surface_container_dark</item>
+        <item name="settingsToolbarScrolledBackground">@color/m3_surface_container_dark</item>
         <item name="bottomSheetDialogTheme">@style/SettingsTheme.BottomSheetDialog</item>
         <item name="bottomSheetNavBarColor">@android:color/transparent</item>
         <item name="bottomSheetScrimColor">@android:color/black</item>
@@ -280,6 +282,7 @@
         <item name="settingsSearchBackground">@color/m3_surface_container_dark</item>
         <item name="settingsPopupBackground">@color/m3_surface_container_low_dark</item>
         <item name="settingsCardBackground">@color/m3_surface_container_low_dark</item>
+        <item name="settingsToolbarScrolledBackground">@color/m3_surface_container_low_dark</item>
         <item name="actionBarTheme">@style/SettingsTheme.V2.Black.ActionBar</item>
     </style>
     <style name="SettingsTheme.V2.Black.ActionBar" parent="SettingsTheme.V2.Black">

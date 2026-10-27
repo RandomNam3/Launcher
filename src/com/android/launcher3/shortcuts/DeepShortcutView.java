@@ -72,7 +72,8 @@ public class DeepShortcutView extends FrameLayout {
     }
 
     public void setDividerVisibility(int visibility) {
-        mDivider.setVisibility(visibility);
+        // Material 3 menus have no dividers between the items
+        mDivider.setVisibility(GONE);
     }
 
     public BubbleTextView getBubbleText() {

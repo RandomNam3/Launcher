@@ -18,7 +18,6 @@
 package ch.deletescape.lawnchair.preferences
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.SystemClock
@@ -29,6 +28,7 @@ import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
 import android.widget.SeekBar
+import ch.deletescape.lawnchair.applyM3Style
 import android.widget.TextView
 import ch.deletescape.lawnchair.colors.ColorEngine
 import com.android.launcher3.R
@@ -88,12 +88,7 @@ open class SeekbarPreference @JvmOverloads constructor(context: Context, attrs: 
 
     override fun onColorChange(resolveInfo: ColorEngine.ResolveInfo) {
         if (resolveInfo.key == ColorEngine.Resolvers.ACCENT) {
-            val stateList = ColorStateList.valueOf(resolveInfo.color)
-            mSeekbar?.apply {
-                thumbTintList = stateList
-                progressTintList = stateList
-                progressBackgroundTintList = stateList
-            }
+            mSeekbar?.applyM3Style(resolveInfo.color)
         }
     }
 

@@ -295,7 +295,7 @@ public class SettingsActivity extends SettingsBaseActivity implements
 
         if (resolveInfo.getKey().equals(ColorEngine.Resolvers.ACCENT) && shouldShowSearch()) {
             Drawable search = getResources().getDrawable(R.drawable.ic_settings_search, null);
-            search.setTint(resolveInfo.getColor());
+            search.setTint(LawnchairUtilsKt.getColorAttr(this, android.R.attr.textColorSecondary));
 
             Toolbar toolbar = findViewById(R.id.search_action_bar);
             toolbar.setNavigationIcon(search);

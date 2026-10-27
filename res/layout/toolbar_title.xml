@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="?actionBarSize"
-    android:layout_gravity="center"
-    android:gravity="center"
+    android:layout_gravity="start|center_vertical"
+    android:gravity="start|center_vertical"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="start"
         android:ellipsize="end"
-        android:gravity="center"
+        android:gravity="start"
         android:singleLine="true"
         android:textAppearance="?titleTextAppearance"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="22sp"
         app:customFontType="title"
         tools:text="Title" />
 
@@ -24,11 +26,12 @@
         android:id="@+id/toolbar_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="start"
         android:ellipsize="end"
-        android:gravity="center"
+        android:gravity="start"
         android:singleLine="true"
         android:textAppearance="?subtitleTextAppearance"
+        android:textColor="?android:attr/textColorSecondary"
         android:visibility="gone"
         app:customFontType="title"
         tools:text="Subtitle" />

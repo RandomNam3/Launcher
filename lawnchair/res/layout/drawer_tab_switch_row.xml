@@ -54,7 +54,7 @@
             app:customFontType="preferenceTitle"/>
     </LinearLayout>
 
-    <Switch
+    <ch.deletescape.lawnchair.views.M3Switch
         android:id="@+id/switch_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

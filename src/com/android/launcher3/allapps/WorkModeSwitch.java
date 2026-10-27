@@ -21,7 +21,7 @@ import android.os.Process;
 import android.os.UserHandle;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Switch;
+import ch.deletescape.lawnchair.views.M3Switch;
 
 import ch.deletescape.lawnchair.LawnchairUtilsKt;
 import ch.deletescape.lawnchair.colors.ColorEngine;
@@ -30,7 +30,7 @@ import com.android.launcher3.compat.UserManagerCompat;
 
 import java.util.List;
 
-public class WorkModeSwitch extends Switch {
+public class WorkModeSwitch extends M3Switch {
 
     public WorkModeSwitch(Context context) {
         super(context);

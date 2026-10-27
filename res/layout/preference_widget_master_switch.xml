@@ -12,7 +12,7 @@
   limitations under the License.
   -->
 
-<Switch
+<ch.deletescape.lawnchair.views.M3Switch
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/switchWidget"
     android:layout_width="match_parent"

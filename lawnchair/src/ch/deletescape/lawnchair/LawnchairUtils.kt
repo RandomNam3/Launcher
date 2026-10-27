@@ -49,11 +49,13 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Property
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Interpolator
 import android.widget.*
+import ch.deletescape.lawnchair.views.M3Switch
 import ch.deletescape.lawnchair.colors.ColorEngine
 import ch.deletescape.lawnchair.font.CustomFontManager
 import ch.deletescape.lawnchair.util.JSONMap
@@ -530,63 +532,76 @@ class ReverseInputInterpolator(private val base: Interpolator) : Interpolator {
     }
 }
 
-/**
- * Styles the switch as a Material 3 switch in the given accent colour: a 52x32dp track, outlined
- * when off, and a thumb that grows when the switch is turned on.
- */
 fun Switch.applyColor(color: Int) {
+    if (this is M3Switch) {
+        setAccentColor(color)
+        return
+    }
+    val colorForeground = Themes.getAttrColor(context, android.R.attr.colorForeground)
+    val alphaDisabled = Themes.getAlpha(context, android.R.attr.disabledAlpha)
+    val switchThumbNormal = context.resources.getColor(android.support.v7.preference.R.color.switch_thumb_normal_material_light)
+    val switchThumbDisabled = context.resources.getColor(android.support.v7.appcompat.R.color.switch_thumb_disabled_material_light)
+    val thstateList = ColorStateList(arrayOf(
+            intArrayOf(-android.R.attr.state_enabled),
+            intArrayOf(android.R.attr.state_checked),
+            intArrayOf()),
+            intArrayOf(
+                    switchThumbDisabled,
+                    color,
+                    switchThumbNormal))
+    val trstateList = ColorStateList(arrayOf(
+            intArrayOf(-android.R.attr.state_enabled),
+            intArrayOf(android.R.attr.state_checked),
+            intArrayOf()),
+            intArrayOf(
+                    ColorUtils.setAlphaComponent(colorForeground, alphaDisabled),
+                    color,
+                    colorForeground))
+    DrawableCompat.setTintList(thumbDrawable, thstateList)
+    DrawableCompat.setTintList(trackDrawable, trstateList)
+}
+
+/**
+ * Styles the seek bar as a Material 3 Expressive slider: a thick rounded track and a narrow
+ * vertical handle with a gap on both sides.
+ */
+fun SeekBar.applyM3Style(color: Int,
+                          background: Int = context.getColorAttr(R.attr.settingsCardBackground)) {
     val density = resources.displayMetrics.density
     fun dp(value: Float) = (value * density).toInt()
+    val trackHeight = dp(16f)
+    val inactive = ColorUtils.setAlphaComponent(color, 0x40)
 
-    val outline = Themes.getAttrColor(context, android.R.attr.textColorSecondary)
-    // 0..255
-    val alphaDisabled = Themes.getAlpha(context, android.R.attr.disabledAlpha)
-    val onColor = if (ColorUtils.calculateLuminance(color) < 0.5) Color.WHITE
-            else ColorUtils.blendARGB(color, Color.BLACK, 0.75f)
-
-    fun disabled(c: Int) = ColorUtils.setAlphaComponent(c, Color.alpha(c) * alphaDisabled / 255)
-
-    fun track(fill: Int, stroke: Int?) = GradientDrawable().apply {
-        shape = GradientDrawable.RECTANGLE
-        cornerRadius = dp(16f).toFloat()
-        setSize(dp(52f), dp(32f))
-        setColor(fill)
-        if (stroke != null) setStroke(dp(2f), stroke)
+    fun track(trackColor: Int) = GradientDrawable().apply {
+        cornerRadius = trackHeight / 2f
+        setColor(trackColor)
+        setSize(dp(48f), trackHeight)
     }
-
-    fun thumb(size: Float, fill: Int): Drawable {
-        val inset = dp((32f - size) / 2)
-        val horizontalInset = dp((26f - size) / 2)
-        val oval = GradientDrawable().apply {
-            shape = GradientDrawable.OVAL
-            setSize(dp(size), dp(size))
-            setColor(fill)
-        }
-        return InsetDrawable(oval, horizontalInset, inset, horizontalInset, inset)
+    progressDrawable = LayerDrawable(arrayOf(
+            track(inactive),
+            ClipDrawable(track(color), Gravity.START, ClipDrawable.HORIZONTAL))).apply {
+        setId(0, android.R.id.background)
+        setId(1, android.R.id.progress)
     }
-
-    val uncheckedTrack = ColorUtils.setAlphaComponent(outline, 0x1F)
-    trackDrawable = StateListDrawable().apply {
-        addState(intArrayOf(-android.R.attr.state_enabled, android.R.attr.state_checked),
-                 track(disabled(color), null))
-        addState(intArrayOf(-android.R.attr.state_enabled),
-                 track(disabled(uncheckedTrack), disabled(outline)))
-        addState(intArrayOf(android.R.attr.state_checked), track(color, null))
-        addState(intArrayOf(), track(uncheckedTrack, outline))
+    val handle = GradientDrawable().apply {
+        cornerRadius = dp(2f).toFloat()
+        setColor(color)
+        setSize(dp(4f), dp(40f))
     }
-    thumbDrawable = StateListDrawable().apply {
-        addState(intArrayOf(-android.R.attr.state_enabled, android.R.attr.state_checked),
-                 thumb(24f, disabled(onColor)))
-        addState(intArrayOf(-android.R.attr.state_enabled), thumb(16f, disabled(outline)))
-        addState(intArrayOf(android.R.attr.state_checked, android.R.attr.state_pressed),
-                 thumb(26f, onColor))
-        addState(intArrayOf(android.R.attr.state_checked), thumb(24f, onColor))
-        addState(intArrayOf(android.R.attr.state_pressed), thumb(26f, outline))
-        addState(intArrayOf(), thumb(16f, outline))
+    // The gap between the handle and the track, in the colour of the card behind the slider
+    val gap = GradientDrawable().apply {
+        setColor(background)
+        setSize(dp(16f), dp(40f))
     }
-    showText = false
-    thumbTextPadding = 0
-    switchMinWidth = dp(52f)
+    thumb = LayerDrawable(arrayOf(gap, handle)).apply {
+        setLayerInset(0, 0, dp(10f), 0, dp(10f))
+        setLayerInset(1, dp(6f), 0, dp(6f), 0)
+    }
+    thumbOffset = dp(8f)
+    splitTrack = false
+    progressTintList = null
+    progressBackgroundTintList = null
+    thumbTintList = null
 }
 
 fun Button.applyColor(color: Int) {

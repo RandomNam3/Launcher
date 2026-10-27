@@ -36,7 +36,7 @@
             android:clipToPadding="false"
             android:paddingStart="@dimen/dashboard_padding_start"
             android:paddingEnd="@dimen/dashboard_padding_end"
-            android:paddingTop="40dp"
+            android:paddingTop="48dp"
             android:paddingBottom="@dimen/dashboard_padding_bottom"
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical"/>

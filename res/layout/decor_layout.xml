@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
             android:background="@android:color/transparent"
-            app:titleTextColor="?colorAccent"
+            app:titleTextColor="?android:attr/textColorPrimary"
             android:theme="?actionBarTheme" />
 
         <View

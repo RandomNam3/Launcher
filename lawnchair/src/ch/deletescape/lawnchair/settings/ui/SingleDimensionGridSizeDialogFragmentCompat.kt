@@ -17,13 +17,14 @@
 
 package ch.deletescape.lawnchair.settings.ui
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.preference.PreferenceDialogFragmentCompat
 import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
+import ch.deletescape.lawnchair.applyM3Style
+import ch.deletescape.lawnchair.getColorAttr
 import ch.deletescape.lawnchair.applyAccent
 import ch.deletescape.lawnchair.colors.ColorEngine
 import com.android.launcher3.R
@@ -95,12 +96,8 @@ class SingleDimensionGridSizeDialogFragmentCompat : PreferenceDialogFragmentComp
 
     override fun onColorChange(resolveInfo: ColorEngine.ResolveInfo) {
         if (resolveInfo.key == ColorEngine.Resolvers.ACCENT) {
-            val tintList = ColorStateList.valueOf(resolveInfo.color)
-            numRowsPicker.apply {
-                progressBackgroundTintList = tintList
-                progressTintList = tintList
-                thumbTintList = tintList
-            }
+            numRowsPicker.applyM3Style(resolveInfo.color,
+                    numRowsPicker.context.getColorAttr(android.R.attr.colorBackgroundFloating))
         }
     }
 

@@ -82,7 +82,7 @@ open class IconShape(val topLeft: Corner,
     }
 
     @JvmOverloads
-    fun addToPath(path: Path, left: Float, top: Float, right: Float, bottom: Float,
+    open fun addToPath(path: Path, left: Float, top: Float, right: Float, bottom: Float,
                   size : Float = 50f, endSize: Float = size, progress: Float = 0f) {
         val topLeftSizeX = Utilities.mapRange(progress, topLeft.scale.x * size, endSize)
         val topLeftSizeY = Utilities.mapRange(progress, topLeft.scale.y * size, endSize)
@@ -253,6 +253,99 @@ open class IconShape(val topLeft: Corner,
         }
     }
 
+    object Arch : IconShape(IconCornerShape.arc,
+                            IconCornerShape.arc,
+                            IconCornerShape.arc,
+                            IconCornerShape.arc,
+                            1f, 1f, .24f, .24f) {
+
+        override fun toString(): String {
+            return "arch"
+        }
+    }
+
+    object Cookie4 : PolarIconShape(4, .07f, (Math.PI / 4).toFloat()) {
+
+        override fun toString(): String {
+            return "cookie4"
+        }
+    }
+
+    object Cookie7 : PolarIconShape(7, .05f, (-Math.PI / 2).toFloat()) {
+
+        override fun toString(): String {
+            return "cookie7"
+        }
+    }
+
+    /**
+     * Shapes of the Material 3 Expressive shape library that are not made of four corners, here
+     * the "cookies": a circle with [lobes] rounded bumps. The outline is defined by its distance
+     * from the center for every angle, which also allows to morph it into the rounded rectangle of
+     * the app window when an app is opened.
+     */
+    abstract class PolarIconShape(private val lobes: Int,
+                                  private val depth: Float,
+                                  private val phase: Float)
+        : IconShape(IconCornerShape.arc, IconCornerShape.arc,
+                    IconCornerShape.arc, IconCornerShape.arc,
+                    1f, 1f, 1f, 1f) {
+
+        override fun addShape(path: Path, x: Float, y: Float, radius: Float) {
+            addToPath(path, x, y, x + radius * 2, y + radius * 2, radius)
+        }
+
+        override fun addToPath(path: Path, left: Float, top: Float, right: Float, bottom: Float,
+                               size: Float, endSize: Float, progress: Float) {
+            val halfWidth = (right - left) / 2
+            val halfHeight = (bottom - top) / 2
+            val centerX = left + halfWidth
+            val centerY = top + halfHeight
+            val cornerRadius = min(endSize, min(halfWidth, halfHeight))
+            for (i in 0 until SAMPLES) {
+                val angle = (2 * Math.PI * i / SAMPLES).toFloat()
+                val dx = Math.cos(angle.toDouble()).toFloat()
+                val dy = Math.sin(angle.toDouble()).toFloat()
+                // Outline of the shape
+                val distance = 1 - depth + depth * Math.cos((lobes * (angle - phase)).toDouble()).toFloat()
+                var px = dx * distance * halfWidth
+                var py = dy * distance * halfHeight
+                if (progress > 0f) {
+                    // Outline of the rounded rectangle in the same direction
+                    val t = roundedRectDistance(dx, dy, halfWidth, halfHeight, cornerRadius)
+                    px = Utilities.mapRange(progress, px, dx * t)
+                    py = Utilities.mapRange(progress, py, dy * t)
+                }
+                if (i == 0) {
+                    path.moveTo(centerX + px, centerY + py)
+                } else {
+                    path.lineTo(centerX + px, centerY + py)
+                }
+            }
+            path.close()
+        }
+
+        private fun roundedRectDistance(dx: Float, dy: Float, halfWidth: Float, halfHeight: Float,
+                                        radius: Float): Float {
+            val absX = Math.abs(dx)
+            val absY = Math.abs(dy)
+            val t = min(if (absX > 0f) halfWidth / absX else Float.MAX_VALUE,
+                        if (absY > 0f) halfHeight / absY else Float.MAX_VALUE)
+            if (absX * t <= halfWidth - radius || absY * t <= halfHeight - radius) return t
+            // The ray hits a rounded corner
+            val cx = halfWidth - radius
+            val cy = halfHeight - radius
+            val dot = absX * cx + absY * cy
+            val discriminant = dot * dot - (cx * cx + cy * cy) + radius * radius
+            return dot + Math.sqrt(Math.max(0f, discriminant).toDouble()).toFloat()
+        }
+
+        companion object {
+
+            private const val SAMPLES = 120
+        }
+    }
+
     companion object {
 
         fun fromString(value: String): IconShape? {
@@ -263,6 +356,9 @@ open class IconShape(val topLeft: Corner,
                 "squircle" -> Squircle
                 "teardrop" -> Teardrop
                 "cylinder" -> Cylinder
+                "arch" -> Arch
+                "cookie4" -> Cookie4
+                "cookie7" -> Cookie7
                 "" -> null
                 else -> try {
                     parseCustomShape(value)

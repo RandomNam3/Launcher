@@ -530,29 +530,62 @@ class ReverseInputInterpolator(private val base: Interpolator) : Interpolator {
     }
 }
 
+/**
+ * Styles the switch as a Material 3 switch in the given accent colour: a 52x32dp track, outlined
+ * when off, and a thumb that grows when the switch is turned on.
+ */
 fun Switch.applyColor(color: Int) {
-    val colorForeground = Themes.getAttrColor(context, android.R.attr.colorForeground)
+    val density = resources.displayMetrics.density
+    fun dp(value: Float) = (value * density).toInt()
+
+    val outline = Themes.getAttrColor(context, android.R.attr.textColorSecondary)
     val alphaDisabled = Themes.getAlpha(context, android.R.attr.disabledAlpha)
-    val switchThumbNormal = context.resources.getColor(android.support.v7.preference.R.color.switch_thumb_normal_material_light)
-    val switchThumbDisabled = context.resources.getColor(android.support.v7.appcompat.R.color.switch_thumb_disabled_material_light)
-    val thstateList = ColorStateList(arrayOf(
-            intArrayOf(-android.R.attr.state_enabled),
-            intArrayOf(android.R.attr.state_checked),
-            intArrayOf()),
-            intArrayOf(
-                    switchThumbDisabled,
-                    color,
-                    switchThumbNormal))
-    val trstateList = ColorStateList(arrayOf(
-            intArrayOf(-android.R.attr.state_enabled),
-            intArrayOf(android.R.attr.state_checked),
-            intArrayOf()),
-            intArrayOf(
-                    ColorUtils.setAlphaComponent(colorForeground, alphaDisabled),
-                    color,
-                    colorForeground))
-    DrawableCompat.setTintList(thumbDrawable, thstateList)
-    DrawableCompat.setTintList(trackDrawable, trstateList)
+    val onColor = if (ColorUtils.calculateLuminance(color) < 0.5) Color.WHITE
+            else ColorUtils.blendARGB(color, Color.BLACK, 0.75f)
+
+    fun disabled(c: Int) = ColorUtils.setAlphaComponent(c, (Color.alpha(c) * alphaDisabled).toInt())
+
+    fun track(fill: Int, stroke: Int?) = GradientDrawable().apply {
+        shape = GradientDrawable.RECTANGLE
+        cornerRadius = dp(16f).toFloat()
+        setSize(dp(52f), dp(32f))
+        setColor(fill)
+        if (stroke != null) setStroke(dp(2f), stroke)
+    }
+
+    fun thumb(size: Float, fill: Int): Drawable {
+        val inset = dp((32f - size) / 2)
+        val horizontalInset = dp((26f - size) / 2)
+        val oval = GradientDrawable().apply {
+            shape = GradientDrawable.OVAL
+            setSize(dp(size), dp(size))
+            setColor(fill)
+        }
+        return InsetDrawable(oval, horizontalInset, inset, horizontalInset, inset)
+    }
+
+    val uncheckedTrack = ColorUtils.setAlphaComponent(outline, 0x1F)
+    trackDrawable = StateListDrawable().apply {
+        addState(intArrayOf(-android.R.attr.state_enabled, android.R.attr.state_checked),
+                 track(disabled(color), null))
+        addState(intArrayOf(-android.R.attr.state_enabled),
+                 track(disabled(uncheckedTrack), disabled(outline)))
+        addState(intArrayOf(android.R.attr.state_checked), track(color, null))
+        addState(intArrayOf(), track(uncheckedTrack, outline))
+    }
+    thumbDrawable = StateListDrawable().apply {
+        addState(intArrayOf(-android.R.attr.state_enabled, android.R.attr.state_checked),
+                 thumb(24f, disabled(onColor)))
+        addState(intArrayOf(-android.R.attr.state_enabled), thumb(16f, disabled(outline)))
+        addState(intArrayOf(android.R.attr.state_checked, android.R.attr.state_pressed),
+                 thumb(26f, onColor))
+        addState(intArrayOf(android.R.attr.state_checked), thumb(24f, onColor))
+        addState(intArrayOf(android.R.attr.state_pressed), thumb(26f, outline))
+        addState(intArrayOf(), thumb(16f, outline))
+    }
+    showText = false
+    thumbTextPadding = 0
+    switchMinWidth = dp(52f)
 }
 
 fun Button.applyColor(color: Int) {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Material 3 colour roles. Baseline palette, used before Android 12.
+-->
+<resources>
+    <color name="m3_primary_light">#FF6750A4</color>
+    <color name="m3_primary_dark">#FFD0BCFF</color>
+    <color name="m3_on_primary_light">#FFFFFFFF</color>
+    <color name="m3_on_primary_dark">#FF381E72</color>
+    <color name="m3_primary_container_light">#FFEADDFF</color>
+    <color name="m3_primary_container_dark">#FF4F378B</color>
+    <color name="m3_on_primary_container_light">#FF21005D</color>
+    <color name="m3_on_primary_container_dark">#FFEADDFF</color>
+    <color name="m3_secondary_container_light">#FFE8DEF8</color>
+    <color name="m3_secondary_container_dark">#FF4A4458</color>
+    <color name="m3_on_secondary_container_light">#FF1D192B</color>
+    <color name="m3_on_secondary_container_dark">#FFE8DEF8</color>
+    <color name="m3_tertiary_container_light">#FFFFD8E4</color>
+    <color name="m3_tertiary_container_dark">#FF633B48</color>
+    <color name="m3_on_tertiary_container_light">#FF31111D</color>
+    <color name="m3_on_tertiary_container_dark">#FFFFD8E4</color>
+    <color name="m3_surface_light">#FFFEF7FF</color>
+    <color name="m3_surface_dark">#FF141218</color>
+    <color name="m3_surface_container_lowest_light">#FFFFFFFF</color>
+    <color name="m3_surface_container_lowest_dark">#FF0F0D13</color>
+    <color name="m3_surface_container_low_light">#FFF7F2FA</color>
+    <color name="m3_surface_container_low_dark">#FF1D1B20</color>
+    <color name="m3_surface_container_light">#FFF3EDF7</color>
+    <color name="m3_surface_container_dark">#FF211F26</color>
+    <color name="m3_surface_container_high_light">#FFECE6F0</color>
+    <color name="m3_surface_container_high_dark">#FF2B2930</color>
+    <color name="m3_surface_container_highest_light">#FFE6E0E9</color>
+    <color name="m3_surface_container_highest_dark">#FF36343B</color>
+    <color name="m3_on_surface_light">#FF1D1B20</color>
+    <color name="m3_on_surface_dark">#FFE6E0E9</color>
+    <color name="m3_on_surface_variant_light">#FF49454F</color>
+    <color name="m3_on_surface_variant_dark">#FFCAC4D0</color>
+    <color name="m3_outline_light">#FF79747E</color>
+    <color name="m3_outline_dark">#FF938F99</color>
+    <color name="m3_outline_variant_light">#FFCAC4D0</color>
+    <color name="m3_outline_variant_dark">#FF49454F</color>
+</resources>

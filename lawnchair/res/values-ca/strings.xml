@@ -34,7 +34,7 @@
     <string name="theme_use_black">Utilitza negre pur</string>
     <string name="theme_use_dark_text">Utilitza text fosc</string>
     <string name="lawnchair_accent">Color d\'èmfasi</string>
-    <string name="color_pixel_accent">Google Blue</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Definit pel sistema</string>
     <string name="color_wallpaper_main">Fons de pantalla — primari</string>
     <string name="color_wallpaper_secondary">Fons de pantalla — secundari</string>

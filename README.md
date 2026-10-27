@@ -1,7 +1,7 @@
 # Launcher
 
-Ein anpassbarer Android-Launcher mit dem Aussehen und Funktionsumfang von Lawnchair 2,
-gepflegt für aktuelle Android-Versionen (Android 5.0 bis Android 17).
+Ein anpassbarer Android-Launcher im Design Material 3 Expressive mit dem Funktionsumfang von
+Lawnchair 2, gepflegt für aktuelle Android-Versionen (Android 5.0 bis Android 17).
 
 Launcher basiert auf [Lawnchair 2](https://github.com/LawnchairLauncher/lawnchair) (Version 2.0,
 Build 2589) des Lawnchair-Teams, das wiederum auf Launcher3 aus dem Android Open Source Project
@@ -9,6 +9,10 @@ aufbaut. Launcher steht in keiner Verbindung zum Lawnchair-Projekt.
 
 ## Funktionen
 
+- Design Material 3 Expressive: Farben aus der dynamischen Systempalette (Material You,
+  ab Android 12, davor die Material-3-Standardpalette), große Eckenradien, Einstellungen in
+  gruppierten Karten, Material-3-Schalter
+- Designbasierte Symbole (ab Android 13) und die Symbolformen von Android 16 (Keks, Bogen)
 - Startbildschirm, Dock und App-Übersicht mit umfangreichen Anpassungen (Raster, Icons,
   Icon-Pakete, Formen, Farben, Schriften, Gesten, Unschärfe-Effekt)
 - App-Übersicht mit Tabs, Ordnern, automatischen Kategorien und unscharfer App-Suche

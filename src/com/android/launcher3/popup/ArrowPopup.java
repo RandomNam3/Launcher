@@ -24,11 +24,8 @@ import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.CornerPathEffect;
 import android.graphics.Outline;
-import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.drawable.ShapeDrawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -45,8 +42,6 @@ import com.android.launcher3.Utilities;
 import com.android.launcher3.anim.RevealOutlineAnimation;
 import com.android.launcher3.anim.RoundedRectRevealOutlineProvider;
 import com.android.launcher3.dragndrop.DragLayer;
-import com.android.launcher3.graphics.TriangleShape;
-import com.android.launcher3.util.Themes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -171,21 +166,8 @@ public abstract class ArrowPopup extends AbstractFloatingView {
             mArrow.setX(getX() + getMeasuredWidth() - arrowCenterOffset - halfArrowWidth);
         }
 
-        if (Gravity.isVertical(mGravity)) {
-            // This is only true if there wasn't room for the container next to the icon,
-            // so we centered it instead. In that case we don't want to showDefaultOptions the arrow.
-            mArrow.setVisibility(INVISIBLE);
-        } else {
-            ShapeDrawable arrowDrawable = new ShapeDrawable(TriangleShape.create(
-                    arrowLp.width, arrowLp.height, !mIsAboveIcon));
-            Paint arrowPaint = arrowDrawable.getPaint();
-            arrowPaint.setColor(Themes.getAttrColor(mLauncher, R.attr.popupColorPrimary));
-            // The corner path effect won't be reflected in the shadow, but shouldn't be noticeable.
-            int radius = getResources().getDimensionPixelSize(R.dimen.popup_arrow_corner_radius);
-            arrowPaint.setPathEffect(new CornerPathEffect(radius));
-            mArrow.setBackground(arrowDrawable);
-            mArrow.setElevation(getElevation());
-        }
+        // Material 3 popups have no arrow, the view is only kept for the positioning logic
+        mArrow.setVisibility(INVISIBLE);
 
         mArrow.setPivotX(arrowLp.width / 2);
         mArrow.setPivotY(mIsAboveIcon ? 0 : arrowLp.height);

@@ -43,7 +43,7 @@
     <string name="theme_use_black">Utilizar preto puro</string>
     <string name="theme_use_dark_text">Utilizar texto escuro</string>
     <string name="lawnchair_accent">Cor secundária</string>
-    <string name="color_pixel_accent">Azul Google</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Definida pelo sistema</string>
     <string name="color_wallpaper_main">Papel de parede - Primário</string>
     <string name="color_wallpaper_secondary">Papel de parede - Secundário</string>

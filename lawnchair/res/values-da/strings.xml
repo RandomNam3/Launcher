@@ -43,7 +43,7 @@
     <string name="theme_use_black">Benyt helt sort</string>
     <string name="theme_use_dark_text">Benyt sort tekst</string>
     <string name="lawnchair_accent">Markeringsfarve</string>
-    <string name="color_pixel_accent">Google Blå</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Indstillet af System</string>
     <string name="color_wallpaper_main">Tapet — Primært</string>
     <string name="color_wallpaper_secondary">Tapet — Sekundært</string>

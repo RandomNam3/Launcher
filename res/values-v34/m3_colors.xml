@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Material 3 colour roles. Dynamic colour roles of the system (Material You).
+-->
+<resources>
+    <color name="m3_primary_light">@android:color/system_primary_light</color>
+    <color name="m3_primary_dark">@android:color/system_primary_dark</color>
+    <color name="m3_on_primary_light">@android:color/system_on_primary_light</color>
+    <color name="m3_on_primary_dark">@android:color/system_on_primary_dark</color>
+    <color name="m3_primary_container_light">@android:color/system_primary_container_light</color>
+    <color name="m3_primary_container_dark">@android:color/system_primary_container_dark</color>
+    <color name="m3_on_primary_container_light">@android:color/system_on_primary_container_light</color>
+    <color name="m3_on_primary_container_dark">@android:color/system_on_primary_container_dark</color>
+    <color name="m3_secondary_container_light">@android:color/system_secondary_container_light</color>
+    <color name="m3_secondary_container_dark">@android:color/system_secondary_container_dark</color>
+    <color name="m3_on_secondary_container_light">@android:color/system_on_secondary_container_light</color>
+    <color name="m3_on_secondary_container_dark">@android:color/system_on_secondary_container_dark</color>
+    <color name="m3_tertiary_container_light">@android:color/system_tertiary_container_light</color>
+    <color name="m3_tertiary_container_dark">@android:color/system_tertiary_container_dark</color>
+    <color name="m3_on_tertiary_container_light">@android:color/system_on_tertiary_container_light</color>
+    <color name="m3_on_tertiary_container_dark">@android:color/system_on_tertiary_container_dark</color>
+    <color name="m3_surface_light">@android:color/system_surface_light</color>
+    <color name="m3_surface_dark">@android:color/system_surface_dark</color>
+    <color name="m3_surface_container_lowest_light">@android:color/system_surface_container_lowest_light</color>
+    <color name="m3_surface_container_lowest_dark">@android:color/system_surface_container_lowest_dark</color>
+    <color name="m3_surface_container_low_light">@android:color/system_surface_container_low_light</color>
+    <color name="m3_surface_container_low_dark">@android:color/system_surface_container_low_dark</color>
+    <color name="m3_surface_container_light">@android:color/system_surface_container_light</color>
+    <color name="m3_surface_container_dark">@android:color/system_surface_container_dark</color>
+    <color name="m3_surface_container_high_light">@android:color/system_surface_container_high_light</color>
+    <color name="m3_surface_container_high_dark">@android:color/system_surface_container_high_dark</color>
+    <color name="m3_surface_container_highest_light">@android:color/system_surface_container_highest_light</color>
+    <color name="m3_surface_container_highest_dark">@android:color/system_surface_container_highest_dark</color>
+    <color name="m3_on_surface_light">@android:color/system_on_surface_light</color>
+    <color name="m3_on_surface_dark">@android:color/system_on_surface_dark</color>
+    <color name="m3_on_surface_variant_light">@android:color/system_on_surface_variant_light</color>
+    <color name="m3_on_surface_variant_dark">@android:color/system_on_surface_variant_dark</color>
+    <color name="m3_outline_light">@android:color/system_outline_light</color>
+    <color name="m3_outline_dark">@android:color/system_outline_dark</color>
+    <color name="m3_outline_variant_light">@android:color/system_outline_variant_light</color>
+    <color name="m3_outline_variant_dark">@android:color/system_outline_variant_dark</color>
+</resources>

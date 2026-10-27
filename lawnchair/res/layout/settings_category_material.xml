@@ -21,8 +21,8 @@
     android:id="@android:id/title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dip"
-    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+    android:layout_marginBottom="8dp"
+    android:paddingStart="@dimen/settings_category_padding_start"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-    android:paddingTop="16dip"
+    android:paddingTop="24dp"
     app:customFontType="categoryTitle" />

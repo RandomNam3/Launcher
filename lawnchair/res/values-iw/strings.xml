@@ -39,7 +39,7 @@
     <string name="theme_use_black">השתמש בשחור אמיתי</string>
     <string name="theme_use_dark_text">השתמש בטקסט כהה</string>
     <string name="lawnchair_accent">צבע הדגשה</string>
-    <string name="color_pixel_accent">כחול גוגל</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">לפי המערכת</string>
     <string name="color_wallpaper_main">רקע - ראשי</string>
     <string name="color_wallpaper_secondary">רקע - משני</string>

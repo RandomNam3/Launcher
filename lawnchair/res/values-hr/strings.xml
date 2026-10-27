@@ -39,7 +39,7 @@
     <string name="theme_use_black">Koristi potpuno crnu</string>
     <string name="theme_use_dark_text">Koristi tamni tekst</string>
     <string name="lawnchair_accent">Boja naglašavanja</string>
-    <string name="color_pixel_accent">Google plava</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Postavljeno od sustava</string>
     <string name="color_wallpaper_main">Pozadina - primarna</string>
     <string name="color_wallpaper_secondary">Pozadina - sekundarna</string>

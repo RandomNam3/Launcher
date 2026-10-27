@@ -39,7 +39,7 @@
     <string name="theme_use_black">使用纯黑色</string>
     <string name="theme_use_dark_text">使用暗色文字</string>
     <string name="lawnchair_accent">强调色</string>
-    <string name="color_pixel_accent">Google 蓝</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">遵循系统设置</string>
     <string name="color_wallpaper_main">壁纸 — 首选</string>
     <string name="color_wallpaper_secondary">壁纸 — 次选</string>

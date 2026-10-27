@@ -39,7 +39,7 @@
     <string name="theme_use_black">Använd ren svart färg</string>
     <string name="theme_use_dark_text">Använd mörk text</string>
     <string name="lawnchair_accent">Accentfärg</string>
-    <string name="color_pixel_accent">Google blå</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Inställd av Systemet</string>
     <string name="color_wallpaper_main">Bakgrund — Primär</string>
     <string name="color_wallpaper_secondary">Bakgrund — Sekundär</string>

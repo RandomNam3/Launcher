@@ -155,6 +155,9 @@
     <string name="smartspace_hours_mins">%1$s %2$s</string>
     <string name="week_day_format">%1$s, %2$s</string>
     <string name="icon_shape_cylinder">Zylinder</string>
+    <string name="icon_shape_cookie_4">Keks, 4-seitig</string>
+    <string name="icon_shape_cookie_7">Keks, 7-seitig</string>
+    <string name="icon_shape_arch">Bogen</string>
     <string name="theme_title">Thema</string>
     <string name="theme_automatic">Automatisch</string>
     <string name="theme_default">Standard</string>

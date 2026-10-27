@@ -43,7 +43,7 @@
     <string name="theme_use_black">أسود نقي</string>
     <string name="theme_use_dark_text">استخدام نص داكن</string>
     <string name="lawnchair_accent">اللون الثانوي</string>
-    <string name="color_pixel_accent">ازرق كجوجل</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">متوافق مع النظام</string>
     <string name="color_wallpaper_main">الخلفية - اساسي</string>
     <string name="color_wallpaper_secondary">الخلفية - ثانوي</string>

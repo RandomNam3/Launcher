@@ -212,7 +212,7 @@
     <dimen name="system_shortcut_header_icon_padding">12dp</dimen>
 
 <!-- Notifications -->
-    <dimen name="bg_round_rect_radius">8dp</dimen>
+    <dimen name="bg_round_rect_radius">24dp</dimen>
     <dimen name="notification_padding_start">16dp</dimen>
     <dimen name="notification_padding_end">12dp</dimen>
     <!-- notification_padding_end + (icon_size - footer_icon_size) / 2 -->
@@ -264,7 +264,7 @@
     <dimen name="large_title_horizontal_padding">70dp</dimen>
     <dimen name="large_title_vertical_padding">24dp</dimen>
     <dimen name="large_title_height">84dp</dimen>
-    <dimen name="dialog_corner_radius">8dp</dimen>
+    <dimen name="dialog_corner_radius">28dp</dimen>
     <dimen name="icon_preview_size">48dp</dimen>
     <dimen name="icon_preview_padding">16dp</dimen>
     <dimen name="select_dialog_padding_start_material">20dp</dimen>

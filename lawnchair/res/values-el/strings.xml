@@ -31,7 +31,7 @@
     <!-- Note: new. Replaces title of 5th field (from bottom) in “Theme” page. -->
     <string name="theme_light">Φωτεινό</string>
     <string name="lawnchair_accent">Απόχρωση</string>
-    <string name="color_pixel_accent">Μπλε της Google</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_wallpaper_main">Ταπετσαρία — Κύρια</string>
     <string name="color_wallpaper_secondary">Ταπετσαρία — Δευτερεύουσα</string>
     <string name="color_wallpaper_tertiary">Ταπετσαρία — Τριτεύουσα</string>

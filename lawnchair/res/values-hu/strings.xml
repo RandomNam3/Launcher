@@ -43,7 +43,7 @@
     <string name="theme_use_black">Igazi fekete használata</string>
     <string name="theme_use_dark_text">Sötét szöveg használata</string>
     <string name="lawnchair_accent">Kiemelőszín</string>
-    <string name="color_pixel_accent">Google kék</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Rendszerbeállítás</string>
     <string name="color_wallpaper_main">Háttérkép - Elsődleges</string>
     <string name="color_wallpaper_secondary">Háttérkép - Másodlagos</string>

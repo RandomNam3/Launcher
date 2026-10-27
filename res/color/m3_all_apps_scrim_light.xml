@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Background of the app drawer: Material 3 surface container, slightly translucent -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/m3_surface_container_light" android:alpha="0.96" />
+</selector>

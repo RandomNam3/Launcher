@@ -43,7 +43,7 @@
     <string name="theme_use_black">Использовать чистый чёрный</string>
     <string name="theme_use_dark_text">Использовать тёмный текст</string>
     <string name="lawnchair_accent">Цвет акцента</string>
-    <string name="color_pixel_accent">Синий Google</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Системный</string>
     <string name="color_wallpaper_main">По обоям — основной</string>
     <string name="color_wallpaper_secondary">По обоям — второй</string>

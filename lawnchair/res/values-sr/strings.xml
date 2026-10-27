@@ -43,7 +43,7 @@
     <string name="theme_use_black">Потпуно црна</string>
     <string name="theme_use_dark_text">Тамни текст</string>
     <string name="lawnchair_accent">Боја за наглашавање</string>
-    <string name="color_pixel_accent">Google-ова плава</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">На основу система</string>
     <string name="color_wallpaper_main">Позадина – примарна</string>
     <string name="color_wallpaper_secondary">Позадина – секундарна</string>

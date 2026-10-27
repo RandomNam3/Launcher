@@ -39,7 +39,7 @@
     <string name="theme_use_black">Kasuta puhast musta</string>
     <string name="theme_use_dark_text">Kasuta tumedat teksti</string>
     <string name="lawnchair_accent">Rõhuvärv</string>
-    <string name="color_pixel_accent">Google-i sinine</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Määratud süsteemi poolt</string>
     <string name="color_wallpaper_main">Taustapilt — peamine</string>
     <string name="color_wallpaper_secondary">Taustapilt — teine</string>

@@ -34,7 +34,16 @@
     <dimen name="search_bar_margin">8dp</dimen>
     <dimen name="search_bar_negative_margin">-8dp</dimen>
 
-    <dimen name="search_bar_height">48dp</dimen>
+    <dimen name="search_bar_height">56dp</dimen>
+    <!-- Material 3: the search bar is a pill -->
+    <dimen name="search_bar_corner_radius">28dp</dimen>
+
+    <!-- Material 3 Expressive preference cards -->
+    <dimen name="settings_card_margin">16dp</dimen>
+    <dimen name="settings_card_gap">2dp</dimen>
+    <dimen name="settings_card_radius">24dp</dimen>
+    <dimen name="settings_card_radius_inner">4dp</dimen>
+    <dimen name="settings_category_padding_start">32dp</dimen>
     <dimen name="search_bar_text_size">16dp</dimen>
 
     <!-- Dashboard image tile size -->
@@ -44,8 +53,8 @@
     <dimen name="dashboard_tile_image_margin_start">16dp</dimen>
     <dimen name="dashboard_tile_image_margin_end">20dp</dimen>
 
-    <!-- search_bar_margin + search_bar_height -->
-    <dimen name="search_results_top_margin">64dp</dimen>
+    <!-- 2 * search_bar_margin + search_bar_height -->
+    <dimen name="search_results_top_margin">72dp</dimen>
     <dimen name="dashboard_tile_minimum_height">72dp</dimen>
     <dimen name="dashboard_tile_foreground_image_size">@dimen/dashboard_tile_image_size</dimen>
     <dimen name="dashboard_tile_foreground_image_inset">6dp</dimen>

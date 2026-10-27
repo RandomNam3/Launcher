@@ -62,6 +62,8 @@
     <attr name="settingsBackground" format="color" />
     <attr name="settingsSearchBackground" format="color" />
     <attr name="settingsPopupBackground" format="color" />
+    <!-- Background of the grouped preference cards -->
+    <attr name="settingsCardBackground" format="color" />
     <attr name="bottomSheetScrimColor" format="color" />
     <attr name="qsbEdgeRadius" format="dimension" />
     <attr name="folderIconRadius" format="float" />

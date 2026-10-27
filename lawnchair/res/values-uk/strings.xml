@@ -43,7 +43,7 @@
     <string name="theme_use_black">Використати чорний колір</string>
     <string name="theme_use_dark_text">Використати темний текст</string>
     <string name="lawnchair_accent">Контрастний колір</string>
-    <string name="color_pixel_accent">Синій від Google</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Встановлено системою</string>
     <string name="color_wallpaper_main">Шпалери - головні</string>
     <string name="color_wallpaper_secondary">Шпалери - другорядні</string>

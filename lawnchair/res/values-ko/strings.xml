@@ -40,7 +40,7 @@
     <string name="theme_use_black">완전한 검정색 사용</string>
     <string name="theme_use_dark_text">어두운 텍스트 사용</string>
     <string name="lawnchair_accent">강조 색상</string>
-    <string name="color_pixel_accent">Google 블루</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">시스템 설정에 따름</string>
     <string name="color_wallpaper_main">배경 화면 - 첫번째</string>
     <string name="color_wallpaper_secondary">배경화면 - 두번째</string>

@@ -43,7 +43,7 @@
     <string name="theme_use_black">Giao diện Đen</string>
     <string name="theme_use_dark_text">Sử dụng màu chữ tối</string>
     <string name="lawnchair_accent">Màu chủ đề</string>
-    <string name="color_pixel_accent">Xanh Google</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Theo hệ thống</string>
     <string name="color_wallpaper_main">Hình nền - Màu chính</string>
     <string name="color_wallpaper_secondary">Hình nền - Màu thứ hai</string>

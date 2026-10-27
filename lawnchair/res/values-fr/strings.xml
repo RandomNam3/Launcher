@@ -43,7 +43,7 @@
     <string name="theme_use_black">Utiliser du Noir Pur</string>
     <string name="theme_use_dark_text">Utiliser du Texte Foncé</string>
     <string name="lawnchair_accent">Couleur d\'accentuation </string>
-    <string name="color_pixel_accent">Bleu Google</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Défini par le système</string>
     <string name="color_wallpaper_main">Fond d\'écran — primaire</string>
     <string name="color_wallpaper_secondary">Fond d\'écran — secondaire</string>

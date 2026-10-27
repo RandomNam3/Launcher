@@ -43,7 +43,7 @@
     <string name="theme_use_black">ใช้สีดำสนิท</string>
     <string name="theme_use_dark_text">ใช้อักษรสีมืด</string>
     <string name="lawnchair_accent">สีรอง</string>
-    <string name="color_pixel_accent">สีน้ำเงิน Google</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">ใช้การตั้งค่าระบบ</string>
     <string name="color_wallpaper_main">ภาพพื้นหลัง - สีหลัก</string>
     <string name="color_wallpaper_secondary">ภาพพื้นหลัง - สีรอง</string>

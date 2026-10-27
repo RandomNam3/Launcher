@@ -75,6 +75,9 @@ class IconShapePreference(context: Context, attrs: AttributeSet?) :
             addEntry(R.string.icon_shape_squircle, "squircle")
             addEntry(R.string.icon_shape_teardrop, "teardrop")
             addEntry(R.string.icon_shape_cylinder, "cylinder")
+            addEntry(R.string.icon_shape_cookie_4, "cookie4")
+            addEntry(R.string.icon_shape_cookie_7, "cookie7")
+            addEntry(R.string.icon_shape_arch, "arch")
         }
     }
 

@@ -43,7 +43,7 @@
     <string name="theme_use_black">गहरा काला इस्तेमाल करें</string>
     <string name="theme_use_dark_text">काले अक्षर इस्तेमाल करें</string>
     <string name="lawnchair_accent">एक्सेंट रंग</string>
-    <string name="color_pixel_accent">गूगल नीला</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">सिस्टम द्वारा सेट करें</string>
     <string name="color_wallpaper_main">वॉलपेपर — प्राइमरी</string>
     <string name="color_wallpaper_secondary">वॉलपेपर — सेकंडरी</string>

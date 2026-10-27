@@ -43,7 +43,7 @@
     <string name="theme_use_black">Gunakan Hitam Pekat</string>
     <string name="theme_use_dark_text">Gunakan Teks Gelap</string>
     <string name="lawnchair_accent">Warna Aksen</string>
-    <string name="color_pixel_accent">Google Biru</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Diatur oleh Sistem</string>
     <string name="color_wallpaper_main">Wallpaper - Primer</string>
     <string name="color_wallpaper_secondary">Wallpaper - Sekunder</string>

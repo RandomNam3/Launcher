@@ -34,7 +34,7 @@
     <string name="theme_use_black">漆黒を使用</string>
     <string name="theme_use_dark_text">暗い文字を使用</string>
     <string name="lawnchair_accent">アクセントカラー</string>
-    <string name="color_pixel_accent">Google Blue</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">システム設定を使用</string>
     <string name="color_wallpaper_main">壁紙 - 1番</string>
     <string name="color_wallpaper_secondary">壁紙 - 2番</string>

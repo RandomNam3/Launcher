@@ -20,12 +20,17 @@
     <!-- Theme for the widget container. -->
     <style name="WidgetContainerTheme" parent="@android:style/Theme.Material.Settings">
         <item name="android:colorEdgeEffect">?android:attr/textColorSecondary</item>
-        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:colorPrimary">@color/m3_surface_container_low_light</item>
+        <item name="android:colorPrimaryDark">@color/m3_surface_container_highest_light</item>
+        <item name="android:colorAccent">@color/m3_primary_light</item>
+        <item name="android:textColorPrimary">@color/m3_on_surface_light</item>
+        <item name="android:textColorSecondary">@color/m3_on_surface_variant_light</item>
         <item name="bottomSheetNavBarColor">#00000000</item>
     </style>
     <style name="WidgetContainerTheme.Dark" parent="AppTheme.Dark">
         <item name="android:colorEdgeEffect">?android:attr/textColorSecondary</item>
-        <item name="android:colorPrimaryDark">#616161</item> <!-- Gray 700 -->
+        <item name="android:colorPrimary">@color/m3_surface_container_low_dark</item>
+        <item name="android:colorPrimaryDark">@color/m3_surface_container_highest_dark</item>
         <item name="bottomSheetNavBarColor">#00000000</item>
     </style>
     <style name="WidgetContainerTheme.Black" parent="AppTheme.Black">

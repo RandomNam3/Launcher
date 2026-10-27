@@ -39,7 +39,7 @@
     <string name="theme_use_black">استفاده از سیاه مطلق</string>
     <string name="theme_use_dark_text">استفاده از متن تیره</string>
     <string name="lawnchair_accent">پررنگ</string>
-    <string name="color_pixel_accent">گوگل بلو</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">انتخاب طبق مقادیر سیستم</string>
     <string name="color_wallpaper_main">کاغذدیواری-اولیه</string>
     <string name="color_wallpaper_secondary">کاغذدیواری-ثانویه</string>

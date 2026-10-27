@@ -34,6 +34,7 @@ import ch.deletescape.lawnchair.LawnchairLauncher
 import com.android.launcher3.BuildConfig
 import com.android.launcher3.LauncherFiles
 import com.android.launcher3.Utilities
+import com.android.launcher3.provider.RestoreDbTask
 import org.json.JSONArray
 import java.io.*
 import java.nio.charset.StandardCharsets
@@ -97,14 +98,17 @@ class LawnchairBackup(val context: Context, val uri: Uri) {
         }
     }
 
+    /**
+     * Reads and validates the backup and stages its contents. The staged files replace the
+     * current data on the next start of the app (see [applyPendingRestore]), the caller has to
+     * restart the app afterwards. Replacing the database and the settings while the launcher is
+     * running is not reliable: the running process still holds both in memory and writes them
+     * back before it is stopped.
+     */
     fun restore(contents: Int): Boolean {
-        val contextWrapper = ContextWrapper(context)
-        val dbFile = contextWrapper.getDatabasePath(LauncherFiles.LAUNCHER_DB)
-        val dir = contextWrapper.cacheDir.parent
-        val settingsFile = File(dir, "shared_prefs/" + LauncherFiles.SHARED_PREFERENCES_KEY + ".xml")
         val tmpDir = File(context.cacheDir, "restore").apply { deleteRecursively(); mkdirs() }
-        val tmpDb = File(tmpDir, "launcher.db")
-        val tmpSettings = File(tmpDir, "settings.xml")
+        val tmpDb = File(tmpDir, PENDING_DB)
+        val tmpSettings = File(tmpDir, PENDING_SETTINGS)
         var wallpaper: Bitmap? = null
 
         try {
@@ -117,7 +121,7 @@ class LawnchairBackup(val context: Context, val uri: Uri) {
                     val entry = zipIs.nextEntry ?: break
                     Log.d(TAG, "Found entry ${entry.name}")
                     when {
-                        entry.name == dbFile.name -> if (contents and INCLUDE_HOMESCREEN != 0) {
+                        entry.name == LauncherFiles.LAUNCHER_DB -> if (contents and INCLUDE_HOMESCREEN != 0) {
                             copyLimited(zipIs, tmpDb, MAX_DB_SIZE)
                             if (!isSqliteDatabase(tmpDb)) throw IOException("Invalid database")
                         }
@@ -133,18 +137,20 @@ class LawnchairBackup(val context: Context, val uri: Uri) {
             }
 
             var restored = false
-            if (contents and INCLUDE_HOMESCREEN != 0 && tmpDb.exists()) {
-                context.deleteDatabase(dbFile.path)
-                dbFile.parentFile?.mkdirs()
-                if (!tmpDb.renameTo(dbFile)) {
-                    tmpDb.copyTo(dbFile, overwrite = true)
+            if (tmpDb.exists() || tmpSettings.exists()) {
+                val pendingDir = getPendingDir(context)
+                pendingDir.deleteRecursively()
+                pendingDir.mkdirs()
+                for (file in arrayOf(tmpDb, tmpSettings)) {
+                    if (!file.exists()) continue
+                    val target = File(pendingDir, file.name)
+                    if (!file.renameTo(target)) {
+                        file.copyTo(target, overwrite = true)
+                    }
                 }
-                restored = true
-            }
-            if (contents and INCLUDE_SETTINGS != 0 && tmpSettings.exists()) {
-                settingsFile.parentFile?.mkdirs()
-                if (!tmpSettings.renameTo(settingsFile)) {
-                    tmpSettings.copyTo(settingsFile, overwrite = true)
+                // Written last, a restore that was interrupted while staging is never applied
+                if (!File(pendingDir, PENDING_MARKER).createNewFile()) {
+                    throw IOException("Unable to stage the restore")
                 }
                 restored = true
             }
@@ -159,6 +165,7 @@ class LawnchairBackup(val context: Context, val uri: Uri) {
             return restored
         } catch (t: Throwable) {
             Log.e(TAG, "Failed to restore $uri", t)
+            getPendingDir(context).deleteRecursively()
             return false
         } finally {
             wallpaper?.recycle()
@@ -276,6 +283,53 @@ class LawnchairBackup(val context: Context, val uri: Uri) {
         const val WALLPAPER_FILE_NAME = "wallpaper.png"
 
         val timestampFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.US)
+
+        private const val PENDING_DIR = "pending_restore"
+        private const val PENDING_DB = "launcher.db"
+        private const val PENDING_SETTINGS = "settings.xml"
+        private const val PENDING_MARKER = "ready"
+
+        private fun getPendingDir(context: Context) = File(context.filesDir, PENDING_DIR)
+
+        /**
+         * Moves a restore staged by [restore] into place. Has to be called when the app starts,
+         * before anything opens the launcher database or the settings.
+         */
+        fun applyPendingRestore(context: Context) {
+            val pendingDir = getPendingDir(context)
+            if (!pendingDir.exists()) return
+            try {
+                if (File(pendingDir, PENDING_MARKER).exists()) {
+                    val db = File(pendingDir, PENDING_DB)
+                    if (db.exists()) {
+                        val dbFile = context.getDatabasePath(LauncherFiles.LAUNCHER_DB)
+                        // Also removes the journal and the WAL files of the old database
+                        SQLiteDatabase.deleteDatabase(dbFile)
+                        dbFile.parentFile?.mkdirs()
+                        if (!db.renameTo(dbFile)) {
+                            db.copyTo(dbFile, overwrite = true)
+                        }
+                        // Adapts the restored items to this device (user ids, restore state)
+                        RestoreDbTask.setPending(context, true)
+                    }
+                    val settings = File(pendingDir, PENDING_SETTINGS)
+                    if (settings.exists()) {
+                        val settingsFile = File(context.applicationInfo.dataDir, "shared_prefs/" +
+                                LauncherFiles.SHARED_PREFERENCES_KEY + ".xml")
+                        settingsFile.parentFile?.mkdirs()
+                        File(settingsFile.path + ".bak").delete()
+                        if (!settings.renameTo(settingsFile)) {
+                            settings.copyTo(settingsFile, overwrite = true)
+                        }
+                    }
+                    Log.i(TAG, "Applied restored backup")
+                }
+            } catch (t: Throwable) {
+                Log.e(TAG, "Failed to apply the restored backup", t)
+            } finally {
+                pendingDir.deleteRecursively()
+            }
+        }
 
         fun getFolder(): File {
             val folder = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "Lawnchair/backup")

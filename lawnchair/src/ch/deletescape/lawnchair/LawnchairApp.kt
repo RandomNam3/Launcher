@@ -26,6 +26,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.provider.Settings
 import android.support.annotation.Keep
+import ch.deletescape.lawnchair.backup.LawnchairBackup
 import ch.deletescape.lawnchair.blur.BlurWallpaperProvider
 import ch.deletescape.lawnchair.flowerpot.Flowerpot
 import ch.deletescape.lawnchair.bugreport.BugReportClient
@@ -39,6 +40,8 @@ import com.android.launcher3.BuildConfig
 import com.android.launcher3.R
 import com.android.launcher3.Utilities
 import com.android.quickstep.RecentsActivity
+import java.io.File
+import java.io.IOException
 import ninja.sesame.lib.bridge.v1.SesameFrontend
 import ninja.sesame.lib.bridge.v1.SesameInitOnComplete
 import ninja.sesame.lib.bridge.v1_1.LookFeelKeys
@@ -55,8 +58,30 @@ class LawnchairApp : Application() {
         d("Hidden APIs allowed: ${Utilities.HIDDEN_APIS_ALLOWED}")
     }
 
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        // Runs before any content provider or component of the app, so a restored backup is in
+        // place before the launcher database or the settings are opened
+        if (isMainProcess(base)) {
+            LawnchairBackup.applyPendingRestore(base)
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
+    }
+
+    private fun isMainProcess(context: Context): Boolean {
+        val processName = if (Utilities.ATLEAST_P) {
+            Application.getProcessName()
+        } else {
+            try {
+                File("/proc/self/cmdline").readText().trim { it <= ' ' }
+            } catch (e: IOException) {
+                return false
+            }
+        }
+        return processName == context.packageName
     }
 
     fun onLauncherAppStateCreated() {

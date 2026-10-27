@@ -36,7 +36,6 @@ import ch.deletescape.lawnchair.settings.ui.SettingsBaseActivity
 import com.android.launcher3.LauncherAppState
 import com.android.launcher3.R
 import com.android.launcher3.Utilities
-import com.android.launcher3.provider.RestoreDbTask
 
 class RestoreBackupActivity : SettingsBaseActivity(), LawnchairBackup.MetaLoader.Callback, ColorEngine.OnColorChangeListener {
     private val backupName by lazy { findViewById<AppCompatEditText>(R.id.name) }
@@ -201,10 +200,7 @@ class RestoreBackupActivity : SettingsBaseActivity(), LawnchairBackup.MetaLoader
                     LauncherAppState.getInstance(context).iconCache.clear()
                 }
 
-                if (result and LawnchairBackup.INCLUDE_HOMESCREEN != 0) {
-                    RestoreDbTask.setPending(context, true)
-                }
-
+                // The restored data is put in place when the app starts again
                 Handler().postDelayed({
                     if (fromExternal) {
                         val intent = Intent(this@RestoreBackupActivity,

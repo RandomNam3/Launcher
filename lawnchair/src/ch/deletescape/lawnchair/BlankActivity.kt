@@ -97,7 +97,10 @@ class BlankActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == this.requestCode) {
-            resultReceiver.send(resultCode, data?.extras)
+            // The extras plus the data uri, e.g. the folder picked with ACTION_OPEN_DOCUMENT_TREE
+            val result = data?.extras?.let { Bundle(it) } ?: Bundle()
+            data?.data?.let { result.putParcelable(EXTRA_DATA_URI, it) }
+            resultReceiver.send(resultCode, result)
             resultSent = true
             finish()
         }
@@ -115,6 +118,8 @@ class BlankActivity : AppCompatActivity() {
     }
 
     companion object {
+
+        const val EXTRA_DATA_URI = "blank_activity_data_uri"
 
         fun startActivityForResult(context: Context, targetIntent: Intent, requestCode: Int,
                                    flags: Int, callback: (Int, Bundle?) -> Unit) {

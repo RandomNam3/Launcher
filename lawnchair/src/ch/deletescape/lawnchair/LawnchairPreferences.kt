@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair
 
+import ch.deletescape.lawnchair.backup.AutoBackup
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
@@ -237,6 +239,10 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
     val lowPerformanceMode by BooleanPref("pref_lowPerformanceMode", false, recreate)
     val enablePhysics get() = !lowPerformanceMode
     val backupScreenshot by BooleanPref("pref_backupScreenshot", false, doNothing)
+    var autoBackup by BooleanPref("pref_autoBackup", false) { AutoBackup.reschedule(context) }
+    var autoBackupFolder by StringPref("pref_autoBackupFolder", "") { AutoBackup.reschedule(context) }
+    val autoBackupInterval by StringPref("pref_autoBackupInterval", "7")
+    val autoBackupKeep by StringPref("pref_autoBackupKeep", "5")
     var useScaleAnim by BooleanPref("pref_useScaleAnim", false, doNothing)
     val useWindowToIcon by BooleanPref("pref_useWindowToIcon", true, doNothing)
     val dismissTasksOnKill by BooleanPref("pref_dismissTasksOnKill", true, doNothing)

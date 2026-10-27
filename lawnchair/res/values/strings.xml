@@ -873,4 +873,28 @@
     <string name="pref_search_settings_summary">Find pages of the system settings</string>
     <string name="pref_search_contacts">Contacts</string>
     <string name="pref_search_contacts_summary">Find contacts by name, needs access to the contacts</string>
+    <!-- Automatic backups -->
+    <string name="auto_backup_title">Automatic backups</string>
+    <string name="auto_backup_summary">Back up the home screen and the settings regularly</string>
+    <string name="auto_backup_manage">Create and restore backups</string>
+    <string name="auto_backup_folder">Folder</string>
+    <string name="auto_backup_no_folder">No folder selected</string>
+    <string name="auto_backup_interval">Frequency</string>
+    <string name="auto_backup_keep">Keep</string>
+    <string name="auto_backup_now">Back up now</string>
+    <string name="auto_backup_running">Backing up…</string>
+    <string name="auto_backup_done">Backup created</string>
+    <string name="auto_backup_failed">The last backup failed, check the folder</string>
+    <string name="auto_backup_last">Last backup %1$s</string>
+    <string name="auto_backup_never">No automatic backup yet</string>
+    <string-array name="auto_backup_interval_entries">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+    <string-array name="auto_backup_keep_entries">
+        <item>The last 3 backups</item>
+        <item>The last 5 backups</item>
+        <item>The last 10 backups</item>
+    </string-array>
 </resources>

@@ -362,7 +362,8 @@ class LawnchairBackup(val context: Context, val uri: Uri) {
             }
         }
 
-        fun create(context: Context, name: String, location: Uri, contents: Int): Exception? {
+        fun create(context: Context, name: String, location: Uri, contents: Int,
+                   allowScreenshot: Boolean = true): Exception? {
             val contextWrapper = ContextWrapper(context)
             val files: MutableList<File> = ArrayList()
 
@@ -381,7 +382,7 @@ class LawnchairBackup(val context: Context, val uri: Uri) {
             val prefs = Utilities.getLawnchairPrefs(context)
             val includeScreenshot: Boolean
 
-            if (prefs.backupScreenshot) {
+            if (prefs.backupScreenshot && allowScreenshot) {
                 val screenshotFile = File(context.filesDir, "tmp/screenshot.png")
                 if (screenshotFile.exists()) screenshotFile.delete()
                 try {

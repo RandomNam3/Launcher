@@ -84,6 +84,7 @@ class LawnchairApp : Application() {
         registerActivityLifecycleCallbacks(activityHandler)
 
         ThemeManager.getInstance(this).registerColorListener()
+        ch.deletescape.lawnchair.backup.AutoBackup.schedule(this)
         BlurWallpaperProvider.getInstance(this)
         Flowerpot.Manager.getInstance(this)
         if (BuildConfig.FEATURE_BUG_REPORTER && lawnchairPrefs.showCrashNotifications) {

@@ -89,18 +89,13 @@
         app:controllerClass=".LawnstepController"
         android:layout="@layout/home_preference" />
 
-    <ch.deletescape.lawnchair.preferences.StyledIconPreference
+    <ch.deletescape.lawnchair.settings.ui.SubPreference
         android:key="backups"
         android:title="@string/backups"
         android:summary="@string/backup_pref_summary"
         android:icon="@drawable/ic_import_export"
-        android:layout="@layout/home_preference">
-
-        <!--suppress AndroidDomInspection (Injected at compile time) -->
-        <intent
-            android:targetPackage="@string/application_id"
-            android:targetClass="ch.deletescape.lawnchair.backup.BackupListActivity"/>
-    </ch.deletescape.lawnchair.preferences.StyledIconPreference>
+        app:content="@xml/lawnchair_backup_preferences"
+        android:layout="@layout/home_preference" />
 
     <ch.deletescape.lawnchair.settings.ui.SubPreference
         android:key="developerOptions"

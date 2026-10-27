@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     This file is part of Launcher, a fork of Lawnchair Launcher. GPL-3.0-or-later.
+-->
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ch.deletescape.lawnchair.preferences.StyledPreferenceCategory
+        android:title="@string/backups">
+
+        <ch.deletescape.lawnchair.preferences.Preference
+            android:key="pref_manageBackups"
+            android:title="@string/auto_backup_manage"
+            android:summary="@string/backup_pref_summary">
+            <!--suppress AndroidDomInspection (Injected at compile time) -->
+            <intent
+                android:targetPackage="@string/application_id"
+                android:targetClass="ch.deletescape.lawnchair.backup.BackupListActivity" />
+        </ch.deletescape.lawnchair.preferences.Preference>
+    </ch.deletescape.lawnchair.preferences.StyledPreferenceCategory>
+
+    <ch.deletescape.lawnchair.preferences.StyledPreferenceCategory
+        android:title="@string/auto_backup_title">
+
+        <ch.deletescape.lawnchair.backup.AutoBackupSwitchPreference
+            android:key="pref_autoBackup"
+            android:title="@string/auto_backup_title"
+            android:summary="@string/auto_backup_summary"
+            android:defaultValue="false" />
+
+        <ch.deletescape.lawnchair.backup.AutoBackupFolderPreference
+            android:key="pref_autoBackupFolderPicker"
+            android:title="@string/auto_backup_folder"
+            android:persistent="false"
+            android:dependency="pref_autoBackup" />
+
+        <ListPreference
+            android:key="pref_autoBackupInterval"
+            android:title="@string/auto_backup_interval"
+            android:summary="%s"
+            android:defaultValue="7"
+            android:entries="@array/auto_backup_interval_entries"
+            android:entryValues="@array/auto_backup_interval_values"
+            android:dependency="pref_autoBackup" />
+
+        <ListPreference
+            android:key="pref_autoBackupKeep"
+            android:title="@string/auto_backup_keep"
+            android:summary="%s"
+            android:defaultValue="5"
+            android:entries="@array/auto_backup_keep_entries"
+            android:entryValues="@array/auto_backup_keep_values"
+            android:dependency="pref_autoBackup" />
+
+        <ch.deletescape.lawnchair.backup.AutoBackupNowPreference
+            android:key="pref_autoBackupNow"
+            android:title="@string/auto_backup_now"
+            android:persistent="false"
+            android:dependency="pref_autoBackup" />
+    </ch.deletescape.lawnchair.preferences.StyledPreferenceCategory>
+</android.support.v7.preference.PreferenceScreen>

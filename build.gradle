@@ -23,8 +23,20 @@ if (localPropsFile.exists()) {
 }
 
 // Launcher is based on Lawnchair 2.0 build 2589, see README.md
-def appVersionCode = 1
-def appVersionName = "1.0.0"
+// The release workflow sets the version from the git tag.
+def appVersionCode = (System.getenv("LAUNCHER_VERSION_CODE") ?: "10001") as int
+def appVersionName = System.getenv("LAUNCHER_VERSION_NAME") ?: "1.0.1"
+
+// Signing: local.properties for local builds, environment variables (GitHub Actions secrets) on CI
+def releaseKeystore = localProps.getProperty("storeFile") ?: System.getenv("LAUNCHER_STORE_FILE")
+if (System.getenv("LAUNCHER_REQUIRE_SIGNING") == "true") {
+    if (!releaseKeystore || !file(releaseKeystore).isFile()) {
+        throw new GradleException("Release signing required, but no keystore found (LAUNCHER_STORE_FILE)")
+    }
+    ["LAUNCHER_STORE_PASSWORD", "LAUNCHER_KEY_PASSWORD"].each {
+        if (!System.getenv(it)) throw new GradleException("Release signing required, but $it is not set")
+    }
+}
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -36,9 +48,8 @@ android {
 
     signingConfigs {
         release {
-            def keystore = localProps.getProperty("storeFile") ?: System.getenv("LAUNCHER_STORE_FILE")
-            if (keystore != null) {
-                storeFile file(keystore)
+            if (releaseKeystore) {
+                storeFile file(releaseKeystore)
                 storePassword localProps.getProperty("storePass") ?: System.getenv("LAUNCHER_STORE_PASSWORD")
                 keyAlias localProps.getProperty("keyAlias") ?: System.getenv("LAUNCHER_KEY_ALIAS") ?: "launcher"
                 keyPassword localProps.getProperty("keyPass") ?: System.getenv("LAUNCHER_KEY_PASSWORD")

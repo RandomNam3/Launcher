@@ -1,0 +1,134 @@
+name: Release
+
+# Builds a signed release apk. Runs for version tags (v1.2.3), which also publish a GitHub
+# release, or manually ("Run workflow") for a test build that is only uploaded as artifact.
+#
+# Required repository secrets (Settings -> Secrets and variables -> Actions):
+#   LAUNCHER_KEYSTORE_BASE64  base64 encoded release keystore (launcher-release.jks)
+#   LAUNCHER_STORE_PASSWORD   keystore password
+#   LAUNCHER_KEY_PASSWORD     key password
+# Optional:
+#   LAUNCHER_KEY_ALIAS        key alias, defaults to "launcher"
+# Optional repository variable:
+#   LAUNCHER_CERT_SHA256      expected SHA-256 of the signing certificate, the build fails if
+#                             the apk is signed with a different key
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          # Never reuse a cache written by other (e.g. pull request) builds for releases
+          cache-read-only: true
+
+      - name: Determine version
+        id: version
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            name="${GITHUB_REF_NAME#v}"
+            if [[ ! "$name" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+              echo "::error::Tag must look like v1.2.3, got $GITHUB_REF_NAME"
+              exit 1
+            fi
+            # 1.2.3 -> 10203, must only ever increase
+            code=$(( BASH_REMATCH[1] * 10000 + BASH_REMATCH[2] * 100 + BASH_REMATCH[3] ))
+          else
+            name="0.0.0-ci.${GITHUB_RUN_NUMBER}"
+            code=1
+          fi
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          echo "Version $name ($code)"
+
+      - name: Restore keystore
+        shell: bash
+        env:
+          KEYSTORE_BASE64: ${{ secrets.LAUNCHER_KEYSTORE_BASE64 }}
+        run: |
+          if [[ -z "$KEYSTORE_BASE64" ]]; then
+            echo "::error::Secret LAUNCHER_KEYSTORE_BASE64 is not set"
+            exit 1
+          fi
+          umask 077
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/launcher-release.jks"
+
+      - name: Build signed release apk
+        env:
+          LAUNCHER_REQUIRE_SIGNING: "true"
+          LAUNCHER_STORE_FILE: ${{ runner.temp }}/launcher-release.jks
+          LAUNCHER_STORE_PASSWORD: ${{ secrets.LAUNCHER_STORE_PASSWORD }}
+          LAUNCHER_KEY_PASSWORD: ${{ secrets.LAUNCHER_KEY_PASSWORD }}
+          LAUNCHER_KEY_ALIAS: ${{ secrets.LAUNCHER_KEY_ALIAS }}
+          LAUNCHER_VERSION_NAME: ${{ steps.version.outputs.name }}
+          LAUNCHER_VERSION_CODE: ${{ steps.version.outputs.code }}
+        run: ./gradlew assembleQuickstepLawnchairRelease
+
+      - name: Remove keystore
+        if: always()
+        run: rm -f "$RUNNER_TEMP/launcher-release.jks"
+
+      - name: Verify signature
+        id: apk
+        shell: bash
+        env:
+          EXPECTED_CERT_SHA256: ${{ vars.LAUNCHER_CERT_SHA256 }}
+        run: |
+          apk=$(ls build/outputs/apk/quickstepLawnchair/release/*.apk)
+          apksigner=$(ls "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -1)
+          "$apksigner" verify --verbose --print-certs "$apk" | tee "$RUNNER_TEMP/signature.txt"
+          actual=$(grep -m1 'Signer #1 certificate SHA-256 digest' "$RUNNER_TEMP/signature.txt" | awk '{print $NF}')
+          if [[ -n "$EXPECTED_CERT_SHA256" && "${actual,,}" != "${EXPECTED_CERT_SHA256,,}" ]]; then
+            echo "::error::Signed with an unexpected certificate ($actual)"
+            exit 1
+          fi
+          out="$RUNNER_TEMP/Launcher-${{ steps.version.outputs.name }}.apk"
+          cp "$apk" "$out"
+          sha256sum "$out" | awk '{print $1}' > "$out.sha256"
+          echo "path=$out" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: launcher-${{ steps.version.outputs.name }}
+          path: |
+            ${{ steps.apk.outputs.path }}
+            ${{ steps.apk.outputs.path }}.sha256
+          if-no-files-found: error
+
+      - name: Publish GitHub release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME"
+          "${{ steps.apk.outputs.path }}" "${{ steps.apk.outputs.path }}.sha256"
+          --repo "$GITHUB_REPOSITORY"
+          --title "Launcher ${{ steps.version.outputs.name }}"
+          --generate-notes
+          --verify-tag

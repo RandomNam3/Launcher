@@ -50,6 +50,23 @@ keyPass=...
 oder die Umgebungsvariablen `LAUNCHER_STORE_FILE`, `LAUNCHER_STORE_PASSWORD`,
 `LAUNCHER_KEY_ALIAS` und `LAUNCHER_KEY_PASSWORD` setzen.
 
+### Releases über GitHub Actions
+
+Der Workflow `Release` baut eine signierte APK, sobald ein Tag `vX.Y.Z` gepusht wird, und
+veröffentlicht sie als GitHub-Release (Versionscode `X*10000 + Y*100 + Z`). Über „Run workflow“
+lässt er sich auch manuell für einen Test-Build starten. Benötigte Repository-Secrets
+(*Settings → Secrets and variables → Actions*):
+
+| Secret | Inhalt |
+| --- | --- |
+| `LAUNCHER_KEYSTORE_BASE64` | Keystore, Base64-kodiert (`base64 -w0 launcher-release.jks`) |
+| `LAUNCHER_STORE_PASSWORD` | Passwort des Keystores |
+| `LAUNCHER_KEY_PASSWORD` | Passwort des Schlüssels |
+| `LAUNCHER_KEY_ALIAS` | optional, Standard `launcher` |
+
+Optional prüft die Repository-Variable `LAUNCHER_CERT_SHA256` den SHA-256-Fingerabdruck des
+Signaturzertifikats. Ohne Secrets bricht der Workflow ab, statt eine unsignierte APK zu bauen.
+
 ## Lizenz
 
 Launcher ist freie Software unter der [GNU General Public License v3.0](LICENSE).

@@ -44,7 +44,10 @@ object ThemedIcons {
         if (!isEnabled(context)) return null
         val colors = getColors(context) ?: return null
         return try {
+            // The icon cache expects wrapped adaptive icons, a plain AdaptiveIconDrawable is
+            // rejected (and used to crash the loader)
             ThemedIconCompat.createThemedIcon(icon, colors[0], colors[1])
+                    ?.let { AdaptiveIconCompat.wrap(it) }
         } catch (e: RuntimeException) {
             null
         }

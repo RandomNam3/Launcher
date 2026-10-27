@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.pm.LauncherActivityInfo
 import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.Drawable
+import android.util.Log
 import com.android.launcher3.ItemInfo
 import com.android.launcher3.R
 import com.android.launcher3.Utilities
@@ -47,16 +48,21 @@ class LawnchairIconProvider(context: Context) : DynamicIconProvider(context) {
         return super.getIcon(launcherActivityInfo, iconDpi, flattenDrawable).assertNotAdaptiveIconDrawable(launcherActivityInfo)
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun <T> T.assertNotAdaptiveIconDrawable(info: Any?): T {
         if (Utilities.ATLEAST_OREO && this is AdaptiveIconDrawable) {
-            error("unwrapped AdaptiveIconDrawable for ${
+            // Should not happen, but a wrong icon must not crash the launcher in a loop
+            Log.w(TAG, "unwrapped AdaptiveIconDrawable for ${
                 if (info is LauncherActivityInfo) info.applicationInfo else info
             }")
+            return AdaptiveIconCompat.wrap(this) as T
         }
         return this
     }
 
     companion object {
+
+        private const val TAG = "LawnchairIconProvider"
 
         @JvmStatic
         fun getAdaptiveIconDrawableWrapper(context: Context): AdaptiveIconCompat {

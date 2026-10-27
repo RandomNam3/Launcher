@@ -242,3 +242,12 @@
 # was never shrunk. Keep it that way.
 -keep class com.google.android.apps.nexuslauncher.** { *; }
 -keep class com.google.research.reflection.** { *; }
+
+# Fragments are created by reflection: from android:fragment in the settings XML files, and
+# again after the process was killed
+-keep class * extends android.support.v4.app.Fragment {
+    public <init>();
+}
+-keep class * extends android.app.Fragment {
+    public <init>();
+}

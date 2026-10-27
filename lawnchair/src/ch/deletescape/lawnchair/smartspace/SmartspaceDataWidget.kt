@@ -32,6 +32,7 @@ import android.support.annotation.Keep
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.RemoteViews
@@ -152,13 +153,21 @@ class SmartspaceDataWidget(controller: LawnchairSmartspaceController) : Lawnchai
 
     inner class SmartspaceWidgetHostView(context: Context) : AppWidgetHostView(context) {
 
-        @Suppress("UNCHECKED_CAST")
         override fun updateAppWidget(remoteViews: RemoteViews?) {
-            super.updateAppWidget(remoteViews)
+            try {
+                super.updateAppWidget(remoteViews)
+                parseWidget()
+            } catch (e: RuntimeException) {
+                // The layout of the Google widget is not under our control and changes between
+                // versions; a layout we do not understand must never crash the launcher
+                Log.w(TAG, "Could not read smartspace widget", e)
+            }
+        }
 
+        private fun parseWidget() {
             val childs = getAllChilds()
-            val texts = (childs.filter { it is TextView } as List<TextView>).filter { !TextUtils.isEmpty(it.text) }
-            val images = childs.filter { it is ImageView } as List<ImageView>
+            val texts = childs.filterIsInstance<TextView>().filter { !TextUtils.isEmpty(it.text) }
+            val images = childs.filterIsInstance<ImageView>()
             var weatherIconView: ImageView? = null
             var cardIconView: ImageView? = null
             var title: TextView? = null
@@ -170,7 +179,7 @@ class SmartspaceDataWidget(controller: LawnchairSmartspaceController) : Lawnchai
                 weatherIconView = images.last()
                 temperatureText = texts.last()
             }
-            if (images.isNotEmpty() && images.size != 2) {
+            if (images.isNotEmpty() && images.size != 2 && texts.size >= 2) {
                 cardIconView = images.first()
                 title = texts[0]
                 subtitle = texts[1]

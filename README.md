@@ -13,21 +13,34 @@ aufbaut. Launcher steht in keiner Verbindung zum Lawnchair-Projekt.
   ab Android 12, davor die Material-3-Standardpalette), große Eckenradien, Einstellungen in
   gruppierten Karten, Material-3-Schalter
 - Designbasierte Symbole (ab Android 13) und die Symbolformen von Android 16 (Keks, Bogen)
+- Schrift Google Sans Flex (SIL Open Font License), in der App enthalten
+- Dock als schwebende, abgerundete Fläche mit Material-3-Suchleiste
 - Startbildschirm, Dock und App-Übersicht mit umfangreichen Anpassungen (Raster, Icons,
   Icon-Pakete, Formen, Farben, Schriften, Gesten, Unschärfe-Effekt)
 - App-Übersicht mit Tabs, Ordnern, automatischen Kategorien und unscharfer App-Suche
+- App-Vorschläge aus der eigenen Auswertung der App-Starts, ohne Google-Dienste
 - Suchleiste: auf dem Startbildschirm öffnet sie den Standard-Browser, in der App-Übersicht
-  durchsucht sie die Apps
+  durchsucht sie die Apps und findet außerdem Rechenergebnisse, Seiten der Systemeinstellungen
+  und (optional) Kontakte – alles offline auf dem Gerät
+- Geschützte Apps: öffnen sich nur nach Fingerabdruck, Gesicht oder Displaysperre; die Listen
+  der versteckten und geschützten Apps sind ebenso geschützt
+- Gesten für Benachrichtigungen und Schnelleinstellungen (nach unten wischen, mit zwei Fingern
+  nach unten wischen, frei belegbar)
+- Tablets und aufgeklappte Foldables erhalten ein eigenes Raster und ein eigenes Layout
 - Arbeitsprofile und privater Bereich (Android 15+): eigener Tab „Privat“ mit Sperr-Schalter,
   gesperrte Apps sind überall ausgeblendet
 - Widgets mit den Funktionen ab Android 12: abgerundete Ecken, responsive Größen,
   Standardgröße, optionale Konfiguration, Vorschauen im Widget-Auswahlmenü
-- At a Glance / Smartspace mit Wetter (OpenWeatherMap, eigener API-Schlüssel) und Terminen
-- Backup und Wiederherstellung von Startbildschirm und Einstellungen, zusätzlich Unterstützung
-  für das Android-Backup und die Datenübertragung auf ein neues Gerät
+- „Auf einen Blick“ mit Datum, Uhrzeit, Wetter (Open-Meteo, ohne Konto und API-Schlüssel,
+  Standort oder Stadt) und dem nächsten Termin aus den Kalendern des Geräts
+- Backup und Wiederherstellung von Startbildschirm und Einstellungen, automatische Backups
+  (täglich, wöchentlich oder monatlich in einen frei gewählten Ordner, nur die neuesten werden
+  behalten), zusätzlich Unterstützung für das Android-Backup und die Datenübertragung auf ein
+  neues Gerät
 
 ## Sicherheit
 
+- Keine vorkompilierten Google-Bibliotheken und keine Abhängigkeit von Google-Diensten
 - Memory Tagging (MTE) auf unterstützten Geräten, keine nativen Bibliotheken
 - Nur verschlüsselte Netzwerkverbindungen
 - Exportierte Komponenten sind auf das Nötigste beschränkt und prüfen ihre Eingaben

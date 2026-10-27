@@ -17,11 +17,7 @@ import ch.deletescape.lawnchair.LawnchairPreferences;
 import ch.deletescape.lawnchair.colors.ColorEngine;
 import ch.deletescape.lawnchair.colors.ColorEngine.ResolveInfo;
 import ch.deletescape.lawnchair.colors.ColorEngine.Resolvers;
-import ch.deletescape.lawnchair.globalsearch.SearchProvider;
-import ch.deletescape.lawnchair.globalsearch.SearchProviderController;
 import ch.deletescape.lawnchair.globalsearch.providers.AppSearchSearchProvider;
-import ch.deletescape.lawnchair.globalsearch.providers.GoogleSearchProvider;
-import ch.deletescape.lawnchair.globalsearch.providers.web.WebSearchProvider;
 import com.android.launcher3.BaseRecyclerView;
 import com.android.launcher3.Launcher;
 import com.android.launcher3.R;
@@ -124,34 +120,24 @@ public class AllAppsQsbLayout extends AbstractQsbLayout implements SearchUiManag
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         super.onSharedPreferenceChanged(sharedPreferences, key);
-        if (key.equals("pref_allAppsGoogleSearch")) {
-            loadPreferences(sharedPreferences);
-        }
     }
 
     @Override
     protected Drawable getIcon(boolean colored) {
-        if (prefs.getAllAppsGlobalSearch()) {
-            return super.getIcon(colored);
-        } else {
-            return new AppSearchSearchProvider(getContext()).getIcon(colored);
-        }
+        // The search bar in the app drawer always searches the apps, the web search is
+        // available from the search bar on the home screen
+        return new AppSearchSearchProvider(getContext()).getIcon(colored);
     }
 
     @Override
     protected boolean logoCanOpenFeed() {
-        return super.logoCanOpenFeed() && prefs.getAllAppsGlobalSearch();
+        return false;
     }
 
     @Override
     protected Drawable getMicIcon(boolean colored) {
-        if (prefs.getAllAppsGlobalSearch()) {
-            mMicIconView.setVisibility(View.VISIBLE);
-            return super.getMicIcon(colored);
-        } else {
-            mMicIconView.setVisibility(View.GONE);
-            return null;
-        }
+        mMicIconView.setVisibility(View.GONE);
+        return null;
     }
 
     protected void onDetachedFromWindow() {
@@ -214,40 +200,7 @@ public class AllAppsQsbLayout extends AbstractQsbLayout implements SearchUiManag
 
     @Override
     public final void startSearch(String str, int i) {
-        SearchProviderController controller = SearchProviderController.Companion
-                .getInstance(mActivity);
-        SearchProvider provider = controller.getSearchProvider();
-        if (shouldUseFallbackSearch(provider)) {
-            searchFallback(str);
-        } else if (controller.isGoogle()) {
-            final ConfigBuilder f = new ConfigBuilder(this, true);
-            if (!mActivity.getGoogleNow().startSearch(f.build(), f.getExtras())) {
-                searchFallback(str);
-                if (mFallback != null) {
-                    mFallback.setHint(null);
-                }
-            }
-        } else {
-            provider.startSearch(intent -> {
-                mActivity.startActivity(intent);
-                return null;
-            });
-        }
-    }
-
-    private boolean shouldUseFallbackSearch() {
-        SearchProviderController controller = SearchProviderController.Companion
-                .getInstance(mActivity);
-        SearchProvider provider = controller.getSearchProvider();
-        return shouldUseFallbackSearch(provider);
-    }
-
-    private boolean shouldUseFallbackSearch(SearchProvider provider) {
-        return !Utilities
-                .getLawnchairPrefs(getContext()).getAllAppsGlobalSearch()
-                || provider instanceof AppSearchSearchProvider
-                || provider instanceof WebSearchProvider
-                || (!Utilities.ATLEAST_NOUGAT && provider instanceof GoogleSearchProvider);
+        searchFallback(str);
     }
 
     public void searchFallback(String query) {
@@ -357,7 +310,7 @@ public class AllAppsQsbLayout extends AbstractQsbLayout implements SearchUiManag
     @Nullable
     @Override
     protected String getClipboardText() {
-        return shouldUseFallbackSearch() ? super.getClipboardText() : null;
+        return super.getClipboardText();
     }
 
     @Override

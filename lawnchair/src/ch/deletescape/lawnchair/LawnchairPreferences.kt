@@ -198,7 +198,6 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
     val allAppsStartAlpha get() = dockStyles.currentStyle.opacity
     val allAppsEndAlpha get() = allAppsOpacity
     val allAppsSearch by BooleanPref("pref_allAppsSearch", true, recreate)
-    var allAppsGlobalSearch by BooleanPref("pref_allAppsGoogleSearch", true, doNothing)
     val showAllAppsLabel by BooleanPref("pref_showAllAppsLabel", false) {
         val header = onChangeCallback?.launcher?.appsView?.floatingHeaderView as? PredictionsFloatingHeader
         header?.updateShowAllAppsLabel()
@@ -939,9 +938,6 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
 
         // misc
         putBoolean("pref_add_icon_to_home", prefs.getBoolean("pref_autoAddShortcuts", true))
-
-        // Disable some newer features per default
-        putBoolean("pref_allAppsGoogleSearch", false)
     }
 
     interface OnPreferenceChangeListener {

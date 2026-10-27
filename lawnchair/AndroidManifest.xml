@@ -173,10 +173,6 @@
             android:theme="@style/SettingsTheme.V2"
             android:parentActivityName="ch.deletescape.lawnchair.settings.ui.SettingsActivity" />
 
-        <activity
-            android:name="com.android.launcher3.SettingsActivity"
-            tools:node="remove" />
-
         <service
             android:name="com.android.launcher3.uioverrides.WallpaperManagerCompat$ColorExtractionService"
             android:exported="false"

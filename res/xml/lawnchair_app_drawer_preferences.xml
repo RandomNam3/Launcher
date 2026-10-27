@@ -121,6 +121,27 @@
             android:dependency="pref_allAppsSearch"
             android:defaultValue="false" />
 
+        <ch.deletescape.lawnchair.preferences.StyledSwitchPreferenceCompat
+            android:key="pref_search_calculator"
+            android:title="@string/pref_search_calculator"
+            android:summary="@string/pref_search_calculator_summary"
+            android:dependency="pref_allAppsSearch"
+            android:defaultValue="true" />
+
+        <ch.deletescape.lawnchair.preferences.StyledSwitchPreferenceCompat
+            android:key="pref_search_settings"
+            android:title="@string/pref_search_settings"
+            android:summary="@string/pref_search_settings_summary"
+            android:dependency="pref_allAppsSearch"
+            android:defaultValue="true" />
+
+        <ch.deletescape.lawnchair.preferences.ContactsSearchPreference
+            android:key="pref_search_contacts"
+            android:title="@string/pref_search_contacts"
+            android:summary="@string/pref_search_contacts_summary"
+            android:dependency="pref_allAppsSearch"
+            android:defaultValue="false" />
+
     </ch.deletescape.lawnchair.preferences.StyledPreferenceCategory>
     
     <ch.deletescape.lawnchair.preferences.StyledPreferenceCategory

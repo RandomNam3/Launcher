@@ -46,6 +46,7 @@ import com.android.launcher3.util.ProfileMatchers;
 import com.android.launcher3.util.ItemInfoMatcher;
 import com.android.launcher3.util.LabelComparator;
 
+import ch.deletescape.lawnchair.allapps.search.SearchResult;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -120,6 +121,7 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
          * Search suggestion-only properties
          */
         public String suggestion;
+        public SearchResult searchResult;
 
         public static AdapterItem asApp(int pos, String sectionName, AppInfo appInfo,
                                         int appIndex) {
@@ -177,6 +179,14 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
             return item;
         }
 
+        public static AdapterItem asSearchResult(int pos, SearchResult result) {
+            AdapterItem item = new AdapterItem();
+            item.viewType = AllAppsGridAdapter.VIEW_TYPE_SEARCH_RESULT;
+            item.position = pos;
+            item.searchResult = result;
+            return item;
+        }
+
         public static AdapterItem asSearchSuggestion(int pos, String suggestion) {
             AdapterItem item = new AdapterItem();
             item.viewType = AllAppsGridAdapter.VIEW_TYPE_SEARCH_SUGGESTION;
@@ -215,6 +225,8 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
     private LawnchairPreferences prefs;
 
     private List<String> mSearchSuggestions;
+    // Calculations, contacts and settings found by the search
+    private List<SearchResult> mExtraResults;
 
     public AlphabeticalAppsList(Context context, AllAppsStore appsStore, boolean isWork) {
         mAllAppsStore = appsStore;
@@ -293,7 +305,8 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
      * Returns whether there are no filtered results.
      */
     public boolean hasNoFilteredResults() {
-        return (mSearchResults != null) && mFilteredApps.isEmpty() && (mSearchSuggestions != null) && mSearchSuggestions.isEmpty();
+        return (mSearchResults != null) && mFilteredApps.isEmpty() && (mSearchSuggestions != null) && mSearchSuggestions.isEmpty()
+                && (mExtraResults == null || mExtraResults.isEmpty());
     }
 
     public List<AppInfo> getFilteredApps() {
@@ -309,6 +322,15 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
             mSearchResults = f;
             onAppsUpdated();
             return !same;
+        }
+        return false;
+    }
+
+    public boolean setExtraSearchResults(List<SearchResult> results) {
+        if (mExtraResults != results) {
+            mExtraResults = results;
+            onAppsUpdated();
+            return true;
         }
         return false;
     }
@@ -410,6 +432,15 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
         mFastScrollerSections.clear();
         mAdapterItems.clear();
 
+        // A calculation comes first
+        if (hasFilter() && mExtraResults != null) {
+            for (SearchResult result : mExtraResults) {
+                if (result.getTop()) {
+                    mAdapterItems.add(AdapterItem.asSearchResult(position++, result));
+                }
+            }
+        }
+
         // Search suggestions should be all the way to the top
         if (hasFilter() && hasSuggestions()) {
             for (String suggestion : mSearchSuggestions) {
@@ -469,6 +500,15 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
             }
             mAdapterItems.add(appItem);
             mFilteredApps.add(info);
+        }
+
+        // Contacts and settings below the apps
+        if (hasFilter() && mExtraResults != null) {
+            for (SearchResult result : mExtraResults) {
+                if (!result.getTop()) {
+                    mAdapterItems.add(AdapterItem.asSearchResult(position++, result));
+                }
+            }
         }
 
         if (hasFilter()) {

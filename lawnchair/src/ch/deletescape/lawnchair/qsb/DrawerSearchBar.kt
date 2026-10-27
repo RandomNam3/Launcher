@@ -21,7 +21,9 @@ import android.content.Context
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.support.v4.graphics.ColorUtils
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.text.Selection
 import android.text.SpannableStringBuilder
 import android.text.method.TextKeyListener
@@ -31,6 +33,8 @@ import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import ch.deletescape.lawnchair.allapps.search.ExtraSearch
+import ch.deletescape.lawnchair.allapps.search.SearchResult
 import ch.deletescape.lawnchair.colors.ColorEngine
 import ch.deletescape.lawnchair.font.CustomFontManager
 import ch.deletescape.lawnchair.globalsearch.providers.AppSearchSearchProvider
@@ -56,6 +60,8 @@ class DrawerSearchBar(context: Context, attrs: AttributeSet?) : SearchBarView(co
     override val colorKey = ColorEngine.Resolvers.ALLAPPS_QSB_BG
 
     private val controller = AllAppsSearchBarController()
+    private val extraSearch = ExtraSearch(context)
+    private var extraResults: List<SearchResult> = emptyList()
     private val queryBuilder = SpannableStringBuilder()
     private lateinit var appsView: AllAppsContainerView
     private lateinit var apps: AlphabeticalAppsList
@@ -91,6 +97,30 @@ class DrawerSearchBar(context: Context, attrs: AttributeSet?) : SearchBarView(co
         })
         CustomFontManager.getInstance(context).setCustomFont(input, CustomFontManager.FONT_TEXT)
         Selection.setSelection(queryBuilder, 0)
+        input.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                searchExtras(s.toString())
+            }
+        })
+    }
+
+    private fun searchExtras(query: String) {
+        if (query.isBlank()) {
+            extraSearch.cancel()
+            setExtraResults(emptyList())
+            return
+        }
+        extraSearch.search(query, ::setExtraResults)
+    }
+
+    private fun setExtraResults(results: List<SearchResult>) {
+        if (!::apps.isInitialized || results == extraResults) return
+        extraResults = results
+        if (apps.setExtraSearchResults(results) && apps.hasFilter()) {
+            appsView.onSearchResultsChanged()
+        }
     }
 
     override fun onAttachedToWindow() {
@@ -214,7 +244,10 @@ class DrawerSearchBar(context: Context, attrs: AttributeSet?) : SearchBarView(co
     }
 
     override fun clearSearchResult() {
-        if (apps.setOrderedFilter(null) or apps.setSearchSuggestions(null)) {
+        extraSearch.cancel()
+        extraResults = emptyList()
+        if (apps.setOrderedFilter(null) or apps.setSearchSuggestions(null)
+                or apps.setExtraSearchResults(null)) {
             appsView.onSearchResultsChanged()
         }
         setHeaderCollapsed(false)
@@ -233,7 +266,12 @@ class DrawerSearchBar(context: Context, attrs: AttributeSet?) : SearchBarView(co
             provider.openResults(input.text.toString())
             return true
         }
-        val first = apps.filteredApps.firstOrNull() ?: return false
+        val first = apps.filteredApps.firstOrNull()
+        if (first == null) {
+            val result = extraResults.firstOrNull() ?: return false
+            result.action(this)
+            return true
+        }
         launcher.startActivitySafely(this, first.intent, first)
         return true
     }

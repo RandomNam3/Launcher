@@ -15,6 +15,10 @@
  */
 package com.android.launcher3.allapps;
 
+import ch.deletescape.lawnchair.allapps.search.SearchResult;
+import android.content.res.ColorStateList;
+import android.support.v4.graphics.ColorUtils;
+import com.android.launcher3.Utilities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -80,6 +84,8 @@ public class AllAppsGridAdapter extends RecyclerView.Adapter<AllAppsGridAdapter.
     public static final int VIEW_TYPE_SEARCH_SUGGESTION = 1 << 7;
     // Lock switch of the private space tab
     public static final int VIEW_TYPE_PRIVATE_SPACE_FOOTER = 1 << 8;
+    // A calculation, a contact or a page of the settings found by the search
+    public static final int VIEW_TYPE_SEARCH_RESULT = 1 << 9;
 
     // Common view type masks
     public static final int VIEW_TYPE_MASK_DIVIDER = VIEW_TYPE_ALL_APPS_DIVIDER;
@@ -306,6 +312,8 @@ public class AllAppsGridAdapter extends RecyclerView.Adapter<AllAppsGridAdapter.
                 return new ViewHolder(layout);
             case VIEW_TYPE_SEARCH_SUGGESTION:
                 return new ViewHolder(mLayoutInflater.inflate(R.layout.all_apps_search_suggestion, parent, false));
+            case VIEW_TYPE_SEARCH_RESULT:
+                return new ViewHolder(mLayoutInflater.inflate(R.layout.all_apps_search_result, parent, false));
             default:
                 throw new RuntimeException("Unexpected view type");
         }
@@ -386,6 +394,9 @@ public class AllAppsGridAdapter extends RecyclerView.Adapter<AllAppsGridAdapter.
                 });
                 break;
         }
+        if (holder.getItemViewType() == VIEW_TYPE_SEARCH_RESULT) {
+            bindSearchResult(holder.itemView, mApps.getAdapterItems().get(position).searchResult);
+        }
         if (mBindViewCallback != null) {
             mBindViewCallback.onBindView(holder);
         }
@@ -406,6 +417,34 @@ public class AllAppsGridAdapter extends RecyclerView.Adapter<AllAppsGridAdapter.
     public int getItemViewType(int position) {
         AlphabeticalAppsList.AdapterItem item = mApps.getAdapterItems().get(position);
         return item.viewType;
+    }
+
+    private void bindSearchResult(View view, SearchResult result) {
+        int color = getDrawerTextColor();
+        ImageView icon = view.findViewById(android.R.id.icon);
+        TextView title = view.findViewById(android.R.id.title);
+        TextView subtitle = view.findViewById(android.R.id.summary);
+        icon.setImageDrawable(result.getIcon());
+        if (result.getTintIcon()) {
+            icon.setImageTintList(ColorStateList.valueOf(color));
+            android.graphics.drawable.GradientDrawable circle =
+                    new android.graphics.drawable.GradientDrawable();
+            circle.setShape(android.graphics.drawable.GradientDrawable.OVAL);
+            circle.setColor(ColorUtils.setAlphaComponent(color, 0x1F));
+            icon.setBackground(circle);
+            int padding = Utilities.pxFromDp(8, view.getResources().getDisplayMetrics());
+            icon.setPadding(padding, padding, padding, padding);
+        } else {
+            icon.setImageTintList(null);
+            icon.setBackground(null);
+            icon.setPadding(0, 0, 0, 0);
+        }
+        title.setText(result.getTitle());
+        title.setTextColor(color);
+        subtitle.setText(result.getSubtitle());
+        subtitle.setVisibility(result.getSubtitle() == null ? View.GONE : View.VISIBLE);
+        subtitle.setTextColor(ColorUtils.setAlphaComponent(color, 0xB3));
+        view.setOnClickListener(v -> result.getAction().invoke(v));
     }
 
     public int getDrawerTextColor() {

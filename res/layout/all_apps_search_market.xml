@@ -25,6 +25,6 @@
     android:textSize="14sp"
     android:textColor="?android:attr/colorAccent"
     android:text="@string/all_apps_search_market_message"
-    android:textAllCaps="true"
+    android:textAllCaps="false"
     android:focusable="true"
     android:background="?android:selectableItemBackground" />

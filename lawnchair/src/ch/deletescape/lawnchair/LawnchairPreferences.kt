@@ -219,6 +219,9 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
     val sortDrawerByColors by BooleanPref("pref_allAppsColorSorted", false, reloadAll)
     val drawerTextScale by FloatPref("pref_allAppsIconTextScale", 1f, recreate)
     val searchHiddenApps by BooleanPref(DefaultAppSearchAlgorithm.SEARCH_HIDDEN_APPS, false)
+    val searchCalculator by BooleanPref("pref_search_calculator", true)
+    val searchSettings by BooleanPref("pref_search_settings", true)
+    val searchContacts by BooleanPref("pref_search_contacts", false)
 
     // Dev
     var developerOptionsEnabled by BooleanPref("pref_showDevOptions", false, doNothing)

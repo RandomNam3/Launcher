@@ -655,4 +655,6 @@
         <item>Die letzten 5 Backups</item>
         <item>Die letzten 10 Backups</item>
     </string-array>
+    <string name="action_open_quick_settings">Schnelleinstellungen öffnen</string>
+    <string name="gesture_two_finger_swipe_down">Mit zwei Fingern nach unten wischen</string>
 </resources>

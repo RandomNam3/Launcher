@@ -24,8 +24,6 @@ import com.android.launcher3.util.TouchController
 import com.android.launcher3.LauncherState
 import com.android.launcher3.AbstractFloatingView
 import com.android.launcher3.touch.SwipeDetector
-import java.lang.reflect.InvocationTargetException
-import android.annotation.SuppressLint
 import ch.deletescape.lawnchair.gestures.handlers.VerticalSwipeGestureHandler
 
 class VerticalSwipeGestureController(private val launcher: Launcher) : TouchController, SwipeDetector.Listener {
@@ -175,58 +173,16 @@ class VerticalSwipeGestureController(private val launcher: Launcher) : TouchCont
         return if (pointerCount > 1) openQuickSettings() else openNotifications()
     }
 
-    @SuppressLint("WrongConstant", "PrivateApi")
-    private fun openNotifications(): Boolean {
-        return try {
-            Class.forName("android.app.StatusBarManager")
-                    .getMethod("expandNotificationsPanel")
-                    .invoke(launcher.getSystemService("statusbar"))
-            true
-        } catch (ex: ClassNotFoundException) {
-            false
-        } catch (ex: NoSuchMethodException) {
-            false
-        } catch (ex: IllegalAccessException) {
-            false
-        } catch (ex: InvocationTargetException) {
-            false
-        }
-    }
+    private fun openNotifications() = StatusBarPanels.openNotifications(launcher)
 
-    @SuppressLint("WrongConstant", "PrivateApi")
     private fun openQuickSettings(): Boolean {
-        return try {
-            Class.forName("android.app.StatusBarManager")
-                    .getMethod("expandSettingsPanel")
-                    .invoke(launcher.getSystemService("statusbar"))
-            true
-        } catch (ex: ClassNotFoundException) {
-            false
-        } catch (ex: NoSuchMethodException) {
-            false
-        } catch (ex: IllegalAccessException) {
-            false
-        } catch (ex: InvocationTargetException) {
-            false
+        // Two fingers: quick settings unless another action was chosen
+        if (gesture.customTwoFingerSwipeDown) {
+            gesture.onTwoFingerSwipeDown()
+            return false
         }
+        return StatusBarPanels.openQuickSettings(launcher)
     }
 
-    @SuppressLint("WrongConstant", "PrivateApi")
-    private fun closeNotifications(): Boolean {
-        return try {
-            Class.forName("android.app.StatusBarManager")
-                    .getMethod("collapsePanels")
-                    .invoke(launcher.getSystemService("statusbar"))
-            true
-        } catch (ex: ClassNotFoundException) {
-            false
-        } catch (ex: NoSuchMethodException) {
-            false
-        } catch (ex: IllegalAccessException) {
-            false
-        } catch (ex: InvocationTargetException) {
-            false
-        }
-
-    }
+    private fun closeNotifications() = StatusBarPanels.close(launcher)
 }

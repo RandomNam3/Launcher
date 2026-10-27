@@ -17,32 +17,32 @@
 
 package ch.deletescape.lawnchair.gestures.handlers
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.support.annotation.Keep
 import android.view.View
 import ch.deletescape.lawnchair.gestures.GestureController
 import ch.deletescape.lawnchair.gestures.GestureHandler
+import ch.deletescape.lawnchair.gestures.StatusBarPanels
 import com.android.launcher3.R
 import org.json.JSONObject
-import java.lang.reflect.InvocationTargetException
 
 @Keep
 class NotificationsOpenGestureHandler(context: Context, config: JSONObject?) : GestureHandler(context, config) {
 
     override val displayName: String = context.getString(R.string.action_open_notifications)
 
-    @SuppressLint("PrivateApi", "WrongConstant")
     override fun onGestureTrigger(controller: GestureController, view: View?) {
-        try {
-            Class.forName("android.app.StatusBarManager")
-                    .getMethod("expandNotificationsPanel")
-                    .invoke(controller.launcher.getSystemService("statusbar"))
-        } catch (ex: ClassNotFoundException) {
-        } catch (ex: NoSuchMethodException) {
-        } catch (ex: IllegalAccessException) {
-        } catch (ex: InvocationTargetException) {
-        }
+        StatusBarPanels.openNotifications(controller.launcher)
+    }
+}
+
+@Keep
+class QuickSettingsOpenGestureHandler(context: Context, config: JSONObject?) : GestureHandler(context, config) {
+
+    override val displayName: String = context.getString(R.string.action_open_quick_settings)
+
+    override fun onGestureTrigger(controller: GestureController, view: View?) {
+        StatusBarPanels.openQuickSettings(controller.launcher)
     }
 }
 
@@ -51,17 +51,7 @@ class NotificationsCloseGestureHandler(context: Context, config: JSONObject?) : 
 
     override val displayName: String = context.getString(R.string.action_close_notifications)
 
-    @SuppressLint("PrivateApi", "WrongConstant")
     override fun onGestureTrigger(controller: GestureController, view: View?) {
-        try {
-            Class.forName("android.app.StatusBarManager")
-                    .getMethod("collapsePanels")
-                    .invoke(controller.launcher.getSystemService("statusbar"))
-        } catch (ex: ClassNotFoundException) {
-        } catch (ex: NoSuchMethodException) {
-        } catch (ex: IllegalAccessException) {
-        } catch (ex: InvocationTargetException) {
-        }
-
+        StatusBarPanels.close(controller.launcher)
     }
 }

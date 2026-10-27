@@ -34,6 +34,17 @@ class VerticalSwipeGesture(controller: GestureController) : Gesture(controller) 
     private val swipeDownHandler by controller.createHandlerPref("pref_gesture_swipe_down",
             NotificationsOpenGestureHandler(controller.launcher, null))
 
+    private val twoFingerSwipeDownHandler by controller.createHandlerPref(
+            "pref_gesture_two_finger_swipe_down",
+            QuickSettingsOpenGestureHandler(controller.launcher, null))
+
+    val customTwoFingerSwipeDown get() =
+            twoFingerSwipeDownHandler !is QuickSettingsOpenGestureHandler
+
+    fun onTwoFingerSwipeDown() {
+        twoFingerSwipeDownHandler.onGestureTrigger(controller)
+    }
+
     val customSwipeUp get() = swipeUpHandler !is VerticalSwipeGestureHandler
     val customDockSwipeUp get() = dockSwipeUpHandler !is VerticalSwipeGestureHandler
     val customSwipeDown get() = swipeDownHandler !is NotificationsOpenGestureHandler

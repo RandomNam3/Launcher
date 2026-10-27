@@ -79,8 +79,6 @@ android {
         def debugMenuCode = System.getenv("DEBUG_MENU_CODE") ?: "veryperu"
         buildConfigField "String", "DEBUG_MENU_CODE_HASH", '"' + debugMenuCode.digest('SHA-1') + '"'
 
-        buildConfigField "String", "BRIDGE_DOWNLOAD_URL", "\"https://lawnchair.app/lawnfeed/?ref=lawnchair\""
-
         ndk {
             abiFilters "armeabi-v7a", "x86", "x86_64", "arm64-v8a"
         }
@@ -197,8 +195,6 @@ androidComponents {
                 new com.android.build.api.variant.ResValue(variant.applicationId.get(), null))
     }
 }
-
-apply from: 'lawnchair/smali.gradle'
 
 allprojects {
     repositories {

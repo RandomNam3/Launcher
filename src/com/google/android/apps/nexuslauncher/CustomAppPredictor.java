@@ -18,7 +18,7 @@ import com.android.launcher3.allapps.AllAppsContainerView;
 import com.android.launcher3.logging.UserEventDispatcher;
 import com.android.launcher3.util.ComponentKey;
 
-import com.google.android.apps.nexuslauncher.util.ComponentKeyMapper;
+import com.android.launcher3.util.ComponentKeyMapper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -83,8 +83,8 @@ public class CustomAppPredictor extends UserEventDispatcher implements SharedPre
         mUiManager = new UiManager(this);
     }
 
-    public List<ComponentKeyMapper> getPredictions() {
-        List<ComponentKeyMapper> list = new ArrayList<>();
+    public List<ComponentKeyMapper<AppInfo>> getPredictions() {
+        List<ComponentKeyMapper<AppInfo>> list = new ArrayList<>();
         if (isPredictorEnabled()) {
             clearNonExistingComponents();
 
@@ -93,8 +93,8 @@ public class CustomAppPredictor extends UserEventDispatcher implements SharedPre
             Collections.sort(predictionList, (o1, o2) -> Integer.compare(getLaunchCount(o2), getLaunchCount(o1)));
 
             for (String prediction : predictionList) {
-                ComponentKeyMapper keyMapper = getComponentFromString(prediction);
-                if (!isHiddenApp(mContext, keyMapper.getComponentKey())) {
+                ComponentKeyMapper<AppInfo> keyMapper = getComponentFromString(prediction);
+                if (!isHiddenApp(mContext, keyMapper.getKey())) {
                     list.add(keyMapper);
                 }
             }
@@ -108,7 +108,7 @@ public class CustomAppPredictor extends UserEventDispatcher implements SharedPre
                         ComponentKey key = new ComponentKey(componentInfo, Process.myUserHandle());
                         if (!predictionList.contains(key.toString()) && !isHiddenApp(mContext,
                                 key)) {
-                            list.add(new ComponentKeyMapper(mContext, key));
+                            list.add(new ComponentKeyMapper<>(key));
                         }
                     }
                 }
@@ -209,8 +209,8 @@ public class CustomAppPredictor extends UserEventDispatcher implements SharedPre
         }
     }
 
-    protected ComponentKeyMapper getComponentFromString(String str) {
-        return new ComponentKeyMapper(mContext, new ComponentKey(mContext, str));
+    protected ComponentKeyMapper<AppInfo> getComponentFromString(String str) {
+        return new ComponentKeyMapper<>(new ComponentKey(mContext, str));
     }
 
     private void clearNonExistingComponents() {
@@ -295,7 +295,7 @@ public class CustomAppPredictor extends UserEventDispatcher implements SharedPre
             return mPredictor.isPredictorEnabled();
         }
 
-        public List<ComponentKeyMapper> getPredictions() {
+        public List<ComponentKeyMapper<AppInfo>> getPredictions() {
             return mPredictor.getPredictions();
         }
 

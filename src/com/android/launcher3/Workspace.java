@@ -279,7 +279,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
 
         mWallpaperOffset = new WallpaperOffsetInterpolator(this);
 
-        mPillQsb = FeatureFlags.QSB_ON_FIRST_SCREEN && Utilities.getLawnchairPrefs(context).getUsePillQsb();
+        mPillQsb = false;
 
         setHapticFeedbackEnabled(false);
         initWorkspace();
@@ -490,19 +490,11 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
     }
 
     private int getEmbeddedQsbId() {
-        if (mPillQsb) {
-            return R.id.qsb_container;
-        } else {
-            return R.id.search_container_workspace;
-        }
+        return R.id.search_container_workspace;
     }
 
     private int getEmbeddedQsbLayout() {
-        if (mPillQsb) {
-            return R.layout.qsb_container;
-        } else {
-            return R.layout.search_container_workspace;
-        }
+        return R.layout.search_container_workspace;
     }
 
     /**

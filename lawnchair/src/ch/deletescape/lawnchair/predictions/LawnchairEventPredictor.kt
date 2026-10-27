@@ -27,35 +27,22 @@ import android.os.*
 import android.util.Log
 import android.view.View
 import ch.deletescape.lawnchair.runOnMainThread
-import ch.deletescape.lawnchair.runOnThread
-import ch.deletescape.lawnchair.runOnUiWorkerThread
 import ch.deletescape.lawnchair.settings.ui.SettingsActivity
 import com.android.launcher3.*
-import com.android.launcher3.graphics.LauncherIcons
-import com.android.launcher3.shortcuts.DeepShortcutManager
 import com.android.launcher3.util.ComponentKey
-import com.android.launcher3.util.PackageManagerHelper
 import com.google.android.apps.nexuslauncher.CustomAppPredictor
-import com.google.android.apps.nexuslauncher.allapps.Action
-import com.google.android.apps.nexuslauncher.allapps.ActionView
-import com.google.android.apps.nexuslauncher.allapps.ActionsController
 import com.google.android.apps.nexuslauncher.allapps.PredictionsFloatingHeader
-import com.google.android.apps.nexuslauncher.util.ComponentKeyMapper
-import org.json.JSONObject
-import java.util.HashSet
+import com.android.launcher3.util.ComponentKeyMapper
 import java.util.concurrent.TimeUnit
 
 /**
- * Fallback app predictor for users without quickswitch
+ * App suggestions in the drawer, ranked by how often apps were opened from it. Shortly after
+ * headphones are connected, the apps opened in that situation come first.
  */
 open class LawnchairEventPredictor(private val context: Context): CustomAppPredictor(context) {
 
     private val prefs by lazy { Utilities.getLawnchairPrefs(context) }
     private val packageManager by lazy { context.packageManager }
-    private val launcher by lazy { LauncherAppState.getInstance(context).launcher }
-    private val predictionsHeader by lazy { launcher.appsView.floatingHeaderView as PredictionsFloatingHeader }
-    private val actionsRow by lazy { predictionsHeader.actionsRowView }
-    private val deepShortcutManager by lazy { DeepShortcutManager.getInstance(context) }
 
     private val handlerThread by lazy { HandlerThread("event-predictor").apply { start() }}
     private val handler by lazy { Handler(handlerThread.looper) }
@@ -63,11 +50,6 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
     private val devicePrefs = Utilities.getDevicePrefs(context)
     private val appsList = CountRankedArrayPreference(devicePrefs, "recent_app_launches", 250)
     private val phonesList = CountRankedArrayPreference(devicePrefs, "plugged_app_launches", 20)
-    private val actionList = CountRankedArrayPreference(devicePrefs, "recent_shortcut_launches", 100)
-    open val isActionsEnabled get() = !(PackageManagerHelper.isAppEnabled(context.packageManager, ACTIONS_PACKAGE, 0) && ActionsController.get(context).actions.size > 0) && prefs.showActions
-
-    private var actionsCache = listOf<String>()
-
 
     /**
      * Time at which headphones have been plugged in / connected. 0 if disconnected, -1 before initialized
@@ -148,22 +130,10 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
 
     override fun updatePredictions() {
         super.updatePredictions()
-        if (isPredictorEnabled) {
-            runOnMainThread {
-                predictionsHeader.setPredictedApps(isPredictorEnabled, predictions)
-            }
-        }
-    }
-
-    override fun updateActions() {
-        super.updateActions()
-        if (isActionsEnabled) {
-            getActions {
-                actions ->
-                runOnMainThread {
-                    actionsRow.onUpdated(actions)
-                }
-            }
+        runOnMainThread {
+            val header = LauncherAppState.getInstanceNoCreate()?.launcher?.appsView
+                    ?.floatingHeaderView as? PredictionsFloatingHeader ?: return@runOnMainThread
+            header.setPredictedApps(isPredictorEnabled, predictions)
         }
     }
 
@@ -174,94 +144,44 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
 
     private fun logAppLaunchImpl(v: View?, intent: Intent?, user: UserHandle) {
         if (isPredictorEnabled) {
-            if (v !is ActionView && intent?.component != null && mAppFilter.shouldShowApp(intent.component, user)) {
+            if (intent?.component != null && mAppFilter.shouldShowApp(intent.component, user)) {
                 clearRemovedComponents()
 
-                var changed = false
+                // Launches from everywhere count, the home screen and the dock as well
                 val key = ComponentKey(intent.component, user).toString()
-                if (recursiveIsDrawer(v)) {
-                    appsList.add(key)
-                    changed = true
-                }
+                appsList.add(key)
                 if (relevantForPhones) {
                     phonesList.add(key)
                     phonesLaunches++
-                    changed = true
                 }
-
-                if (changed) {
-                    updatePredictions()
-                }
-            }
-        }
-    }
-
-    override fun logShortcutLaunch(intent: Intent, info: ItemInfo) {
-        super.logShortcutLaunch(intent, info)
-        if (isActionsEnabled) {
-            if (info is ShortcutInfo && info.shortcutInfo != null) {
-                runOnThread(handler) {
-                    cleanActions()
-
-                    val badge = info.shortcutInfo.getBadgePackage(context)
-                    actionList.add(actionToString(info.shortcutInfo.id, badge, badge))
-                    val new = actionList.getRanked().take(ActionsController.MAX_ITEMS)
-                    if (new != actionsCache) {
-                        actionsCache = new
-                        runOnMainThread {
-                            updateActions()
-                        }
-                    } else {
-                        Log.d("EventPredictor", "Stayed same")
-                    }
-                }
+                updatePredictions()
             }
         }
     }
 
     // TODO: There must be a better, more elegant way to concatenate these lists
-    override fun getPredictions(): MutableList<ComponentKeyMapper> {
+    override fun getPredictions(): MutableList<ComponentKeyMapper<AppInfo>> {
         return if (isPredictorEnabled) {
             clearRemovedComponents()
             val user = Process.myUserHandle()
             val appList = if (phonesJustConnected) phonesList.getRanked().take(MAX_HEADPHONE_SUGGESTIONS).toMutableList() else mutableListOf()
             appList.addAll(appsList.getRanked().filterNot { appList.contains(it) }.take(MAX_PREDICTIONS - appList.size))
             val fullList = appList.map { getComponentFromString(it) }
-                    .filterNot { isHiddenApp(context, it.componentKey) }.toMutableList()
+                    .filterNot { isHiddenApp(context, it.key) }.toMutableList()
             if (fullList.size < MAX_PREDICTIONS) {
                 fullList.addAll(
                         PLACE_HOLDERS.mapNotNull { packageManager.getLaunchIntentForPackage(it)?.component }
-                                .map { ComponentKeyMapper(context, ComponentKey(it, user)) }
+                                .map { ComponentKeyMapper<AppInfo>(ComponentKey(it, user)) }
                 )
             }
             fullList.take(MAX_PREDICTIONS).toMutableList()
         } else mutableListOf()
     }
 
-    open fun setHiddenAction(action: String) {
-        val hiddenActionSet = HashSet(Utilities.getLawnchairPrefs(context).hiddenPredictActionSet)
-        hiddenActionSet.add(action)
-        Utilities.getLawnchairPrefs(context).hiddenPredictActionSet = hiddenActionSet
-    }
-
-    private fun isHiddenAction(action: String): Boolean {
-        return HashSet(Utilities.getLawnchairPrefs(context).hiddenPredictActionSet).contains(action)
-    }
-
-    private fun getFilteredActionList(actionList: ArrayList<Action>): ArrayList<Action> {
-        val arrayList = ArrayList<Action>()
-        for (action: Action in actionList) {
-            if (!isHiddenAction(action.toString())) {
-                arrayList.add(action)
-            }
-        }
-        return arrayList
-    }
-
     // TODO: Extension function?
     private fun clearRemovedComponents() {
         appsList.removeAll {
-            val component = getComponentFromString(it).componentKey?.componentName ?: return@removeAll true
+            val component = getComponentFromString(it).key?.componentName ?: return@removeAll true
             try {
                 packageManager.getActivityInfo(component, 0)
                 false
@@ -279,7 +199,7 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
             }
         }
         phonesList.removeAll {
-            val component = getComponentFromString(it).componentKey?.componentName ?: return@removeAll true
+            val component = getComponentFromString(it).key?.componentName ?: return@removeAll true
             try {
                 packageManager.getActivityInfo(component, 0)
                 false
@@ -298,27 +218,6 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
         }
     }
 
-    fun getActions(callback: (ArrayList<Action>) -> Unit) {
-        cleanActions()
-        if (!isActionsEnabled) {
-            callback(ArrayList())
-            return
-        }
-        runOnUiWorkerThread {
-            callback(getFilteredActionList(ArrayList(actionList.getRanked()
-                                                             .take(ActionsController.MAX_ITEMS)
-                                                             .mapIndexedNotNull { index, s ->
-                                                                 actionFromString(s, index.toLong())
-                                                             })))
-        }
-    }
-
-    fun cleanActions() {
-        runOnUiWorkerThread {
-            actionList.removeAll { actionFromString(it) == null }
-        }
-    }
-
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         if (key == SettingsActivity.SHOW_PREDICTIONS_PREF) {
             if (!isPredictorEnabled) {
@@ -327,23 +226,10 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
             } else {
                 setupBroadcastReceiver()
             }
-        } else if (key == SettingsActivity.SHOW_ACTIONS_PREF) {
-            if (!isActionsEnabled) {
-                getActions {
-                    actions ->
-                    runOnMainThread {
-                        actionsRow.onUpdated(actions)
-                    }
-                }
-            }
-        } else if (key == SettingsActivity.HIDDEN_ACTIONS_PREF) {
-            updateActions()
+            updatePredictions()
+        } else if (key == "pref_hidden_prediction_set") {
+            updatePredictions()
         }
-    }
-
-    override fun isPredictorEnabled(): Boolean {
-        // Only enable as fallback, that pref would be set to a proper timestamp if prediction actually worked.
-        return super.isPredictorEnabled() && Utilities.getReflectionPrefs(context).getLong("reflection_most_recent_usage", 0L) == 0L
     }
 
     /**
@@ -357,7 +243,7 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
         fun add(string: String) {
             list.add(0, string)
             if (maxSize >= 0 && list.size > maxSize) {
-                list = list.drop(maxSize).toMutableList()
+                list = list.take(maxSize).toMutableList()
             }
             save()
         }
@@ -372,68 +258,15 @@ open class LawnchairEventPredictor(private val context: Context): CustomAppPredi
         }
         fun contains(element: String) = list.contains(element)
 
-        private fun load() = (prefs.getString(key, "")?: "").split(delimiter).toMutableList()
+        private fun load() = (prefs.getString(key, "") ?: "").split(delimiter)
+                .filter { it.isNotEmpty() }.toMutableList()
         private fun save() {
             val strValue = list.joinToString(delimiter)
             prefs.edit().putString(key, strValue).apply()
         }
     }
 
-    private fun actionToString(id: String, publisher: String, badge: String) = JSONObject().apply {
-        put(KEY_ID, id)
-        put(KEY_PUBLISHER, publisher)
-        put(KEY_BADGE, badge)
-    }.toString()
-
-    private fun actionFromString(string: String, position: Long = 0): Action? {
-        try {
-            val obj = JSONObject(string)
-            val id = obj.getString(KEY_ID)
-            //val expiration = obj.getLong(KEY_EXPIRATION)
-            val publisher = obj.getString(KEY_PUBLISHER)
-            val badge = obj.getString(KEY_BADGE)
-            //val pos = obj.getLong(KEY_POSITION)
-            val list = deepShortcutManager.queryForFullDetails(publisher, listOf(id), Process.myUserHandle())
-            if (!list.isEmpty()) {
-                val shortcutInfo = list[0]
-                val info = ShortcutInfo(shortcutInfo, context)
-                val li = LauncherIcons.obtain(context)
-                li.createShortcutIcon(shortcutInfo, true, null).applyTo(info)
-                li.recycle()
-                val appName = try {
-                    packageManager.getApplicationInfo(badge, 0).loadLabel(packageManager)
-                } catch (ignore: PackageManager.NameNotFoundException) {
-                    try {
-                        packageManager.getApplicationInfo(publisher, 0).loadLabel(packageManager)
-                    } catch (ignore: PackageManager.NameNotFoundException) {
-                        context.getString(R.string.package_state_unknown)
-                    }
-                }
-                return Action(
-                        id,
-                        id,
-                        Long.MAX_VALUE,
-                        publisher,
-                        badge,
-                        appName,
-                        shortcutInfo,
-                        info,
-                        position
-                )
-            }
-        } catch (ignore: Throwable) { }
-        return null
-    }
-
     companion object {
-        const val ACTIONS_PACKAGE = "com.google.android.as"
-
-        const val KEY_ID = "id"
-        const val KEY_EXPIRATION = "expiration"
-        const val KEY_PUBLISHER = "publisher"
-        const val KEY_BADGE = "badge"
-        const val KEY_POSITION = "position"
-
         // TODO: Increase to two?
         const val MAX_HEADPHONE_SUGGESTIONS = 1
         // Our definition of "Recently"

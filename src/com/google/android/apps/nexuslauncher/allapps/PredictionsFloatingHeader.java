@@ -1,5 +1,6 @@
 package com.google.android.apps.nexuslauncher.allapps;
 
+import com.android.launcher3.AppInfo;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
@@ -15,15 +16,13 @@ import com.android.launcher3.Utilities;
 import com.android.launcher3.allapps.AllAppsContainerView.AdapterHolder;
 import com.android.launcher3.allapps.FloatingHeaderView;
 import com.android.launcher3.anim.PropertySetter;
-import com.google.android.apps.nexuslauncher.PredictionUiStateManager;
-import com.google.android.apps.nexuslauncher.PredictionUiStateManager.AppPredictionConsumer;
+import ch.deletescape.lawnchair.settings.ui.SettingsActivity;
+import com.android.launcher3.util.ComponentKeyMapper;
 import com.google.android.apps.nexuslauncher.allapps.PredictionRowView.DividerType;
-import com.google.android.apps.nexuslauncher.util.ComponentKeyMapper;
 import java.util.List;
 
 @TargetApi(26)
-public class PredictionsFloatingHeader extends FloatingHeaderView implements Insettable,
-        AppPredictionConsumer {
+public class PredictionsFloatingHeader extends FloatingHeaderView implements Insettable {
     private static final FloatProperty<PredictionsFloatingHeader> CONTENT_ALPHA = new FloatProperty<PredictionsFloatingHeader>("contentAlpha") {
         public void setValue(PredictionsFloatingHeader predictionsFloatingHeader, float f) {
             predictionsFloatingHeader.setContentAlpha(f);
@@ -33,13 +32,11 @@ public class PredictionsFloatingHeader extends FloatingHeaderView implements Ins
             return predictionsFloatingHeader.mContentAlpha;
         }
     };
-    private ActionsRowView mActionsRowView;
     private float mContentAlpha;
     private final int mHeaderTopPadding;
     private boolean mIsCollapsed;
     private boolean mIsVerticalLayout;
     private PredictionRowView mPredictionRowView;
-    private final PredictionUiStateManager mPredictionUiStateManager;
     private boolean mShowAllAppsLabel;
 
     public PredictionsFloatingHeader(Context context) {
@@ -50,38 +47,29 @@ public class PredictionsFloatingHeader extends FloatingHeaderView implements Ins
         super(context, attributeSet);
         mContentAlpha = 1.0f;
         mHeaderTopPadding = context.getResources().getDimensionPixelSize(R.dimen.all_apps_header_top_padding);
-        mPredictionUiStateManager = PredictionUiStateManager.getInstance(context);
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         mPredictionRowView = findViewById(R.id.prediction_row);
-        mActionsRowView = findViewById(R.id.actions_row);
         updateShowAllAppsLabel();
     }
 
     @Override
     public void setup(AdapterHolder[] adapterHolderArr, boolean z) {
-        mPredictionRowView.setup(this, mPredictionUiStateManager.arePredictionsEnabled());
-        mActionsRowView.setup(this);
+        mPredictionRowView.setup(this, arePredictionsEnabled());
         mTabsHidden = z;
-        ActionsRowView actionsRowView = mActionsRowView;
-        actionsRowView.setDisabled(mIsVerticalLayout && !mTabsHidden);
         updateExpectedHeight();
         super.setup(adapterHolderArr, z);
     }
 
     private void updateExpectedHeight() {
         boolean useAllAppsLabel = mShowAllAppsLabel && mTabsHidden;
-        mActionsRowView.setShowAllAppsLabel(useAllAppsLabel && mActionsRowView.shouldDraw(), false);
-        DividerType dividerType = DividerType.NONE;
         // Material 3: no divider line between the suggestions and the apps
-        if (useAllAppsLabel && !mActionsRowView.shouldDraw()) {
-            dividerType = DividerType.ALL_APPS_LABEL;
-        }
+        DividerType dividerType = useAllAppsLabel ? DividerType.ALL_APPS_LABEL : DividerType.NONE;
         mPredictionRowView.setDividerType(dividerType, false);
-        mMaxTranslation = mPredictionRowView.getExpectedHeight() + mActionsRowView.getExpectedHeight();
+        mMaxTranslation = mPredictionRowView.getExpectedHeight();
     }
 
     @Override
@@ -99,17 +87,12 @@ public class PredictionsFloatingHeader extends FloatingHeaderView implements Ins
         return mPredictionRowView;
     }
 
-    public ActionsRowView getActionsRowView() {
-        return mActionsRowView;
-    }
-
     @Override
     public void setInsets(Rect rect) {
         DeviceProfile deviceProfile = Launcher.getLauncher(getContext()).getDeviceProfile();
         int i = deviceProfile.desiredWorkspaceLeftRightMarginPx + deviceProfile.cellLayoutPaddingLeftRightPx;
         mPredictionRowView.setPadding(i, mPredictionRowView.getPaddingTop(), i, mPredictionRowView.getPaddingBottom());
         mIsVerticalLayout = deviceProfile.isVerticalBarLayout();
-        mActionsRowView.setDisabled(mIsVerticalLayout && !mTabsHidden);
     }
 
     public void headerChanged() {
@@ -124,7 +107,6 @@ public class PredictionsFloatingHeader extends FloatingHeaderView implements Ins
     protected void applyScroll(int uncappedY, int currentY) {
         if (uncappedY < currentY - mHeaderTopPadding) {
             mPredictionRowView.setScrolledOut(true);
-            mActionsRowView.setHidden(true);
             return;
         }
         LawnchairPreferences prefs = Utilities.getLawnchairPrefs(getContext());
@@ -134,8 +116,6 @@ public class PredictionsFloatingHeader extends FloatingHeaderView implements Ins
             translationY -= mHeaderTopPadding;
             translationY += qsbHeight / 2;
         }
-        mActionsRowView.setHidden(false);
-        mActionsRowView.setTranslationY(translationY);
         mPredictionRowView.setScrolledOut(false);
         mPredictionRowView.setScrollTranslation(translationY);
     }
@@ -164,24 +144,25 @@ public class PredictionsFloatingHeader extends FloatingHeaderView implements Ins
     private void setContentAlpha(float alpha) {
         mContentAlpha = alpha;
         mTabLayout.setAlpha(alpha);
-        mActionsRowView.setAlpha(alpha);
     }
 
     public boolean hasVisibleContent() {
-        return mPredictionUiStateManager.arePredictionsEnabled();
+        return arePredictionsEnabled();
+    }
+
+    private boolean arePredictionsEnabled() {
+        return Utilities.getPrefs(getContext()).getBoolean(SettingsActivity.SHOW_PREDICTIONS_PREF, true);
     }
 
     public void setCollapsed(boolean collapsed) {
         if (collapsed != mIsCollapsed) {
             mIsCollapsed = collapsed;
-            mActionsRowView.setCollapsed(collapsed);
             mPredictionRowView.setCollapsed(collapsed);
             headerChanged();
         }
     }
 
-    @Override
-    public void setPredictedApps(boolean z, List<ComponentKeyMapper> list) {
+    public void setPredictedApps(boolean z, List<ComponentKeyMapper<AppInfo>> list) {
         mPredictionRowView.setPredictedApps(z, list);
     }
 }

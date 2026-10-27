@@ -28,12 +28,7 @@ class GoogleSearchProvider(context: Context) : SearchProvider(context) {
     override fun startAssistant(callback: (intent: Intent) -> Unit) = callback(Intent(Intent.ACTION_VOICE_COMMAND).setPackage(PACKAGE))
 
     override fun startFeed(callback: (intent: Intent) -> Unit) {
-        val launcher = LawnchairLauncher.getLauncher(context)
-        if (launcher.googleNow != null) {
-            launcher.googleNow?.showOverlay(true)
-        } else {
-            callback(Intent(Intent.ACTION_MAIN).setClassName(PACKAGE, "$PACKAGE.SearchActivity"))
-        }
+        callback(Intent(Intent.ACTION_MAIN).setClassName(PACKAGE, "$PACKAGE.SearchActivity"))
     }
 
     override fun getIcon(): Drawable = context.getDrawable(R.drawable.ic_super_g_color)!!

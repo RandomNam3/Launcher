@@ -53,7 +53,7 @@ import com.android.launcher3.touch.ItemLongClickListener;
 import com.android.launcher3.userevent.nano.LauncherLogProto.Target;
 import com.android.launcher3.util.Themes;
 import com.android.quickstep.AnimatedFloat;
-import com.google.android.apps.nexuslauncher.util.ComponentKeyMapper;
+import com.android.launcher3.util.ComponentKeyMapper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -95,7 +95,7 @@ public class PredictionRowView extends PredictionsDividerLayout implements LogCo
     private final AnimatedFloat mOverviewScrollFactor;
     private final Paint mPaint;
     private PredictionsFloatingHeader mParent;
-    private final List<ComponentKeyMapper> mPredictedAppComponents;
+    private final List<ComponentKeyMapper<AppInfo>> mPredictedAppComponents;
     private final ArrayList<ItemInfoWithIcon> mPredictedApps;
     private boolean mPredictionsEnabled;
     private float mScrollTranslation;
@@ -250,14 +250,14 @@ public class PredictionRowView extends PredictionsDividerLayout implements LogCo
         return this.mPredictedApps;
     }
 
-    public void setPredictedApps(boolean z, List<ComponentKeyMapper> list) {
+    public void setPredictedApps(boolean z, List<ComponentKeyMapper<AppInfo>> list) {
         setPredictionsEnabled(z);
         this.mPredictedAppComponents.clear();
         this.mPredictedAppComponents.addAll(list);
         onAppsUpdated();
     }
 
-    public List<ComponentKeyMapper> getPredictedAppComponents() {
+    public List<ComponentKeyMapper<AppInfo>> getPredictedAppComponents() {
         return mPredictedAppComponents;
     }
 
@@ -321,12 +321,12 @@ public class PredictionRowView extends PredictionsDividerLayout implements LogCo
         mParent.headerChanged();
     }
 
-    private List<ItemInfoWithIcon> processPredictedAppComponents(List<ComponentKeyMapper> list) {
+    private List<ItemInfoWithIcon> processPredictedAppComponents(List<ComponentKeyMapper<AppInfo>> list) {
         if (getAppsStore().getApps().isEmpty()) {
             return Collections.emptyList();
         }
         List<ItemInfoWithIcon> arrayList = new ArrayList<>();
-        for (ComponentKeyMapper app : list) {
+        for (ComponentKeyMapper<AppInfo> app : list) {
             ItemInfoWithIcon app2 = app.getApp(getAppsStore());
             // Never suggest private space apps, that would reveal them while it is locked
             if (app2 != null && UserManagerCompat.getInstance(getContext())

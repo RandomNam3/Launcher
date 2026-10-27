@@ -244,7 +244,7 @@
     <string name="pref_search_bar_radius">Eckenrundung</string>
     <!-- Section 8 -->
     <string name="pref_integrations">Plugins</string>
-    <string name="pref_integrations_summary">Suchanbieter, Google Feed</string>
+    <string name="pref_integrations_summary">Suchanbieter</string>
     <string name="title_show_google_app">Zeige %1$s-Feed</string>
     <string name="feed_theme_pref_title">Hintergrundfarbe</string>
     <!-- Section 9 -->
@@ -559,4 +559,10 @@
     <string name="about_third_party_licenses">Open-Source-Lizenzen</string>
     <string name="about_third_party_licenses_summary">Launcher3 (AOSP) und weitere Komponenten</string>
     <string name="weather_update_failed">Das Wetter konnte nicht aktualisiert werden</string>
+    <!-- At a Glance -->
+    <string name="weather_provider_open_meteo">Open-Meteo (ohne Konto)</string>
+    <string name="event_provider_calendar">Nächster Termin</string>
+    <string name="calendar_event_now_until">Jetzt bis %1$s</string>
+    <string name="pref_weather_city_automatic">Automatisch (Gerätestandort)</string>
+    <string name="pref_weather_city_message">Leer lassen, um den Gerätestandort zu verwenden. Am besten mit Ländercode, z. B. \"Luzern, CH\".</string>
 </resources>

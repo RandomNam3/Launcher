@@ -42,19 +42,10 @@ class HomeWidgetSwitchLayout(context: Context, attrs: AttributeSet?) :
             }
         }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-
-        prefs.addOnPreferenceChangeListener(this, "pref_use_pill_qsb")
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-
-        prefs.removeOnPreferenceChangeListener(this, "pref_use_pill_qsb")
+    init {
+        currentLayout = R.layout.search_container_workspace
     }
 
     override fun onValueChanged(key: String, prefs: LawnchairPreferences, force: Boolean) {
-        currentLayout = if (prefs.usePillQsb) R.layout.qsb_container else R.layout.search_container_workspace
     }
 }

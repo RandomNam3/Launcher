@@ -49,6 +49,7 @@
     <uses-permission android:name="android.permission.DEVICE_POWER"/>
     <!-- For weather / sunset/-rise -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
 
     <!-- EMUI specific permissions -->
     <uses-permission android:name="com.android.permission.RECEIVE_LAUNCH_BROADCASTS"/>
@@ -199,24 +200,10 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:exported="true"
-            android:name="com.google.android.apps.nexuslauncher.qsb.OPAStatusReceiver"
-            android:permission="android.permission.CAPTURE_AUDIO_HOTWORD">
-            <intent-filter>
-                <action android:name="com.google.android.systemui.OPA_ENABLED"/>
-            </intent-filter>
-        </receiver>
-        <receiver android:exported="true" android:name="com.google.android.apps.nexuslauncher.smartspace.SmartspaceBroadcastReceiver">
-            <intent-filter>
-                <action android:name="com.google.android.apps.nexuslauncher.UPDATE_SMARTSPACE"/>
-            </intent-filter>
-        </receiver>
-        <receiver android:name="com.google.android.apps.nexuslauncher.qsb.LongClickReceiver"/>
 
         <provider
             android:authorities="${applicationId}.appssearch"
-            android:exported="true"
+            android:exported="false"
             android:name="com.google.android.apps.nexuslauncher.search.AppSearchProvider"/>
 
         <!--         Custom -->

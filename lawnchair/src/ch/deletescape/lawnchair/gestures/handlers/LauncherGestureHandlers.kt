@@ -18,6 +18,7 @@
 package ch.deletescape.lawnchair.gestures.handlers
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -146,10 +147,9 @@ class OpenOverlayGestureHandler(context: Context, config: JSONObject?) : Gesture
     override val iconResource: Intent.ShortcutIconResource by lazy { Intent.ShortcutIconResource.fromContext(context, R.drawable.ic_super_g_color) }
 
     override fun onGestureTrigger(controller: GestureController, view: View?) {
-        if (controller.launcher.googleNow != null) {
-            controller.launcher.googleNow?.showOverlay(true)
-        } else {
+        try {
             controller.launcher.startActivity(Intent(Intent.ACTION_MAIN).setClassName(PACKAGE, "$PACKAGE.SearchActivity"))
+        } catch (ignored: ActivityNotFoundException) {
         }
     }
 

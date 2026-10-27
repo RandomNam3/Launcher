@@ -142,8 +142,13 @@ class LawnchairSmartspaceController(val context: Context) {
     }
 
     fun onProviderChanged() {
-        val weatherClass = weatherProviderPref.get()
-        val eventClasses = eventProvidersPref.getAll()
+        // Providers that relied on Google apps or an API key were replaced by our own ones
+        val weatherClass = weatherProviderPref.get().let {
+            if (it in REMOVED_PROVIDERS) OpenMeteoWeatherDataProvider::class.java.name else it
+        }
+        val eventClasses = eventProvidersPref.getAll().map {
+            if (it in REMOVED_PROVIDERS) CalendarEventProvider::class.java.name else it
+        }.distinct()
         if (weatherClass == weatherDataProvider::class.java.name
             && eventClasses == eventDataProviders.map { it::class.java.name }) {
             forceUpdate()
@@ -518,11 +523,15 @@ class LawnchairSmartspaceController(val context: Context) {
 
     companion object {
 
+        private val REMOVED_PROVIDERS = setOf(
+                "ch.deletescape.lawnchair.smartspace.SmartspaceDataWidget",
+                "ch.deletescape.lawnchair.smartspace.SmartspacePixelBridge",
+                "ch.deletescape.lawnchair.smartspace.OWMWeatherDataProvider")
+
         private val displayNames = mapOf(
                 Pair(BlankDataProvider::class.java.name, R.string.weather_provider_disabled),
-                Pair(SmartspaceDataWidget::class.java.name, R.string.google_app),
-                Pair(SmartspacePixelBridge::class.java.name, R.string.smartspace_provider_bridge),
-                Pair(OWMWeatherDataProvider::class.java.name, R.string.weather_provider_owm),
+                Pair(OpenMeteoWeatherDataProvider::class.java.name, R.string.weather_provider_open_meteo),
+                Pair(CalendarEventProvider::class.java.name, R.string.event_provider_calendar),
                 Pair(PEWeatherDataProvider::class.java.name, R.string.weather_provider_pe),
                 Pair(OnePlusWeatherDataProvider::class.java.name, R.string.weather_provider_oneplus_weather),
                 Pair(NowPlayingProvider::class.java.name, R.string.event_provider_now_playing),

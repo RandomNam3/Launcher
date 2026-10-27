@@ -31,7 +31,7 @@ import ch.deletescape.lawnchair.colors.ColorEngine.ResolveInfo;
 import ch.deletescape.lawnchair.colors.ColorEngine.Resolvers;
 import com.android.launcher3.Utilities;
 import com.android.launcher3.allapps.AllAppsContainerView;
-import com.google.android.apps.nexuslauncher.qsb.AllAppsQsbLayout;
+import ch.deletescape.lawnchair.qsb.DrawerSearchBar;
 import org.jetbrains.annotations.NotNull;
 
 public class AllAppsSearchContainerView extends AllAppsContainerView
@@ -55,8 +55,8 @@ public class AllAppsSearchContainerView extends AllAppsContainerView
     @Override
     protected void dispatchDraw(Canvas canvas) {
         View searchView = getSearchView();
-        if (mClearQsb && searchView instanceof AllAppsQsbLayout) {
-            AllAppsQsbLayout qsb = (AllAppsQsbLayout) searchView;
+        if (mClearQsb && searchView instanceof DrawerSearchBar) {
+            DrawerSearchBar qsb = (DrawerSearchBar) searchView;
             int left = (int) (qsb.getLeft() + qsb.getTranslationX());
             int top = (int) (qsb.getTop() + qsb.getTranslationY());
             int right = left + qsb.getWidth() + 1;

@@ -143,7 +143,6 @@ import com.android.launcher3.widget.WidgetListRowEntry;
 import com.android.launcher3.widget.WidgetsFullSheet;
 import com.android.launcher3.widget.custom.CustomWidgetParser;
 
-import com.google.android.apps.nexuslauncher.NexusLauncherActivity;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -914,10 +913,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         }
 
         private void hideOverlay(boolean animate) {
-            Launcher launcher = Launcher.this;
-            if (launcher instanceof NexusLauncherActivity) {
-                ((NexusLauncherActivity) launcher).getGoogleNow().hideOverlay(animate);
-            }
+            // No overlay (-1 screen) is provided
         }
 
         @Override
@@ -996,9 +992,6 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         mDragLayer = findViewById(R.id.drag_layer);
         mFocusHandler = mDragLayer.getFocusIndicatorHelper();
         mWorkspace = mDragLayer.findViewById(R.id.workspace);
-        if (Utilities.getLawnchairPrefs(this).getUsePillQsb()) {
-            mQsbContainer = mDragLayer.findViewById(R.id.workspace_blocked_row);
-        }
         mWorkspace.initParentViews(mDragLayer);
         mOverviewPanel = findViewById(R.id.overview_panel);
         mHotseat = findViewById(R.id.hotseat);

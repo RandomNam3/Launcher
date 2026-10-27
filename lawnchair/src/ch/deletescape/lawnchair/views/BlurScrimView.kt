@@ -44,7 +44,7 @@ import com.android.launcher3.graphics.ShadowGenerator
 import com.android.launcher3.uioverrides.OverviewState
 import com.android.launcher3.util.Themes
 import com.android.quickstep.views.ShelfScrimView
-import com.google.android.apps.nexuslauncher.qsb.AbstractQsbLayout
+import ch.deletescape.lawnchair.qsb.SearchBarView
 
 /*
  * Copyright (C) 2018 paphonb@xda
@@ -147,7 +147,7 @@ class BlurScrimView(context: Context, attrs: AttributeSet) : ShelfScrimView(cont
         val searchBox = mLauncher.hotseatSearchBox
         return if (searchBox?.isVisible == true && BlurWallpaperProvider.isEnabled) {
             val height = searchBox.height - searchBox.paddingTop - searchBox.paddingBottom
-            provider.createDrawable(AbstractQsbLayout.getCornerRadius(context, height / 2f)).apply {
+            provider.createDrawable(SearchBarView.getCornerRadius(context, height / 2f)).apply {
                 callback = blurDrawableCallback
                 setBounds(left, top, right, bottom)
                 if (isAttachedToWindow) startListening()
@@ -360,7 +360,7 @@ class BlurScrimView(context: Context, attrs: AttributeSet) : ShelfScrimView(cont
             val top = searchBox.top + adjustment + searchBox.paddingTop
             val right = searchBox.right - searchBox.paddingRight
             val bottom = searchBox.bottom + adjustment - searchBox.paddingBottom
-            val isBubbleUi = (searchBox as? AbstractQsbLayout)?.useTwoBubbles() != false
+            val isBubbleUi = false
             val bubbleAdjustmentLeft = if (isBubbleUi && isRtl) micWidth + bubbleGap else 0
             val bubbleAdjustmentRight = if (isBubbleUi && !isRtl) micWidth + bubbleGap else 0
             setBlurBounds((left + bubbleAdjustmentLeft).toFloat(), top,

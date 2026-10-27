@@ -20,7 +20,6 @@ package ch.deletescape.lawnchair.preferences
 import android.content.Context
 import android.support.v7.preference.ListPreference
 import android.util.AttributeSet
-import ch.deletescape.lawnchair.FeedBridge
 import ch.deletescape.lawnchair.LawnchairPreferences
 import ch.deletescape.lawnchair.smartspace.*
 import ch.deletescape.lawnchair.util.buildEntries
@@ -52,11 +51,7 @@ class SmartspaceProviderPreference(context: Context, attrs: AttributeSet?)
     private fun getWeatherProviders(): List<String> {
         val list = ArrayList<String>()
         list.add(BlankDataProvider::class.java.name)
-        if (Utilities.ATLEAST_NOUGAT)
-            list.add(SmartspaceDataWidget::class.java.name)
-        if (FeedBridge.getInstance(context).resolveBridge()?.supportsSmartspace == true)
-            list.add(SmartspacePixelBridge::class.java.name)
-        list.add(OWMWeatherDataProvider::class.java.name)
+        list.add(OpenMeteoWeatherDataProvider::class.java.name)
         if (PEWeatherDataProvider.isAvailable(context))
             list.add(PEWeatherDataProvider::class.java.name)
         if (OnePlusWeatherDataProvider.isAvailable(context))
@@ -93,7 +88,7 @@ class SmartspaceProviderPreference(context: Context, attrs: AttributeSet?)
         return getPersistedValue()
     }
 
-    private fun getPersistedValue() = prefs.sharedPrefs.getString(key, SmartspaceDataWidget::class.java.name)
+    private fun getPersistedValue() = prefs.sharedPrefs.getString(key, OpenMeteoWeatherDataProvider::class.java.name)
 
     override fun persistString(value: String?): Boolean {
         prefs.sharedPrefs.edit().putString(key, value ?: BlankDataProvider::class.java.name).apply()

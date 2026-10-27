@@ -28,7 +28,6 @@ import ch.deletescape.lawnchair.lawnchairPrefs
 import ch.deletescape.lawnchair.sensors.BrightnessManager
 import ch.deletescape.lawnchair.theme.ThemeManager
 import com.android.launcher3.R
-import com.google.android.apps.nexuslauncher.qsb.HotseatQsbWidget
 import kotlin.math.max
 import kotlin.math.min
 
@@ -79,7 +78,7 @@ class DockQsbLightResolver(config: Config) : WallpaperColorResolver(config), Law
 
     override fun startListening() {
         super.startListening()
-        LawnchairPreferences.getInstanceNoCreate().addOnPreferenceChangeListener(this, HotseatQsbWidget.KEY_DOCK_COLORED_GOOGLE)
+        LawnchairPreferences.getInstanceNoCreate().addOnPreferenceChangeListener(this, KEY_DOCK_COLORED_GOOGLE)
     }
 
     override fun onValueChanged(key: String, prefs: LawnchairPreferences, force: Boolean) {
@@ -88,11 +87,11 @@ class DockQsbLightResolver(config: Config) : WallpaperColorResolver(config), Law
 
     override fun stopListening() {
         super.stopListening()
-        LawnchairPreferences.getInstanceNoCreate().removeOnPreferenceChangeListener(this, HotseatQsbWidget.KEY_DOCK_COLORED_GOOGLE)
+        LawnchairPreferences.getInstanceNoCreate().removeOnPreferenceChangeListener(this, KEY_DOCK_COLORED_GOOGLE)
     }
 
     override fun resolveColor() = engine.context.resources.getColor(
-            if (HotseatQsbWidget.isGoogleColored(context))
+            if (context.lawnchairPrefs.dockColoredGoogle)
                 R.color.qsb_background_hotseat_white
             else
                 R.color.qsb_background_hotseat_default
@@ -108,3 +107,5 @@ class DockQsbDarkResolver(config: Config) : ColorEngine.ColorResolver(config) {
 
     override fun getDisplayName() = engine.context.resources.getString(R.string.theme_dark)
 }
+
+private const val KEY_DOCK_COLORED_GOOGLE = "pref_dockColoredGoogle"

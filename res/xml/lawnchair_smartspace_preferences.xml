@@ -17,7 +17,6 @@
 
         <ch.deletescape.lawnchair.preferences.StyledSwitchPreferenceCompat
             android:key="pref_smartspace_date"
-            android:dependency="pref_use_pill_qsb"
             android:title="@string/smartspace_date"
             android:defaultValue="true"
             />
@@ -26,7 +25,6 @@
             android:key="pref_smartspace_time"
             android:title="@string/smartspace_time"
             android:defaultValue="false"
-            android:dependency="pref_use_pill_qsb"
             />
 
         <ch.deletescape.lawnchair.preferences.StyledSwitchPreferenceCompat
@@ -51,19 +49,7 @@
             android:dependency="pref_smartspace_time"
             />
 
-        <ch.deletescape.lawnchair.preferences.StyledSwitchPreferenceCompat
-            android:key="pref_use_pill_qsb"
-            android:title="@string/title_use_pill_qsb"
-            android:disableDependentsState="true"
-            android:defaultValue="false"
-            />
 
-        <ch.deletescape.lawnchair.preferences.SuperGColorPickerPreference
-            android:key="pref_superGBackgroundColorResolver"
-            android:title="@string/background_color"
-            android:dependency="pref_use_pill_qsb"
-            app:colorMode="RGB"
-            app:resolvers="@array/resolvers_superg_background"/>
 
     </ch.deletescape.lawnchair.preferences.StyledPreferenceCategory>
 
@@ -82,16 +68,12 @@
             android:title="@string/pref_weather_icon_pack"
             app:controllerClass=".WeatherIconPackController"/>
 
-        <ch.deletescape.lawnchair.preferences.OWMEditTextPreference
-            android:defaultValue="@string/default_owm_key"
-            android:dependency="pref_smartspace_widget_provider"
-            android:key="pref_weatherApiKey"
-            android:title="@string/pref_weather_api_key_title" />
 
-        <ch.deletescape.lawnchair.preferences.OWMEditTextPreference
-            android:defaultValue="@string/default_city"
+        <ch.deletescape.lawnchair.preferences.WeatherCityPreference
             android:dependency="pref_smartspace_widget_provider"
             android:key="pref_weather_city"
+            android:persistent="false"
+            android:dialogMessage="@string/pref_weather_city_message"
             android:title="@string/pref_weather_city_title" />
 
         <ListPreference
@@ -105,7 +87,6 @@
 
         <ch.deletescape.lawnchair.preferences.SmartspaceEventProvidersPreference
             android:key="pref_smartspace_event_providers"
-            android:dependency="pref_use_pill_qsb"
             android:title="@string/pref_smartspace_event_providers"
             />
     </ch.deletescape.lawnchair.preferences.StyledPreferenceCategory>

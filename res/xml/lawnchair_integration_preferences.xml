@@ -24,26 +24,6 @@
         android:key="pref_globalSearchProvider"
         android:title="@string/pref_global_search_provider" />
 
-    <ch.deletescape.lawnchair.preferences.StyledPreferenceCategory
-        android:title="@string/google">
-
-        <ch.deletescape.lawnchair.preferences.StyledSwitchPreferenceCompat
-            android:defaultValue="true"
-            android:key="pref_enable_minus_one"
-            android:title="@string/title_show_google_app"
-            app:controllerClass=".MinusOneController"/>
-
-        <ListPreference
-            android:defaultValue="1"
-            android:entries="@array/feedThemes"
-            android:entryValues="@array/feedThemeValues"
-            android:key="pref_feedTheme"
-            android:persistent="true"
-            android:summary="%s"
-            android:title="@string/feed_theme_pref_title"
-            android:dependency="pref_enable_minus_one"
-            app:controllerClass=".GFeedBackgroundController"/>
-    </ch.deletescape.lawnchair.preferences.StyledPreferenceCategory>
 
     <ch.deletescape.lawnchair.preferences.StyledPreferenceCategory
         android:title="@string/customnavbar"

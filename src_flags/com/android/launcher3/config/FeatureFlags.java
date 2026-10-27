@@ -30,7 +30,6 @@ public final class FeatureFlags extends BaseFlags {
     // Feature flag to enable moving the QSB on the 0th screen of the workspace.
     public static final boolean QSB_ON_FIRST_SCREEN = false;
 
-    public static boolean REFLECTION_FORCE_OVERVIEW_MODE = true;
 
     public static boolean FORCE_FEED_BRIDGE = false;
 

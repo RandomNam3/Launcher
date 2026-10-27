@@ -155,20 +155,18 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
     val smartspaceDate by BooleanPref("pref_smartspace_date", true, refreshGrid)
     var smartspaceWidgetId by IntPref("smartspace_widget_id", -1, doNothing)
     var weatherProvider by StringPref("pref_smartspace_widget_provider",
-            SmartspaceDataWidget::class.java.name, ::updateSmartspaceProvider)
+            OpenMeteoWeatherDataProvider::class.java.name, ::updateSmartspaceProvider)
     var eventProvider by StringPref("pref_smartspace_event_provider",
-            SmartspaceDataWidget::class.java.name, ::updateSmartspaceProvider)
+            CalendarEventProvider::class.java.name, ::updateSmartspaceProvider)
     var eventProviders = StringListPref("pref_smartspace_event_providers",
             ::updateSmartspaceProvider, listOf(eventProvider,
                                                NotificationUnreadProvider::class.java.name,
                                                NowPlayingProvider::class.java.name,
                                                BatteryStatusProvider::class.java.name,
                                                PersonalityProvider::class.java.name))
-    var weatherApiKey by StringPref("pref_weatherApiKey", context.getString(R.string.default_owm_key))
-    var weatherCity by StringPref("pref_weather_city", context.getString(R.string.default_city))
+    var weatherCity by StringPref("pref_weather_city", OpenMeteoWeatherDataProvider.AUTOMATIC)
     val weatherUnit by StringBasedPref("pref_weather_units", Temperature.Unit.Celsius, ::updateSmartspaceProvider,
         Temperature.Companion::unitFromString, Temperature.Companion::unitToString) { }
-    var usePillQsb by BooleanPref("pref_use_pill_qsb", false, recreate)
     var weatherIconPack by StringPref("pref_weatherIcons", "", updateWeatherData)
 
     // Dock
@@ -218,7 +216,6 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
     val appGroupsManager by lazy { AppGroupsManager(this) }
     val drawerTabs get() = appGroupsManager.drawerTabs
     val currentTabsModel get() = appGroupsManager.getEnabledModel() as? DrawerTabs ?: appGroupsManager.drawerTabs
-    val showActions by BooleanPref("pref_show_suggested_actions", true, doNothing)
     val sortDrawerByColors by BooleanPref("pref_allAppsColorSorted", false, reloadAll)
     val drawerTextScale by FloatPref("pref_allAppsIconTextScale", 1f, recreate)
     val searchHiddenApps by BooleanPref(DefaultAppSearchAlgorithm.SEARCH_HIDDEN_APPS, false)
@@ -260,7 +257,6 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
     var searchProvider by StringPref("pref_globalSearchProvider", lawnchairConfig.defaultSearchProvider) {
         SearchProviderController.getInstance(context).onSearchProviderChanged()
     }
-    val dualBubbleSearch by BooleanPref("pref_bubbleSearchStyle", false, doNothing)
     var searchBarRadius by DimensionPref("pref_searchbarRadius", -1f)
 
     // Quickstep
@@ -296,7 +292,6 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
 
     var hiddenAppSet by StringSetPref("hidden-app-set", Collections.emptySet(), reloadApps)
     var hiddenPredictionAppSet by StringSetPref("pref_hidden_prediction_set", Collections.emptySet(), doNothing)
-    var hiddenPredictActionSet by StringSetPref(SettingsActivity.HIDDEN_ACTIONS_PREF, Collections.emptySet(), doNothing)
     val customAppName = object : MutableMapPref<ComponentKey, String>("pref_appNameMap", reloadAll) {
         override fun flattenKey(key: ComponentKey) = key.toString()
         override fun unflattenKey(key: String) = ComponentKey(context, key)

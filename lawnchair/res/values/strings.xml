@@ -9,7 +9,6 @@
     <string name="action_open_drawer_class" translatable="false">ch.deletescape.lawnchair.gestures.handlers.OpenDrawerGestureHandler</string>
     <string name="action_open_overview_class" translatable="false">ch.deletescape.lawnchair.gestures.handlers.OpenOverviewGestureHandler</string>
     <string name="action_do_nothing_class" translatable="false">ch.deletescape.lawnchair.gestures.BlankGestureHandler</string>
-    <string name="default_owm_key" translatable="false">17a6438b1d63d5b05f7039e7cb52cde7</string>
     <string name="action_switch_apps_class" translatable="false">ch.deletescape.lawnchair.gestures.SwitchAppsGestureHandler</string>
     <string name="icu_abbrev_wday_month_day_no_year">EEEEMMMd</string>
     <string name="icu_abbrev_time">HH:mm</string>
@@ -342,7 +341,7 @@
     <!-- Section 8 -->
 
     <string name="pref_integrations">Plugins</string>
-    <string name="pref_integrations_summary">Search provider, Google Feed</string>
+    <string name="pref_integrations_summary">Search provider</string>
 
 
 
@@ -802,4 +801,10 @@
     <string name="about_third_party_licenses">Open source licenses</string>
     <string name="about_third_party_licenses_summary">Launcher3 (AOSP) and other components</string>
     <string name="weather_update_failed">Weather could not be updated</string>
+    <!-- At a Glance -->
+    <string name="weather_provider_open_meteo">Open-Meteo (no account needed)</string>
+    <string name="event_provider_calendar">Next appointment</string>
+    <string name="calendar_event_now_until">Now until %1$s</string>
+    <string name="pref_weather_city_automatic">Automatic (device location)</string>
+    <string name="pref_weather_city_message">Leave empty to use the device location. For best results, include the country code, e.g. \"Lucerne, CH\".</string>
 </resources>

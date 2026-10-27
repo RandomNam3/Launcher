@@ -56,11 +56,6 @@
             android:icon="@android:color/transparent"
             android:title="@string/pref_fonts_drawer_icons" />
 
-        <ch.deletescape.lawnchair.font.settingsui.FontPreference
-            android:key="pref_font_drawerAppActions"
-            android:icon="@android:color/transparent"
-            android:title="@string/pref_fonts_drawer_app_actions_icons"
-            app:controllerClass=".ActionSuggestionsFontController" />
 
         <ch.deletescape.lawnchair.font.settingsui.FontPreference
             android:key="pref_font_drawerTab"

@@ -574,10 +574,6 @@ public final class Utilities {
                 LauncherFiles.DEVICE_PREFERENCES_KEY, Context.MODE_PRIVATE);
     }
 
-    public static SharedPreferences getReflectionPrefs(Context context) {
-        return context.getSharedPreferences(
-                LauncherFiles.REFLECTION_PREFERENCES_KEY, Context.MODE_PRIVATE);
-    }
 
     public static boolean isPowerSaverPreventingAnimation(Context context) {
         if (ATLEAST_P) {

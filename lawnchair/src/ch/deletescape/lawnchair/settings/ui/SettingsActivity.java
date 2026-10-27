@@ -64,7 +64,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import ch.deletescape.lawnchair.FakeLauncherKt;
-import ch.deletescape.lawnchair.FeedBridge;
 import ch.deletescape.lawnchair.LawnchairLauncher;
 import ch.deletescape.lawnchair.LawnchairPreferences;
 import ch.deletescape.lawnchair.LawnchairPreferencesChangeCallback;
@@ -100,7 +99,6 @@ import com.android.launcher3.util.ContentWriter;
 import com.android.launcher3.util.ContentWriter.CommitParams;
 import com.android.launcher3.util.SettingsObserver;
 import com.android.launcher3.views.ButtonPreference;
-import com.google.android.apps.nexuslauncher.reflection.ReflectionClient;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Set;
@@ -129,14 +127,8 @@ public class SettingsActivity extends SettingsBaseActivity implements
     private static final String NOTIFICATION_ENABLED_LISTENERS = "enabled_notification_listeners";
 
     public final static String SHOW_PREDICTIONS_PREF = "pref_show_predictions";
-    public final static String SHOW_ACTIONS_PREF = "pref_show_suggested_actions";
-    public final static String HIDDEN_ACTIONS_PREF = "pref_hidden_prediction_action_set";
-    public final static String ENABLE_MINUS_ONE_PREF = "pref_enable_minus_one";
-    public final static String FEED_THEME_PREF = "pref_feedTheme";
     public final static String SMARTSPACE_PREF = "pref_smartspace";
     public final static String ALLOW_OVERLAP_PREF = "pref_allowOverlap";
-    private final static String BRIDGE_TAG = "tag_bridge";
-    private final static String RESET_HIDDEN_ACTIONS_PREF = "pref_reset_hidden_suggested_actions";
 
     public final static String EXTRA_TITLE = "title";
 
@@ -343,11 +335,6 @@ public class SettingsActivity extends SettingsBaseActivity implements
     @Override
     public boolean onPreferenceDisplayDialog(@NonNull PreferenceFragmentCompat caller,
             Preference pref) {
-        if (ENABLE_MINUS_ONE_PREF.equals(pref.getKey())) {
-            InstallFragment fragment = new InstallFragment();
-            fragment.show(getSupportFragmentManager(), BRIDGE_TAG);
-            return true;
-        }
         return false;
     }
 
@@ -652,18 +639,6 @@ public class SettingsActivity extends SettingsBaseActivity implements
                     return true;
                 });
             } else if (getContent() == R.xml.lawnchair_app_drawer_preferences) {
-                SwitchPreference showActionsPref = (SwitchPreference) findPreference(SHOW_ACTIONS_PREF);
-                Preference resetHiddenActionsPref = findPreference(RESET_HIDDEN_ACTIONS_PREF);
-                resetHiddenActionsPref.setEnabled(showActionsPref.isChecked());
-                showActionsPref.setOnPreferenceClickListener(preference -> {
-                    resetHiddenActionsPref.setEnabled(((SwitchPreference) preference).isChecked());
-                    return false;
-                });
-                resetHiddenActionsPref.setOnPreferenceClickListener(preference -> {
-                    Utilities.getLawnchairPrefs(mContext).getSharedPrefs().edit()
-                            .remove(HIDDEN_ACTIONS_PREF).apply();
-                    return true;
-                });
                 findPreference(SHOW_PREDICTIONS_PREF).setOnPreferenceChangeListener(this);
             } else if (getContent() == R.xml.lawnchair_dev_options_preference) {
                 findPreference("kill").setOnPreferenceClickListener(this);
@@ -688,15 +663,6 @@ public class SettingsActivity extends SettingsBaseActivity implements
         public void onResume() {
             super.onResume();
             setActivityTitle();
-
-            if (getContent() == R.xml.lawnchair_integration_preferences) {
-                SwitchPreference minusOne = (SwitchPreference) findPreference(
-                        ENABLE_MINUS_ONE_PREF);
-                if (minusOne != null && !FeedBridge.Companion.getInstance(getActivity())
-                        .isInstalled()) {
-                    minusOne.setChecked(false);
-                }
-            }
         }
 
         protected void setActivityTitle() {
@@ -784,22 +750,11 @@ public class SettingsActivity extends SettingsBaseActivity implements
             switch (preference.getKey()) {
                 case SHOW_PREDICTIONS_PREF:
                     if ((boolean) newValue) {
-                        ReflectionClient.getInstance(getContext()).setEnabled(true);
                         return true;
                     }
                     SuggestionConfirmationFragment confirmationFragment = new SuggestionConfirmationFragment();
                     confirmationFragment.setTargetFragment(this, 0);
                     confirmationFragment.show(getFragmentManager(), preference.getKey());
-                    break;
-                case ENABLE_MINUS_ONE_PREF:
-                    if (FeedBridge.Companion.getInstance(getActivity()).isInstalled()) {
-                        return true;
-                    }
-                    FragmentManager fm = getFragmentManager();
-                    if (fm.findFragmentByTag(BRIDGE_TAG) == null) {
-                        InstallFragment fragment = new InstallFragment();
-                        fragment.show(fm, BRIDGE_TAG);
-                    }
                     break;
             }
             return false;
@@ -885,7 +840,6 @@ public class SettingsActivity extends SettingsBaseActivity implements
                     ((TwoStatePreference) preference).setChecked(false);
                 }
             }
-            ReflectionClient.getInstance(getContext()).setEnabled(false);
         }
 
         public Dialog onCreateDialog(final Bundle bundle) {
@@ -1040,31 +994,6 @@ public class SettingsActivity extends SettingsBaseActivity implements
             if (prefsCallback != null) {
                 prefsCallback.reloadAll();
             }
-        }
-    }
-
-    public static class InstallFragment extends DialogFragment {
-
-        @Override
-        public Dialog onCreateDialog(final Bundle bundle) {
-            return new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.bridge_missing_title)
-                    .setMessage(R.string.bridge_missing_message)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setNeutralButton(R.string.get_lawnfeed, new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Utilities.openURLinBrowser(getContext(), BuildConfig.BRIDGE_DOWNLOAD_URL);
-                        }
-                    })
-                    .create();
-        }
-
-        @Override
-        public void onStart() {
-            super.onStart();
-            LawnchairUtilsKt.applyAccent(((AlertDialog) getDialog()));
         }
     }
 

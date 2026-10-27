@@ -44,7 +44,6 @@ import com.android.launcher3.anim.PropertySetter;
 import com.android.launcher3.uioverrides.OverviewState;
 import com.android.launcher3.util.Themes;
 import com.android.launcher3.views.ScrimView;
-import com.google.android.apps.nexuslauncher.qsb.AllAppsQsbLayout;
 import org.jetbrains.annotations.NotNull;
 
 /**

@@ -44,11 +44,6 @@
         android:defaultValue="true"
         android:persistent="true" />
 
-    <SwitchPreference
-        android:key="pref_enable_minus_one"
-        android:title="@string/title_show_google_app"
-        android:defaultValue="true"
-        />
 
     <SwitchPreference
         android:key="pref_show_predictions"

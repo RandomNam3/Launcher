@@ -105,6 +105,11 @@ public class LauncherModel extends BroadcastReceiver
         sUiWorkerThread.start();
         sIconPackThread.start();
         sIconPackUiThread.start();
+        // A failing task must not end the threads the whole launcher depends on
+        ch.deletescape.lawnchair.util.CrashGuard.guardLooper(sWorkerThread.getLooper());
+        ch.deletescape.lawnchair.util.CrashGuard.guardLooper(sUiWorkerThread.getLooper());
+        ch.deletescape.lawnchair.util.CrashGuard.guardLooper(sIconPackThread.getLooper());
+        ch.deletescape.lawnchair.util.CrashGuard.guardLooper(sIconPackUiThread.getLooper());
     }
     @Thunk static final Handler sWorker = new Handler(sWorkerThread.getLooper());
     @Thunk static final Handler sUiWorker = new Handler(sUiWorkerThread.getLooper());

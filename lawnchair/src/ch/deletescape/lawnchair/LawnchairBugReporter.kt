@@ -27,6 +27,7 @@ import android.support.v4.content.ContextCompat
 import ch.deletescape.lawnchair.bugreport.BugReport
 import ch.deletescape.lawnchair.bugreport.BugReportClient
 import ch.deletescape.lawnchair.bugreport.BugReportFileManager
+import ch.deletescape.lawnchair.util.CrashGuard
 import ch.deletescape.lawnchair.util.extensions.e
 import com.android.launcher3.BuildConfig
 import com.android.launcher3.R
@@ -46,6 +47,8 @@ class LawnchairBugReporter(private val context: Context, private val crashHandle
     private val appName by lazy { context.getString(R.string.derived_app_name) }
 
     override fun uncaughtException(t: Thread?, e: Throwable?) {
+        // A background task failed: report it and let the rest of the launcher go on
+        if (t != null && e != null && CrashGuard.survive(t, e)) return
         handleException(e)
         // Android always sets a default handler, other runtimes (tests) might not
         crashHandler?.uncaughtException(t, e) ?: e?.printStackTrace()

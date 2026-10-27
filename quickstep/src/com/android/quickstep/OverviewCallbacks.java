@@ -17,8 +17,6 @@ package com.android.quickstep;
 
 import android.content.Context;
 
-import com.android.launcher3.R;
-import com.android.launcher3.Utilities;
 import com.android.launcher3.util.Preconditions;
 
 /**
@@ -31,8 +29,9 @@ public class OverviewCallbacks {
     public static OverviewCallbacks get(Context context) {
         Preconditions.assertUIThread();
         if (sInstance == null) {
-            sInstance = Utilities.getOverrideObject(OverviewCallbacks.class,
-                    context.getApplicationContext(), R.string.overview_callbacks_class);
+            // Created directly: no override is configured, and the reflective fallback fails
+            // when the code shrinker removed the unused default constructor
+            sInstance = new OverviewCallbacks();
         }
         return sInstance;
     }

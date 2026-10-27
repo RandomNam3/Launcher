@@ -64,6 +64,11 @@ class LawnchairApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        if (isMainProcess(this)) {
+            // A failing feature must not take the whole launcher down
+            ch.deletescape.lawnchair.util.CrashGuard.install(this)
+            Thread.setDefaultUncaughtExceptionHandler(bugReporter)
+        }
     }
 
     private fun isMainProcess(context: Context): Boolean {

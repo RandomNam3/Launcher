@@ -251,3 +251,41 @@
 -keep class * extends android.app.Fragment {
     public <init>();
 }
+
+# Created by reflection in Utilities.getOverrideObject(): the configured class with a Context
+# constructor, otherwise the base class with its default constructor
+-keep class com.android.launcher3.AppFilter, com.android.launcher3.IconProvider,
+        com.android.launcher3.LauncherAppTransitionManager, com.android.launcher3.MainProcessInitializer,
+        com.android.launcher3.graphics.DrawableFactory, com.android.launcher3.util.InstantAppResolver,
+        com.android.launcher3.logging.UserEventDispatcher,
+        com.android.launcher3.uioverrides.ColorExtractionAlgorithm,
+        com.android.quickstep.TaskOverlayFactory, com.android.quickstep.OverviewCallbacks {
+    public <init>();
+}
+-keepclassmembers class * extends com.android.launcher3.AppFilter {
+    public <init>(android.content.Context);
+}
+-keepclassmembers class * extends com.android.launcher3.IconProvider {
+    public <init>(android.content.Context);
+}
+-keepclassmembers class * extends com.android.launcher3.LauncherAppTransitionManager {
+    public <init>(android.content.Context);
+}
+-keepclassmembers class * extends com.android.launcher3.MainProcessInitializer {
+    public <init>(android.content.Context);
+}
+-keepclassmembers class * extends com.android.launcher3.graphics.DrawableFactory {
+    public <init>(android.content.Context);
+}
+-keepclassmembers class * extends com.android.launcher3.util.InstantAppResolver {
+    public <init>(android.content.Context);
+}
+-keepclassmembers class * extends com.android.launcher3.logging.UserEventDispatcher {
+    public <init>(android.content.Context);
+}
+-keepclassmembers class * extends com.android.launcher3.uioverrides.ColorExtractionAlgorithm {
+    public <init>(android.content.Context);
+}
+-keepclassmembers class * extends com.android.quickstep.TaskOverlayFactory {
+    public <init>(android.content.Context);
+}

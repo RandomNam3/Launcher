@@ -902,4 +902,5 @@
     <string name="gesture_two_finger_swipe_down">Swipe down with two fingers</string>
     <string name="dock_style_material">Material 3 (floating)</string>
     <string name="dock_style_classic">Classic</string>
+    <string name="crash_guard_message">Something went wrong, the launcher continues. A bug report was saved.</string>
 </resources>

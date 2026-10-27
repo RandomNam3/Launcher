@@ -192,13 +192,35 @@ public class IconCache {
     }
 
     public Drawable getFullResIcon(LauncherActivityInfo info, boolean flattenDrawable) {
-        return mIconProvider.getIcon(info, mIconDpi, flattenDrawable);
+        try {
+            return mIconProvider.getIcon(info, mIconDpi, flattenDrawable);
+        } catch (RuntimeException e) {
+            return iconFailed(info, e);
+        }
     }
 
     public Drawable getFullResIcon(LauncherActivityInfo info, ItemInfo itemInfo, boolean flattenDrawable) {
-        if (mIconProvider instanceof LawnchairIconProvider)
-            return ((LawnchairIconProvider) mIconProvider).getIcon(info, itemInfo, mIconDpi, flattenDrawable);
-        return mIconProvider.getIcon(info, mIconDpi, flattenDrawable);
+        try {
+            if (mIconProvider instanceof LawnchairIconProvider)
+                return ((LawnchairIconProvider) mIconProvider).getIcon(info, itemInfo, mIconDpi, flattenDrawable);
+            return mIconProvider.getIcon(info, mIconDpi, flattenDrawable);
+        } catch (RuntimeException e) {
+            return iconFailed(info, e);
+        }
+    }
+
+    /**
+     * A broken icon (icon pack, themed icon, app resources) must not stop loading the other apps:
+     * fall back to the icon of the app itself, or the default icon.
+     */
+    private Drawable iconFailed(LauncherActivityInfo info, RuntimeException e) {
+        Log.e(TAG, "Unable to load the icon of " + info.getComponentName(), e);
+        try {
+            return ch.deletescape.lawnchair.iconpack.AdaptiveIconCompat.wrap(
+                    info.getIcon(mIconDpi));
+        } catch (RuntimeException e2) {
+            return getFullResDefaultActivityIcon();
+        }
     }
 
     protected BitmapInfo makeDefaultIcon(UserHandle user) {

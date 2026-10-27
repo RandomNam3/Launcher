@@ -778,7 +778,12 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         mAppWidgetHost.setListenIfResumed(false);
 
         NotificationListener.removeNotificationsChangedListener();
-        getStateManager().moveToRestState();
+        try {
+            getStateManager().moveToRestState();
+        } catch (RuntimeException e) {
+            // Leaving the launcher must not crash it, the state is reset again on the next start
+            Log.e(TAG, "Unable to reset the launcher state", e);
+        }
 
         UiFactory.onLauncherStateOrResumeChanged(this);
 

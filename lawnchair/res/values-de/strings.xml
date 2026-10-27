@@ -659,4 +659,5 @@
     <string name="gesture_two_finger_swipe_down">Mit zwei Fingern nach unten wischen</string>
     <string name="dock_style_material">Material 3 (schwebend)</string>
     <string name="dock_style_classic">Klassisch</string>
+    <string name="crash_guard_message">Etwas ist schiefgelaufen, der Launcher läuft weiter. Ein Fehlerbericht wurde gespeichert.</string>
 </resources>

@@ -650,8 +650,11 @@ public final class Utilities {
         }
 
         try {
-            return clazz.newInstance();
-        } catch (InstantiationException|IllegalAccessException e) {
+            // The default constructor might not be public (or was made private by the shrinker)
+            java.lang.reflect.Constructor<T> constructor = clazz.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            return constructor.newInstance();
+        } catch (ReflectiveOperationException e) {
             throw new RuntimeException(e);
         }
     }

@@ -291,6 +291,7 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
     }
 
     var hiddenAppSet by StringSetPref("hidden-app-set", Collections.emptySet(), reloadApps)
+    var protectedAppSet by StringSetPref("pref_protected_apps", Collections.emptySet(), doNothing)
     var hiddenPredictionAppSet by StringSetPref("pref_hidden_prediction_set", Collections.emptySet(), doNothing)
     val customAppName = object : MutableMapPref<ComponentKey, String>("pref_appNameMap", reloadAll) {
         override fun flattenKey(key: ComponentKey) = key.toString()

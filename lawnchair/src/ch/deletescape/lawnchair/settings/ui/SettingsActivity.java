@@ -321,6 +321,16 @@ public class SettingsActivity extends SettingsBaseActivity implements
         } else if (preference instanceof ColorPickerPreference) {
             ((ColorPickerPreference) preference).showDialog(getSupportFragmentManager());
             return true;
+        } else if ("pref_hiddenApps".equals(preference.getKey())
+                || "pref_protectedApps".equals(preference.getKey())) {
+            // Whoever can change these lists could open the protected apps
+            ch.deletescape.lawnchair.applock.AppLock.INSTANCE.authenticate(this,
+                    preference.getTitle(), () -> {
+                        startFragment(this, preference.getFragment(), preference.getExtras(),
+                                preference.getTitle());
+                        return kotlin.Unit.INSTANCE;
+                    });
+            return true;
         } else {
             fragment = Fragment.instantiate(this, preference.getFragment(), preference.getExtras());
         }

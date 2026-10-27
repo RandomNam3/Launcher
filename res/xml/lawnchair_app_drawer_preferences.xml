@@ -57,6 +57,12 @@
             android:title="@string/hide_apps"
             android:fragment="ch.deletescape.lawnchair.preferences.HiddenAppsFragment" />
 
+        <Preference
+            android:key="pref_protectedApps"
+            android:title="@string/protected_apps"
+            android:summary="@string/protected_apps_summary"
+            android:fragment="ch.deletescape.lawnchair.preferences.ProtectedAppsFragment" />
+
         <ch.deletescape.lawnchair.preferences.StyledSwitchPreferenceCompat
             android:key="pref_hideAllAppsAppLabels"
             android:title="@string/hide_icon_labels_pref_title"

@@ -43,6 +43,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import ch.deletescape.lawnchair.animations.LawnchairAppTransitionManagerImpl
+import ch.deletescape.lawnchair.applock.AppLock
 import ch.deletescape.lawnchair.blur.BlurWallpaperProvider
 import ch.deletescape.lawnchair.bugreport.BugReportClient
 import ch.deletescape.lawnchair.colors.ColorEngine
@@ -118,6 +119,18 @@ open class LawnchairLauncher : NexusLauncherActivity(),
             stateManager.goToState(LauncherState.NORMAL)
             return true
         }
+        val packageName = item?.targetComponent?.packageName ?: intent.component?.packageName
+                ?: intent.`package`
+        if (AppLock.isProtected(this, packageName, item?.user)) {
+            val label = (item as? com.android.launcher3.ItemInfoWithIcon)?.title
+                    ?: getString(R.string.protected_apps)
+            AppLock.authenticate(this, label) { launchUnlocked(v, intent, item) }
+            return true
+        }
+        return launchUnlocked(v, intent, item)
+    }
+
+    private fun launchUnlocked(v: View?, intent: Intent, item: ItemInfo?): Boolean {
         val success = super.startActivitySafely(v, intent, item)
         if (success) {
             try {

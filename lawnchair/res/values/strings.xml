@@ -807,4 +807,12 @@
     <string name="calendar_event_now_until">Now until %1$s</string>
     <string name="pref_weather_city_automatic">Automatic (device location)</string>
     <string name="pref_weather_city_message">Leave empty to use the device location. For best results, include the country code, e.g. \"Lucerne, CH\".</string>
+    <!-- Protected apps -->
+    <string name="protected_apps">Protected apps</string>
+    <string name="protected_apps_summary">Need your fingerprint or screen lock to open</string>
+    <plurals name="protected_apps_count">
+        <item quantity="one">%d app protected</item>
+        <item quantity="other">%d apps protected</item>
+    </plurals>
+    <string name="app_lock_subtitle">Confirm it\'s you</string>
 </resources>

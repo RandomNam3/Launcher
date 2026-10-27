@@ -565,4 +565,12 @@
     <string name="calendar_event_now_until">Jetzt bis %1$s</string>
     <string name="pref_weather_city_automatic">Automatisch (Gerätestandort)</string>
     <string name="pref_weather_city_message">Leer lassen, um den Gerätestandort zu verwenden. Am besten mit Ländercode, z. B. \"Luzern, CH\".</string>
+    <!-- Protected apps -->
+    <string name="protected_apps">Geschützte Apps</string>
+    <string name="protected_apps_summary">Öffnen nur mit Fingerabdruck oder Displaysperre</string>
+    <plurals name="protected_apps_count">
+        <item quantity="one">%d App geschützt</item>
+        <item quantity="other">%d Apps geschützt</item>
+    </plurals>
+    <string name="app_lock_subtitle">Bestätige deine Identität</string>
 </resources>

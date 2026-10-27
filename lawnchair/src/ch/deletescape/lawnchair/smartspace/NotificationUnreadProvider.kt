@@ -82,7 +82,7 @@ class NotificationUnreadProvider(controller: LawnchairSmartspaceController) :
                 .filter { !it.isOngoing }
                 .filter { it.notification.priority >= PRIORITY_DEFAULT }
                 .filter { isCommunicationApp(it) }
-                .maxWith(compareBy(
+                .maxWithOrNull(compareBy(
                         { it.notification.priority },
                         { it.notification.`when`})) ?: return null
 

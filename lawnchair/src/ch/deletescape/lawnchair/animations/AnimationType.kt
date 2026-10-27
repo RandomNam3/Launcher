@@ -170,6 +170,20 @@ abstract class AnimationType {
                 manager.playIconAnimators(anim, view, windowTargetBounds)
                 val launcherContentAnimator = manager.getLauncherContentAnimator(true /* isAppOpening */)
                 anim.play(launcherContentAnimator.first)
+
+                // The home screen is restored when the launcher is resumed. If that happens
+                // before the animation has ended (e.g. the started activity did not open a new
+                // window), the restore is repeated at the end, otherwise the animation would
+                // leave the home screen invisible.
+                var resumed = false
+                var restored = false
+                val restore = {
+                    if (!restored) {
+                        restored = true
+                        rootView.removeView(splashView)
+                        launcherContentAnimator.second.run()
+                    }
+                }
                 anim.addListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationStart(animation: Animator) {
                         launcher.addForceInvisibleFlag(INVISIBLE_BY_APP_TRANSITIONS)
@@ -177,14 +191,15 @@ abstract class AnimationType {
 
                     override fun onAnimationEnd(animation: Animator) {
                         launcher.clearForceInvisibleFlag(INVISIBLE_BY_APP_TRANSITIONS)
+                        if (resumed) restore()
                     }
                 })
                 anim.play(getOpeningWindowAnimators(
                         launcher, view, splashView, manager.floatingView, windowTargetBounds))
 
                 launcher.addOnResumeCallback {
-                    rootView.removeView(splashView)
-                    launcherContentAnimator.second.run()
+                    resumed = true
+                    if (!anim.isStarted) restore()
                 }
 
                 anim.start()

@@ -109,6 +109,14 @@ open class LawnchairLauncher : NexusLauncherActivity(),
     }
 
     override fun startActivitySafely(v: View?, intent: Intent, item: ItemInfo?): Boolean {
+        if (isIntentForThisActivity(intent)) {
+            // A shortcut to the launcher itself (e.g. added from another launcher). Starting it
+            // would only deliver a new intent to this activity while the app launch animation
+            // hides the home screen, so just return to the home screen.
+            AbstractFloatingView.closeAllOpenViews(this)
+            stateManager.goToState(LauncherState.NORMAL)
+            return true
+        }
         val success = super.startActivitySafely(v, intent, item)
         if (success) {
             try {
@@ -120,6 +128,19 @@ open class LawnchairLauncher : NexusLauncherActivity(),
             }
         }
         return success
+    }
+
+    private fun isIntentForThisActivity(intent: Intent): Boolean {
+        val component = intent.component ?: intent.selector?.component
+        if (component != null && component.packageName != packageName) return false
+        val info = try {
+            packageManager.resolveActivity(intent, 0)?.activityInfo
+        } catch (e: RuntimeException) {
+            null
+        } ?: return false
+        if (info.packageName != packageName) return false
+        val name = info.targetActivity ?: info.name
+        return name == javaClass.name
     }
 
     override fun onStart() {

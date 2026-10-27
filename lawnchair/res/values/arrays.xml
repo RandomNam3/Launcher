@@ -23,12 +23,14 @@
     </string-array>
 
     <string-array name="dockStyles">
-        <item>@string/theme_default</item>
+        <item>@string/dock_style_material</item>
+        <item>@string/dock_style_classic</item>
         <item>@string/dock_style_hidden</item>
         <item>@string/custom</item>
     </string-array>
 
     <string-array name="dockStyleValues">
+        <item>6</item>
         <item>1</item>
         <item>5</item>
         <item>0</item>

@@ -41,14 +41,15 @@ class CustomFontManager(private val context: Context) {
 
     val fontPrefs: Map<String, FontPref> get() = prefsMap
 
-    private val fontName = context.lawnchairPrefs.customFontName
 
-    private val uiRegular = FontCache.GoogleFont(context, fontName)
-    private val uiMedium = FontCache.GoogleFont(context, fontName, VARIANT_MEDIUM)
+    // Material 3 Expressive: Google Sans Flex everywhere, bundled with the app so it does not
+    // depend on the Google Play services
+    private val uiRegular = FontCache.BundledFont(context, 400)
+    private val uiMedium = FontCache.BundledFont(context, 500)
 
-    private val launcherRegular = FontCache.SystemFont("sans-serif")
-    private val launcherMedium = FontCache.SystemFont("sans-serif-medium")
-    private val launcherCondensed = FontCache.SystemFont("sans-serif-condensed")
+    private val launcherRegular = FontCache.BundledFont(context, 400)
+    private val launcherMedium = FontCache.BundledFont(context, 500)
+    private val launcherCondensed = FontCache.BundledFont(context, 400)
 
     var enableGlobalFont by prefs.BooleanPref("enable_global_font", false, prefs.recreate)
     private val globalFont = FontPref("pref_font_global", launcherRegular)

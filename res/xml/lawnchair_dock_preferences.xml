@@ -12,7 +12,7 @@
             android:summary="%s"
             android:entries="@array/dockStyles"
             android:entryValues="@array/dockStyleValues"
-            android:defaultValue="1"
+            android:defaultValue="6"
             android:disableDependentsState="true"
             android:persistent="true" />
 

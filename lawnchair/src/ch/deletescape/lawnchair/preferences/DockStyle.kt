@@ -38,10 +38,16 @@ abstract class DockStyle(protected val manager: StyleManager) {
     abstract var enableArrow: Boolean
     abstract var hide: Boolean
 
+    /** Material 3: a floating rounded surface behind the dock icons and the search bar */
+    open val floatingSurface = false
+
     var opacityPref
         get() = opacity.toFloat() / 255f
         set(value) { opacity = (value * 255f).roundToInt() }
 
+    private class MaterialStyle(manager: StyleManager) : PredefinedStyle(manager, defaultGradient = true, defaultOpacity = 0, defaultRadius = 28f, defaultArrow = false) {
+        override val floatingSurface = true
+    }
     private class RoundedStyle(manager: StyleManager) : PredefinedStyle(manager, defaultGradient = true, defaultShadow = false, defaultRadius = 16f, defaultArrow = false)
     private class GradientStyle(manager: StyleManager) : PredefinedStyle(manager, defaultGradient = true)
     private class FlatStyle(manager: StyleManager) : PredefinedStyle(manager)
@@ -118,7 +124,7 @@ abstract class DockStyle(protected val manager: StyleManager) {
                        private val onCustomizationChange: () -> Unit) {
 
         val onChangeListener = ::onValueChanged
-        var dockPreset by prefs.StringIntPref("pref_dockPreset", 1, onChangeListener)
+        var dockPreset by prefs.StringIntPref("pref_dockPreset", 6, onChangeListener)
         val dockDefaultOpacity = -1
         var dockOpacity by prefs.AlphaPref("pref_hotseatCustomOpacity", dockDefaultOpacity, onChangeListener)
         var dockRadius by prefs.FloatPref("pref_dockRadius", 16f, onChangeListener)
@@ -128,7 +134,7 @@ abstract class DockStyle(protected val manager: StyleManager) {
         var dockHidden by prefs.BooleanPref("pref_hideHotseat", false, onChangeListener)
 
         val styles = arrayListOf(CustomStyle(this), RoundedStyle(this), GradientStyle(this), FlatStyle(this),
-                TransparentStyle(this), HiddenStyle(this))
+                TransparentStyle(this), HiddenStyle(this), MaterialStyle(this))
         var currentStyle = styles[dockPreset]
         private var oldStyle = styles[dockPreset]
 

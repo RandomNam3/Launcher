@@ -173,7 +173,7 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
 
     // Dock
     val dockStyles = DockStyle.StyleManager(this, reloadDockStyle, resetAllApps)
-    val dockColoredGoogle by BooleanPref("pref_dockColoredGoogle", true, doNothing)
+    val dockColoredGoogle by BooleanPref("pref_dockColoredGoogle", false, doNothing)
     var dockSearchBarPref by BooleanPref(
             "pref_dockSearchBar", Utilities.ATLEAST_MARSHMALLOW, recreate
                                         )
@@ -185,6 +185,7 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
     val dockShowPageIndicator by BooleanPref("pref_hotseatShowPageIndicator", true, { onChangeCallback?.updatePageIndicator() })
     val dockGradientStyle get() = dockStyles.currentStyle.enableGradient
     val dockHide get() = dockStyles.currentStyle.hide
+    val dockFloatingSurface get() = dockStyles.currentStyle.floatingSurface
     private val dockGridSizeDelegate = ResettableLazy { GridSize(this, "numHotseatIcons", LauncherAppState.getIDP(context), restart) }
     val dockGridSize by dockGridSizeDelegate
     val twoRowDock by BooleanPref("pref_twoRowDock", false, restart)

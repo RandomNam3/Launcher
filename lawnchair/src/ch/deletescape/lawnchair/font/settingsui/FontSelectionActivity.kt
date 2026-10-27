@@ -190,6 +190,7 @@ class FontSelectionActivity : SettingsBaseActivity(), SearchView.OnQueryTextList
                     FamilyCache(FontCache.Family(font))
                 }
                 items.add(Divider())
+                items.add(FamilyCache(FontCache.BundledFont.family(context)))
                 items.add(FamilyCache(FontCache.Family(FontCache.SystemFont("sans-serif"))))
                 items.add(FamilyCache(FontCache.Family(FontCache.SystemFont("sans-serif-medium"))))
                 items.add(FamilyCache(FontCache.Family(FontCache.SystemFont("sans-serif-condensed"))))

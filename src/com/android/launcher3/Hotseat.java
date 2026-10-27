@@ -26,6 +26,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import com.android.launcher3.util.Themes;
 import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -57,6 +58,42 @@ public class Hotseat extends FrameLayout implements LogContainerProvider, Insett
     public Hotseat(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mLauncher = Launcher.getLauncher(context);
+        mSurfacePaint.setColor(surfaceColor(Themes.getAttrColor(context, R.attr.m3SurfaceContainerHigh)));
+        setWillNotDraw(false);
+    }
+
+    // Material 3: floating rounded surface behind the dock icons and the search bar
+    private final android.graphics.Paint mSurfacePaint =
+            new android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG);
+    private final android.graphics.RectF mSurfaceRect = new android.graphics.RectF();
+    private final Rect mInsets = new Rect();
+
+    private static int surfaceColor(int color) {
+        return android.support.v4.graphics.ColorUtils.setAlphaComponent(color, 0x99);
+    }
+
+    @Override
+    protected void onDraw(android.graphics.Canvas canvas) {
+        super.onDraw(canvas);
+        LawnchairPreferences prefs = Utilities.getLawnchairPrefs(getContext());
+        if (!prefs.getDockFloatingSurface() || mHasVerticalHotseat || mContent == null) {
+            return;
+        }
+        float density = getResources().getDisplayMetrics().density;
+        float margin = 12 * density;
+        float padding = 10 * density;
+        float top = mContent.getTop() + mContent.getPaddingTop() - padding;
+        float bottom = mContent.getBottom() - mContent.getPaddingBottom() + padding;
+        View searchBox = findViewById(R.id.search_container_hotseat);
+        if (searchBox != null && searchBox.getVisibility() == VISIBLE) {
+            int shadowMargin = getResources().getDimensionPixelSize(R.dimen.qsb_shadow_margin);
+            bottom = Math.max(bottom, searchBox.getBottom() + searchBox.getTranslationY()
+                    - shadowMargin + padding);
+        }
+        bottom = Math.min(bottom, getHeight() - mInsets.bottom - 4 * density);
+        mSurfaceRect.set(mInsets.left + margin, top, getWidth() - mInsets.right - margin, bottom);
+        float radius = 28 * density;
+        canvas.drawRoundRect(mSurfaceRect, radius, radius, mSurfacePaint);
     }
 
     public CellLayout getLayout() {
@@ -189,6 +226,8 @@ public class Hotseat extends FrameLayout implements LogContainerProvider, Insett
         getLayout().setPadding(padding.left, padding.top, padding.right, padding.bottom);
 
         setLayoutParams(lp);
+        mInsets.set(insets);
         InsettableFrameLayout.dispatchInsets(this, insets);
+        invalidate();
     }
 }

@@ -30,6 +30,7 @@ import ch.deletescape.lawnchair.uiWorkerHandler
 import ch.deletescape.lawnchair.useApplicationContext
 import ch.deletescape.lawnchair.util.SingletonHolder
 import com.android.launcher3.R
+import com.android.launcher3.Utilities
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
@@ -244,6 +245,70 @@ class FontCache(private val context: Context) {
 
         override fun hashCode(): Int {
             return hashCode
+        }
+    }
+
+    /**
+     * Google Sans Flex, the font of Material 3 Expressive, bundled with the app (SIL Open Font
+     * License 1.1). A variable font, every weight comes from the same file.
+     */
+    class BundledFont(private val context: Context, private val weight: Int = 400) : Font() {
+
+        override val fullDisplayName = FAMILY
+        override val displayName get() = if (weight == 400) "Regular" else weight.toString()
+        override val familySorter = "$weight"
+
+        override fun load(callback: LoadCallback) {
+            callback.onFontLoaded(getTypeface(context, weight))
+        }
+
+        override fun createWithWeight(weight: Int): Font {
+            return if (weight > 0 && weight != this.weight) BundledFont(context, weight) else this
+        }
+
+        override fun saveToJson(obj: JSONObject) {
+            super.saveToJson(obj)
+            obj.put(KEY_STYLE, weight)
+        }
+
+        override fun equals(other: Any?) = other is BundledFont && weight == other.weight
+
+        override fun hashCode() = "BundledFont|$weight".hashCode()
+
+        companion object {
+
+            const val FAMILY = "Google Sans Flex"
+            private const val PATH = "fonts/GoogleSansFlex.ttf"
+            private val typefaces = HashMap<Int, Typeface?>()
+
+            @Synchronized
+            fun getTypeface(context: Context, weight: Int): Typeface? {
+                return typefaces.getOrPut(weight) {
+                    try {
+                        if (Utilities.ATLEAST_OREO) {
+                            Typeface.Builder(context.assets, PATH)
+                                    .setFontVariationSettings("'wght' $weight, 'opsz' 18")
+                                    .setWeight(weight)
+                                    .build()
+                        } else {
+                            Typeface.createFromAsset(context.assets, PATH)
+                        }
+                    } catch (e: RuntimeException) {
+                        null
+                    }
+                }
+            }
+
+            fun family(context: Context) = Family(FAMILY, linkedMapOf(
+                    "regular" to BundledFont(context, 400),
+                    "500" to BundledFont(context, 500),
+                    "700" to BundledFont(context, 700)))
+
+            @Keep
+            @JvmStatic
+            fun fromJson(context: Context, obj: JSONObject): Font {
+                return BundledFont(context, obj.optInt(KEY_STYLE, 400))
+            }
         }
     }
 

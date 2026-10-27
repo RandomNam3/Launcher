@@ -59,9 +59,9 @@
     <color name="qsb_icon_shadow_color">#20000000</color>
     <color name="qsb_dark_icon_tint">@color/m3_on_surface_variant_light</color>
 
-    <color name="qsb_background_hotseat_default">@color/m3_surface_container_high_light</color>
+    <color name="qsb_background_hotseat_default">@color/m3_surface_container_highest_light</color>
     <color name="qsb_background_hotseat_white">@color/m3_surface_container_lowest_light</color>
-    <color name="qsb_background_hotseat_dark">@color/m3_surface_container_high_dark</color>
+    <color name="qsb_background_hotseat_dark">@color/m3_surface_container_highest_dark</color>
     <color name="qsb_background_drawer_default">@color/m3_surface_container_highest_light</color>
     <color name="qsb_background_drawer_dark">@color/m3_surface_container_highest_light</color>
     <color name="qsb_background_drawer_dark_bar">@color/m3_surface_container_highest_dark</color>

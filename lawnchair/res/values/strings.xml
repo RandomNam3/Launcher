@@ -900,4 +900,6 @@
     <string name="action_open_quick_settings_class" translatable="false">ch.deletescape.lawnchair.gestures.handlers.QuickSettingsOpenGestureHandler</string>
     <string name="action_open_quick_settings">Open quick settings</string>
     <string name="gesture_two_finger_swipe_down">Swipe down with two fingers</string>
+    <string name="dock_style_material">Material 3 (floating)</string>
+    <string name="dock_style_classic">Classic</string>
 </resources>

@@ -49,7 +49,7 @@ class CustomFontManager(private val context: Context) {
 
     private val launcherRegular = FontCache.BundledFont(context, 400)
     private val launcherMedium = FontCache.BundledFont(context, 500)
-    private val launcherCondensed = FontCache.BundledFont(context, 400)
+    private val launcherCondensed = FontCache.BundledFont(context, 400, FontCache.BundledFont.CONDENSED)
 
     var enableGlobalFont by prefs.BooleanPref("enable_global_font", false, prefs.recreate)
     private val globalFont = FontPref("pref_font_global", launcherRegular)

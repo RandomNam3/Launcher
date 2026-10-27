@@ -26,13 +26,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/private_space_footer_divider"/>
+        android:layout_alignTop="@android:id/title"
+        android:layout_alignBottom="@+id/private_space_state_label"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"/>
 
     <TextView
         android:id="@android:id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/private_space_toggle"
+        android:layout_below="@id/private_space_footer_divider"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@id/private_space_toggle"
         android:ellipsize="end"
@@ -50,8 +53,9 @@
         android:src="@drawable/ic_private_space_lock"/>
 
     <TextView
-        android:id="@+id/private_space_state_label"
+        android:id="@id/private_space_state_label"
         android:layout_width="wrap_content"
+        android:layout_toStartOf="@id/private_space_toggle"
         android:layout_height="wrap_content"
         android:layout_below="@android:id/title"
         android:layout_marginTop="8dp"

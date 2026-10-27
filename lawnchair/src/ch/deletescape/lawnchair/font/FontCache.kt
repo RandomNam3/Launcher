@@ -252,42 +252,53 @@ class FontCache(private val context: Context) {
      * Google Sans Flex, the font of Material 3 Expressive, bundled with the app (SIL Open Font
      * License 1.1). A variable font, every weight comes from the same file.
      */
-    class BundledFont(private val context: Context, private val weight: Int = 400) : Font() {
+    class BundledFont(private val context: Context, private val weight: Int = 400,
+                      private val width: Int = 100) : Font() {
 
         override val fullDisplayName = FAMILY
-        override val displayName get() = if (weight == 400) "Regular" else weight.toString()
-        override val familySorter = "$weight"
+        override val displayName get() = when {
+            width < 100 -> "Condensed"
+            weight == 400 -> "Regular"
+            else -> weight.toString()
+        }
+        override val familySorter = "$width$weight"
 
         override fun load(callback: LoadCallback) {
-            callback.onFontLoaded(getTypeface(context, weight))
+            callback.onFontLoaded(getTypeface(context, weight, width))
         }
 
         override fun createWithWeight(weight: Int): Font {
-            return if (weight > 0 && weight != this.weight) BundledFont(context, weight) else this
+            return if (weight > 0 && weight != this.weight) BundledFont(context, weight, width) else this
         }
 
         override fun saveToJson(obj: JSONObject) {
             super.saveToJson(obj)
             obj.put(KEY_STYLE, weight)
+            obj.put(KEY_WIDTH, width)
         }
 
-        override fun equals(other: Any?) = other is BundledFont && weight == other.weight
+        override fun equals(other: Any?) =
+                other is BundledFont && weight == other.weight && width == other.width
 
-        override fun hashCode() = "BundledFont|$weight".hashCode()
+        override fun hashCode() = "BundledFont|$weight|$width".hashCode()
 
         companion object {
 
             const val FAMILY = "Google Sans Flex"
             private const val PATH = "fonts/GoogleSansFlex.ttf"
-            private val typefaces = HashMap<Int, Typeface?>()
+            private const val KEY_WIDTH = "width"
+            /** Width for icon labels, like the condensed system font used before */
+            const val CONDENSED = 84
+            private val typefaces = HashMap<String, Typeface?>()
 
             @Synchronized
-            fun getTypeface(context: Context, weight: Int): Typeface? {
-                return typefaces.getOrPut(weight) {
+            fun getTypeface(context: Context, weight: Int, width: Int = 100): Typeface? {
+                return typefaces.getOrPut("$weight|$width") {
                     try {
                         if (Utilities.ATLEAST_OREO) {
                             Typeface.Builder(context.assets, PATH)
-                                    .setFontVariationSettings("'wght' $weight, 'opsz' 18")
+                                    .setFontVariationSettings(
+                                            "'wght' $weight, 'wdth' $width, 'opsz' 18")
                                     .setWeight(weight)
                                     .build()
                         } else {
@@ -302,12 +313,13 @@ class FontCache(private val context: Context) {
             fun family(context: Context) = Family(FAMILY, linkedMapOf(
                     "regular" to BundledFont(context, 400),
                     "500" to BundledFont(context, 500),
-                    "700" to BundledFont(context, 700)))
+                    "700" to BundledFont(context, 700),
+                    "condensed" to BundledFont(context, 400, CONDENSED)))
 
             @Keep
             @JvmStatic
             fun fromJson(context: Context, obj: JSONObject): Font {
-                return BundledFont(context, obj.optInt(KEY_STYLE, 400))
+                return BundledFont(context, obj.optInt(KEY_STYLE, 400), obj.optInt(KEY_WIDTH, 100))
             }
         }
     }

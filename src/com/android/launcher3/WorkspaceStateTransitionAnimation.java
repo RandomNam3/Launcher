@@ -97,6 +97,8 @@ public class WorkspaceStateTransitionAnimation {
             float hotseatIconsAlpha = (elements & HOTSEAT_ICONS) != 0 ? 1 : 0;
             propertySetter.setViewAlpha(mLauncher.getHotseat().getLayout(), hotseatIconsAlpha,
                     fadeInterpolator);
+            propertySetter.setViewAlpha(mLauncher.getHotseat().getSurface(), hotseatIconsAlpha,
+                    fadeInterpolator);
             propertySetter.setViewAlpha(mLauncher.getWorkspace().getPageIndicator(),
                     hotseatIconsAlpha, fadeInterpolator);
         }

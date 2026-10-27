@@ -59,7 +59,6 @@ public class Hotseat extends FrameLayout implements LogContainerProvider, Insett
         super(context, attrs, defStyle);
         mLauncher = Launcher.getLauncher(context);
         mSurfacePaint.setColor(surfaceColor(Themes.getAttrColor(context, R.attr.m3SurfaceContainerHigh)));
-        setWillNotDraw(false);
     }
 
     // Material 3: floating rounded surface behind the dock icons and the search bar
@@ -72,9 +71,22 @@ public class Hotseat extends FrameLayout implements LogContainerProvider, Insett
         return android.support.v4.graphics.ColorUtils.setAlphaComponent(color, 0x99);
     }
 
-    @Override
-    protected void onDraw(android.graphics.Canvas canvas) {
-        super.onDraw(canvas);
+    /**
+     * The surface is its own view behind the icons, so it fades together with them when the
+     * launcher state changes (e.g. the options).
+     */
+    private final View mSurface = new View(getContext()) {
+        @Override
+        protected void onDraw(android.graphics.Canvas canvas) {
+            drawSurface(canvas);
+        }
+    };
+
+    public View getSurface() {
+        return mSurface;
+    }
+
+    private void drawSurface(android.graphics.Canvas canvas) {
         LawnchairPreferences prefs = Utilities.getLawnchairPrefs(getContext());
         if (!prefs.getDockFloatingSurface() || mHasVerticalHotseat || mContent == null) {
             return;
@@ -135,6 +147,16 @@ public class Hotseat extends FrameLayout implements LogContainerProvider, Insett
         }
 
         mContent = findViewById(R.id.layout);
+        mSurface.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
+        addView(mSurface, 0, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        // The search bar moves in its own onLayout
+        mSurface.invalidate();
     }
 
     void resetLayout(boolean hasVerticalHotseat) {
@@ -228,6 +250,6 @@ public class Hotseat extends FrameLayout implements LogContainerProvider, Insett
         setLayoutParams(lp);
         mInsets.set(insets);
         InsettableFrameLayout.dispatchInsets(this, insets);
-        invalidate();
+        mSurface.invalidate();
     }
 }

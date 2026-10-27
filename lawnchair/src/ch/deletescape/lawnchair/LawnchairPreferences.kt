@@ -33,6 +33,7 @@ import ch.deletescape.lawnchair.globalsearch.SearchProviderController
 import ch.deletescape.lawnchair.groups.AppGroupsManager
 import ch.deletescape.lawnchair.groups.DrawerTabs
 import ch.deletescape.lawnchair.iconpack.IconPackManager
+import ch.deletescape.lawnchair.iconpack.ThemedIcons
 import ch.deletescape.lawnchair.preferences.DockStyle
 import ch.deletescape.lawnchair.sesame.Sesame
 import ch.deletescape.lawnchair.settings.GridSize
@@ -125,6 +126,9 @@ class LawnchairPreferences(val context: Context) : SharedPreferences.OnSharedPre
     val hideStatusBar by BooleanPref("pref_hideStatusBar", lawnchairConfig.hideStatusBar, doNothing)
     val iconPackMasking by BooleanPref("pref_iconPackMasking", true, reloadIcons)
     val adaptifyIconPacks by BooleanPref("pref_generateAdaptiveForIconPack", false, reloadIcons)
+    val themedIcons by BooleanPref("pref_themedIcons", false) { ThemedIcons.checkForChanges(context) }
+    // Colours the cached themed icons were drawn with
+    var themedIconColors by StringPref("pref_themedIconColors", "")
     var showVoiceSearchIcon by BooleanPref("opa_enabled")
     var showAssistantIcon by BooleanPref("opa_assistant")
     val displayNotificationCount by BooleanPref("pref_displayNotificationCount", false, reloadAll)

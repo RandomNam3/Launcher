@@ -23,6 +23,7 @@ import android.os.Handler
 import ch.deletescape.lawnchair.*
 import ch.deletescape.lawnchair.colors.ColorEngine
 import ch.deletescape.lawnchair.colors.ThemeAttributeColorResolver
+import ch.deletescape.lawnchair.iconpack.ThemedIcons
 import ch.deletescape.lawnchair.twilight.TwilightListener
 import ch.deletescape.lawnchair.twilight.TwilightManager
 import ch.deletescape.lawnchair.twilight.TwilightState
@@ -107,9 +108,12 @@ class ThemeManager(val context: Context) : WallpaperColorInfo.OnChangeListener, 
             }
         }
 
+    private var initialized = false
+
     init {
         updateTheme()
         wallpaperColorInfo.addOnChangeListener(this)
+        initialized = true
     }
 
     fun registerColorListener() {
@@ -181,6 +185,10 @@ class ThemeManager(val context: Context) : WallpaperColorInfo.OnChangeListener, 
         synchronized(listeners) {
             removeDeadListeners()
             listeners.forEach { it.onThemeChanged(themeFlags) }
+        }
+        if (initialized) {
+            // Themed icons use other colours in dark mode
+            ThemedIcons.checkForChanges(context)
         }
     }
 

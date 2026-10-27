@@ -38,6 +38,8 @@
     <string name="icon_pack_default">System Icons</string>
 
     <string name="pref_icon_pack_masking">Icon Masking</string>
+    <string name="pref_themed_icons">Themed icons</string>
+    <string name="pref_themed_icons_summary">Shows app icons in the colours of the wallpaper, if the app supports it</string>
     <string name="pref_icon_pack_masking_summary">Match unthemed icons to Icon Pack.</string>
 
     <string name="pref_legacy_treatment_title">Create Adaptive Icons</string>
@@ -67,7 +69,7 @@
     <string name="theme_use_dark_text">Use Dark Text</string>
 
     <string name="lawnchair_accent">Accent Color</string>
-    <string name="color_pixel_accent">Google Blue</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Set by System</string>
     <string name="color_wallpaper_main">Wallpaper — Primary</string>
     <string name="color_wallpaper_secondary">Wallpaper — Secondary</string>

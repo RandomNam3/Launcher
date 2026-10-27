@@ -49,6 +49,7 @@ import ch.deletescape.lawnchair.colors.ColorEngine
 import ch.deletescape.lawnchair.gestures.GestureController
 import ch.deletescape.lawnchair.iconpack.EditIconActivity
 import ch.deletescape.lawnchair.iconpack.IconPackManager
+import ch.deletescape.lawnchair.iconpack.ThemedIcons
 import ch.deletescape.lawnchair.override.CustomInfoProvider
 import ch.deletescape.lawnchair.root.RootHelperManager
 import ch.deletescape.lawnchair.sensors.BrightnessManager
@@ -145,6 +146,8 @@ open class LawnchairLauncher : NexusLauncherActivity(),
 
     override fun onStart() {
         super.onStart()
+        // The system palette may have changed while the launcher was in the background
+        ThemedIcons.checkForChanges(this)
         (launcherAppTransitionManager as LawnchairAppTransitionManagerImpl)
                 .overrideResumeAnimation(this)
     }

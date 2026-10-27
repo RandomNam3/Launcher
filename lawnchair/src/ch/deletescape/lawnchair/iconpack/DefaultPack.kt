@@ -112,6 +112,7 @@ class DefaultPack(context: Context) : IconPack(context, "") {
         val packageName = component.packageName
         val originalIcon = info.getIcon(iconDpi).apply { mutate() }
         if (iconProvider == null || (DynamicIconProvider.GOOGLE_CALENDAR != packageName && DynamicClock.DESK_CLOCK != component)) {
+            ThemedIcons.getThemedIcon(context, originalIcon)?.let { return it }
             var roundIcon: Drawable? = null
             getRoundIcon(component, iconDpi)?.let {
                 roundIcon = it.apply { mutate() }

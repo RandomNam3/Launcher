@@ -21,6 +21,8 @@
     <string name="pref_icon_packs">Icon-Pakete</string>
     <string name="icon_pack_default">Systemicons</string>
     <string name="pref_icon_pack_masking">Icon-Maskierung</string>
+    <string name="pref_themed_icons">Designbasierte Symbole</string>
+    <string name="pref_themed_icons_summary">Zeigt App-Symbole in den Farben des Hintergrunds an, sofern die App das unterstützt</string>
     <string name="pref_icon_pack_masking_summary">Unangepasste Symbole dem Icon-Paket zuordnen.</string>
     <string name="pref_legacy_treatment_title">Adaptive Symbole erstellen</string>
     <string name="pref_legacy_treatment_summary">Adaptive Symbole für alle Verknüpfungen erstellen.</string>
@@ -43,7 +45,7 @@
     <string name="theme_use_black">Echtes Oled-Schwarz benutzen</string>
     <string name="theme_use_dark_text">Dunklen Text benutzen</string>
     <string name="lawnchair_accent">Akzentfarbe</string>
-    <string name="color_pixel_accent">Google-Blau</string>
+    <string name="color_pixel_accent">Material You</string>
     <string name="color_system_accent">Durch System festgelegt</string>
     <string name="color_wallpaper_main">Hintergrundbild — Primär</string>
     <string name="color_wallpaper_secondary">Hintergrundbild — Sekundär</string>

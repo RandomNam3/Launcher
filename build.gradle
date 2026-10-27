@@ -23,8 +23,8 @@ if (localPropsFile.exists()) {
 
 // Launcher is based on Lawnchair 2.0 build 2589, see README.md
 // The release workflow sets the version from the git tag.
-def appVersionCode = (System.getenv("LAUNCHER_VERSION_CODE") ?: "10100") as int
-def appVersionName = System.getenv("LAUNCHER_VERSION_NAME") ?: "1.1.0"
+def appVersionCode = (System.getenv("LAUNCHER_VERSION_CODE") ?: "10101") as int
+def appVersionName = System.getenv("LAUNCHER_VERSION_NAME") ?: "1.1.1"
 
 // Signing: local.properties for local builds, environment variables (GitHub Actions secrets) on CI
 def releaseKeystore = localProps.getProperty("storeFile") ?: System.getenv("LAUNCHER_STORE_FILE")

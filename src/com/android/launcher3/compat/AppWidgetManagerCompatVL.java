@@ -22,7 +22,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Process;
 import android.os.UserHandle;
-import android.os.UserManager;
 import android.support.annotation.Nullable;
 
 import com.android.launcher3.LauncherAppWidgetInfo;
@@ -40,11 +39,12 @@ import java.util.List;
 
 class AppWidgetManagerCompatVL extends AppWidgetManagerCompat {
 
-    private final UserManager mUserManager;
+    // Also reports the private space, which UserManager hides since Android 15
+    private final UserManagerCompat mUserManager;
 
     AppWidgetManagerCompatVL(Context context) {
         super(context);
-        mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
+        mUserManager = UserManagerCompat.getInstance(context);
     }
 
     @Override

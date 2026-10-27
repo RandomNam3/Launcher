@@ -25,7 +25,6 @@ import android.os.UserManager;
 import android.util.ArrayMap;
 import com.android.launcher3.util.LongArrayMap;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class UserManagerCompatVL extends UserManagerCompat {
@@ -134,15 +133,38 @@ public class UserManagerCompatVL extends UserManagerCompat {
         synchronized (this) {
             mUsers = new LongArrayMap<>();
             mUserToSerialMap = new ArrayMap<>();
-            List<UserHandle> users = mUserManager.getUserProfiles();
-            if (users != null) {
-                for (UserHandle user : users) {
-                    long serial = mUserManager.getSerialNumberForUser(user);
-                    mUsers.put(serial, user);
-                    mUserToSerialMap.put(user, serial);
+            List<UserHandle> users = queryUserProfiles();
+            for (UserHandle user : users) {
+                long serial = mUserManager.getSerialNumberForUser(user);
+                if (serial < 0) {
+                    serial = ProfileCompat.getSerialNumber(mContext, user);
+                }
+                if (serial < 0) {
+                    continue;
+                }
+                mUsers.put(serial, user);
+                mUserToSerialMap.put(user, serial);
+            }
+        }
+    }
+
+    /**
+     * All profiles of the user, including the private space, which UserManager does not report
+     * since Android 15.
+     */
+    private List<UserHandle> queryUserProfiles() {
+        List<UserHandle> users = mUserManager.getUserProfiles();
+        List<UserHandle> result = users == null
+                ? new ArrayList<>() : new ArrayList<>(users);
+        List<UserHandle> launcherProfiles = ProfileCompat.getProfiles(mContext);
+        if (launcherProfiles != null) {
+            for (UserHandle user : launcherProfiles) {
+                if (!result.contains(user)) {
+                    result.add(user);
                 }
             }
         }
+        return result;
     }
 
     @Override
@@ -153,8 +175,7 @@ public class UserManagerCompatVL extends UserManagerCompat {
             }
         }
 
-        List<UserHandle> users = mUserManager.getUserProfiles();
-        return users == null ? Collections.<UserHandle>emptyList() : users;
+        return queryUserProfiles();
     }
 
     @Override

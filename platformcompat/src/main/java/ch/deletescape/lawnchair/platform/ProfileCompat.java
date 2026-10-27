@@ -8,6 +8,8 @@ import android.os.UserHandle;
 import android.os.UserManager;
 import android.util.Log;
 
+import java.util.List;
+
 /**
  * Support for the private space profile introduced in Android 15.
  */
@@ -29,6 +31,40 @@ public final class ProfileCompat {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM;
 
     private ProfileCompat() { }
+
+    /**
+     * Returns the profiles the launcher can access. Since Android 15 the private space is only
+     * reported by LauncherApps (to the default launcher holding ACCESS_HIDDEN_PROFILES),
+     * UserManager hides it. Returns null on older versions or on errors.
+     */
+    public static List<UserHandle> getProfiles(Context context) {
+        if (!SUPPORTS_PRIVATE_SPACE) {
+            return null;
+        }
+        try {
+            return context.getSystemService(LauncherApps.class).getProfiles();
+        } catch (RuntimeException e) {
+            Log.w(TAG, "Unable to query profiles", e);
+            return null;
+        }
+    }
+
+    /**
+     * Returns the serial number of the profile as LauncherApps reports it, or -1.
+     */
+    public static long getSerialNumber(Context context, UserHandle user) {
+        if (!SUPPORTS_PRIVATE_SPACE || user == null) {
+            return -1;
+        }
+        try {
+            LauncherUserInfo info = context.getSystemService(LauncherApps.class)
+                    .getLauncherUserInfo(user);
+            return info != null ? info.getUserSerialNumber() : -1;
+        } catch (RuntimeException | LinkageError e) {
+            Log.w(TAG, "Unable to query serial number of " + user, e);
+            return -1;
+        }
+    }
 
     /**
      * Returns whether the given user is a private space profile.

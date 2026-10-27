@@ -18,6 +18,7 @@
 package ch.deletescape.lawnchair.settings
 
 import ch.deletescape.lawnchair.JavaField
+import ch.deletescape.lawnchair.LargeScreen
 import ch.deletescape.lawnchair.LawnchairPreferences
 
 open class GridSize(
@@ -34,7 +35,8 @@ open class GridSize(
         onChangeListener.invoke()
     }
 
-    var numRowsPref by prefs.StringIntMigrationPref("pref_$rowsKey", 0, onChange)
+    var numRowsPref by prefs.StringIntMigrationPref(
+            "pref_$rowsKey" + LargeScreen.prefSuffix(prefs.context), 0, onChange)
 
     init {
         applyNumRows()

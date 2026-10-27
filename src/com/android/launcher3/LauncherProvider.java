@@ -546,7 +546,8 @@ public class LauncherProvider extends ContentProvider {
         private long mMaxScreenId = -1;
 
         DatabaseHelper(Context context, Handler widgetHostResetHandler) {
-            this(context, widgetHostResetHandler, LauncherFiles.LAUNCHER_DB);
+            this(context, widgetHostResetHandler,
+                    ch.deletescape.lawnchair.LargeScreen.prepareDatabase(context));
             // Table creation sometimes fails silently, which leads to a crash loop.
             // This way, we will try to create a table every time after crash, so the device
             // would eventually be able to recover.

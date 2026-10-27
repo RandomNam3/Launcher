@@ -17,6 +17,8 @@
 
 package ch.deletescape.lawnchair.backup
 
+import ch.deletescape.lawnchair.LargeScreen
+
 import android.annotation.SuppressLint
 import android.app.WallpaperManager
 import android.content.Context
@@ -121,7 +123,7 @@ class LawnchairBackup(val context: Context, val uri: Uri) {
                     val entry = zipIs.nextEntry ?: break
                     Log.d(TAG, "Found entry ${entry.name}")
                     when {
-                        entry.name == LauncherFiles.LAUNCHER_DB -> if (contents and INCLUDE_HOMESCREEN != 0) {
+                        (entry.name == LauncherFiles.LAUNCHER_DB || entry.name == "launcher_large.db") -> if (contents and INCLUDE_HOMESCREEN != 0) {
                             copyLimited(zipIs, tmpDb, MAX_DB_SIZE)
                             if (!isSqliteDatabase(tmpDb)) throw IOException("Invalid database")
                         }
@@ -302,7 +304,7 @@ class LawnchairBackup(val context: Context, val uri: Uri) {
                 if (File(pendingDir, PENDING_MARKER).exists()) {
                     val db = File(pendingDir, PENDING_DB)
                     if (db.exists()) {
-                        val dbFile = context.getDatabasePath(LauncherFiles.LAUNCHER_DB)
+                        val dbFile = context.getDatabasePath(LargeScreen.databaseName(context))
                         // Also removes the journal and the WAL files of the old database
                         SQLiteDatabase.deleteDatabase(dbFile)
                         dbFile.parentFile?.mkdirs()
@@ -368,7 +370,7 @@ class LawnchairBackup(val context: Context, val uri: Uri) {
             val files: MutableList<File> = ArrayList()
 
             if (contents and INCLUDE_HOMESCREEN != 0) {
-                val dbFile = contextWrapper.getDatabasePath(LauncherFiles.LAUNCHER_DB)
+                val dbFile = contextWrapper.getDatabasePath(LargeScreen.databaseName(context))
                 // The database is used in write-ahead logging mode, recent changes might still be
                 // in the -wal file. Write them into the database file before copying it.
                 checkpointDatabase(dbFile)

@@ -47,6 +47,11 @@ public class GridSizeMigrationTask {
     private static final String KEY_MIGRATION_SRC_WORKSPACE_SIZE = "migration_src_workspace_size";
     private static final String KEY_MIGRATION_SRC_HOTSEAT_COUNT = "migration_src_hotseat_count";
 
+    // Large screens have their own database and grid
+    private static String suffix(Context context) {
+        return ch.deletescape.lawnchair.LargeScreen.prefSuffix(context);
+    }
+
     // These are carefully selected weights for various item types (Math.random?), to allow for
     // the least absurd migration experience.
     private static final float WT_SHORTCUT = 1;
@@ -884,8 +889,8 @@ public class GridSizeMigrationTask {
     public static void markForMigration(
             Context context, int gridX, int gridY, int hotseatSize) {
         Utilities.getPrefs(context).edit()
-                .putString(KEY_MIGRATION_SRC_WORKSPACE_SIZE, getPointString(gridX, gridY))
-                .putInt(KEY_MIGRATION_SRC_HOTSEAT_COUNT, hotseatSize)
+                .putString(KEY_MIGRATION_SRC_WORKSPACE_SIZE + suffix(context), getPointString(gridX, gridY))
+                .putInt(KEY_MIGRATION_SRC_HOTSEAT_COUNT + suffix(context), hotseatSize)
                 .apply();
     }
 
@@ -899,8 +904,8 @@ public class GridSizeMigrationTask {
 
         String gridSizeString = getPointString(idp.numColumns, idp.numRows);
 
-        if (gridSizeString.equals(prefs.getString(KEY_MIGRATION_SRC_WORKSPACE_SIZE, "")) &&
-                idp.numHotseatIcons == prefs.getInt(KEY_MIGRATION_SRC_HOTSEAT_COUNT, idp.numHotseatIcons)) {
+        if (gridSizeString.equals(prefs.getString(KEY_MIGRATION_SRC_WORKSPACE_SIZE + suffix(context), "")) &&
+                idp.numHotseatIcons == prefs.getInt(KEY_MIGRATION_SRC_HOTSEAT_COUNT + suffix(context), idp.numHotseatIcons)) {
             // Skip if workspace and hotseat sizes have not changed.
             return true;
         }
@@ -911,7 +916,7 @@ public class GridSizeMigrationTask {
 
             HashSet<String> validPackages = getValidPackages(context);
             // Hotseat
-            int srcHotseatCount = prefs.getInt(KEY_MIGRATION_SRC_HOTSEAT_COUNT, idp.numHotseatIcons);
+            int srcHotseatCount = prefs.getInt(KEY_MIGRATION_SRC_HOTSEAT_COUNT + suffix(context), idp.numHotseatIcons);
             if (srcHotseatCount != idp.numHotseatIcons) {
                 // Migrate hotseat.
 
@@ -922,7 +927,7 @@ public class GridSizeMigrationTask {
             // Grid size
             Point targetSize = new Point(idp.numColumns, idp.numRows);
             Point sourceSize = parsePoint(prefs.getString(
-                    KEY_MIGRATION_SRC_WORKSPACE_SIZE, gridSizeString));
+                    KEY_MIGRATION_SRC_WORKSPACE_SIZE + suffix(context), gridSizeString));
 
             if (new MultiStepMigrationTask(validPackages, context).migrate(sourceSize, targetSize)) {
                 dbChanged = true;
@@ -950,8 +955,8 @@ public class GridSizeMigrationTask {
 
             // Save current configuration, so that the migration does not run again.
             prefs.edit()
-                    .putString(KEY_MIGRATION_SRC_WORKSPACE_SIZE, gridSizeString)
-                    .putInt(KEY_MIGRATION_SRC_HOTSEAT_COUNT, idp.numHotseatIcons)
+                    .putString(KEY_MIGRATION_SRC_WORKSPACE_SIZE + suffix(context), gridSizeString)
+                    .putInt(KEY_MIGRATION_SRC_HOTSEAT_COUNT + suffix(context), idp.numHotseatIcons)
                     .apply();
         }
     }

@@ -18,6 +18,7 @@
 package ch.deletescape.lawnchair.settings
 
 import ch.deletescape.lawnchair.JavaField
+import ch.deletescape.lawnchair.LargeScreen
 import ch.deletescape.lawnchair.LawnchairPreferences
 
 class GridSize2D(
@@ -30,7 +31,8 @@ class GridSize2D(
     var numColumns by JavaField<Int>(targetObject, columnsKey)
     val numColumnsOriginal by JavaField<Int>(targetObject, "${columnsKey}Original")
 
-    var numColumnsPref by prefs.IntPref("pref_$columnsKey", 0, onChange)
+    var numColumnsPref by prefs.IntPref(
+            "pref_$columnsKey" + LargeScreen.prefSuffix(prefs.context), 0, onChange)
 
     init {
         applyNumColumns()
